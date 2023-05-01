@@ -47,7 +47,6 @@ const TasksSection = () => {
                 <Link
                   href={`/tasks/${task._id}`}
                   className="underline"
-                  target="_blank"
                 >
                   {task.name}
                 </Link>
