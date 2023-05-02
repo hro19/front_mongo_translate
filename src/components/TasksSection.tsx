@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
+import TaskDelete from "./TaskDelete";
 
 interface Task {
   _id: string;
@@ -44,10 +45,7 @@ const TasksSection = () => {
             <tr key={task._id}>
               <td className="border px-4 py-2">{index + 1}</td>
               <td className="border px-4 py-2">
-                <Link
-                  href={`/tasks/${task._id}`}
-                  className="underline"
-                >
+                <Link href={`/tasks/${task._id}`} className="underline">
                   {task.name}
                 </Link>
               </td>
@@ -60,9 +58,7 @@ const TasksSection = () => {
                 </button>
               </td>
               <td className="border px-4 py-2">
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded">
-                  Delete
-                </button>
+                <TaskDelete tasks={tasks} task={task} setTasks={setTasks} />
               </td>
             </tr>
           ))}
