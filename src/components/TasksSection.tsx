@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
 import TaskDelete from "./TaskDelete";
+import TaskCreate from "./TaskCreate";
 
 interface Task {
   _id: string;
@@ -12,24 +13,26 @@ interface Task {
 const TasksSection = () => {
   const [tasks, setTasks] = useState([]);
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const res = await axios.get(
-          "https://back-mongo-task.vercel.app/api/v1/tasks"
-        );
-        setTasks(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
 
+  const fetchTasks = async () => {
+    try {
+      const res = await axios.get(
+        "https://back-mongo-task.vercel.app/api/v1/tasks"
+      );
+      setTasks(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  
+  useEffect(() => {
     fetchTasks();
   }, []);
 
   return (
     <div className="container mx-auto mt-5">
       <h1 className="text-2xl font-bold mb-5">Tasks</h1>
+      <TaskCreate />
       <table className="table-auto w-full">
         <thead>
           <tr>
