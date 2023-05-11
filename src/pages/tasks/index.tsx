@@ -1,14 +1,14 @@
 import React from "react";
 import { Inter } from "next/font/google";
 import TasksSection from "../../components/TasksSection";
-import PopUp from "../../components/PopUp";
+import Popups from "../../components/Modalpop";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
     <main>
-      <PopUp />
+      <Popups />
       <TasksSection />
     </main>
   );
