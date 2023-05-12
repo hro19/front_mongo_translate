@@ -32,6 +32,8 @@ const Modalpop = ({task,tasks,setTasks}:any) => {
         <ModalContent
           setModalIsOpen={setModalIsOpen}
           task={task}
+          tasks={tasks}
+          setTasks={setTasks}
           closeModal={closeModal}
         />
       </Modal>

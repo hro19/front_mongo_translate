@@ -47,7 +47,7 @@ const TasksSection = () => {
         </thead>
         <tbody>
           {tasks.map((task: any, index: number) => (
-            <tr key={task._id}>
+            <tr key={task._id} id={task._id}>
               <td className="border px-4 py-2">{index + 1}</td>
               <td className="border px-4 py-2">
                 <Link href={`/tasks/${task._id}`} className="underline">
@@ -58,7 +58,7 @@ const TasksSection = () => {
                 {task.completed ? "✅" : "❌"}
               </td>
               <td className="border px-4 py-2">
-                <Modalpop task={task} />
+                <Modalpop tasks={tasks} task={task} setTasks={setTasks} />
               </td>
               <td className="border px-4 py-2">
                 <TaskDelete tasks={tasks} task={task} setTasks={setTasks} />
