@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 import EditBox from "../../components/EditBox";
 
 const TaskSingle = ({ task }: any) => {
@@ -11,6 +12,9 @@ const TaskSingle = ({ task }: any) => {
         <p>{task.completed ? "Completed" : "Not Completed"}</p>
       </div>
       <EditBox task={task} />
+      <Link href="/tasks/" className="text-4xl mt-6">
+        トップに戻る
+      </Link>
     </>
   );
 };

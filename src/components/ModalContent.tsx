@@ -1,32 +1,48 @@
 import React, { useState } from "react";
+import axios from "axios";
 import Modal from "react-modal";
-import TaskEdit from "./TaskEdit";
 
-type ModalContentProps = {
-  tasks: any;
-  task: any;
-  setTasks: any;
-  setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
+const ModalContent = ({ task, closeModal }: any) => {
+  const [name, setName] = useState(task.name);
+  const [completed, setCompleted] = useState(task.completed);
 
-const ModalContent = ({ task,tasks,setTasks, setModalIsOpen }: ModalContentProps) => {
-  const closeModal = () => {
-    setModalIsOpen(false);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCompleted(e.target.value === "completed");
   };
 
-  const [completed, setCompleted] = useState(false);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCompleted(event.target.value === "completed");
+    try {
+      const updatedTask = {
+        name,
+        completed,
+      };
+
+      await axios.patch(
+        `https://back-mongo-task.vercel.app/api/v1/tasks/${task._id}`,
+        updatedTask,
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      // 更新成功の場合は、タスク一覧を再読み込みする等の処理を追加する
+      window.location.reload();
+    } catch (err) {
+      console.error(err);
+      // エラーが発生した場合は、適切なエラーハンドリングを行う
+    }
   };
 
   return (
     <div className="bg-slate-500">
       <div
         id="pop"
-        className="flex h-full w-full justify-center items-center bg-white p-4 rounded-lg shadow-md"
+        className="flex h-full w-full justify-center items-center bg-white p-4"
       >
-        <form className="w-full sm:w-4/5 lg:w-3/4 max-w-md">
+        <form
+          className="w-full sm:w-4/5 lg:w-3/4 max-w-md"
+          onSubmit={handleSubmit}
+        >
           <h3 className="text-lg font-bold text-center mb-4">
             【ID】{task._id}
           </h3>
@@ -42,7 +58,8 @@ const ModalContent = ({ task,tasks,setTasks, setModalIsOpen }: ModalContentProps
               id="name"
               type="text"
               placeholder="名前を入力してください"
-              defaultValue={task.name}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div className="mb-4">
@@ -72,15 +89,19 @@ const ModalContent = ({ task,tasks,setTasks, setModalIsOpen }: ModalContentProps
               <label htmlFor="completed">完了</label>
             </div>
           </div>
-          <div className="flex justify-end space-x-2">
-            <TaskEdit tasks={tasks} task={task} setTasks={setTasks} />
-            <button
-              onClick={closeModal}
-              className="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-1 px-4 rounded"
-            >
-              キャンセル
-            </button>
-          </div>
+          <button
+            type="button"
+            className="bg-gray-500 text-white py-2 px-4 rounded mr-3"
+            onClick={() => closeModal()}
+          >
+            キャンセル
+          </button>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white py-2 px-4 rounded"
+          >
+            更新する
+          </button>
         </form>
       </div>
     </div>

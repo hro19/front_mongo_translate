@@ -37,7 +37,7 @@ const EditBox = ({ task }: any) => {
     <div className="bg-slate-500">
       <div
         id="pop"
-        className="flex h-full w-full justify-center items-center bg-white p-4 rounded-lg shadow-md"
+        className="flex h-full w-full justify-center items-center bg-white p-4"
       >
         <form
           className="w-full sm:w-4/5 lg:w-3/4 max-w-md"
