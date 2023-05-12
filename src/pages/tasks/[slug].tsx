@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 import EditBox from "../../components/EditBox";
 
 const TaskSingle = ({ task }: any) => {
+  const [currentTask, setCurrentTask] = useState(task);
+
+  const handleUpdateTask = (updatedTask: any) => {
+    setCurrentTask(updatedTask);
+  };
+
   return (
     <>
       <div>
-        <h1>{task.name}</h1>
-        <p>{task.completed ? "Completed" : "Not Completed"}</p>
+        <h1>{currentTask.name}</h1>
+        <p>{currentTask.completed ? "Completed" : "Not Completed"}</p>
       </div>
-      <EditBox task={task} />
+      <EditBox
+        currentTask={currentTask}
+        setCurrentTask={setCurrentTask}
+        onUpdateTask={handleUpdateTask}
+      />
       <Link href="/tasks/" className="text-4xl mt-6">
         トップに戻る
       </Link>
@@ -21,7 +31,7 @@ const TaskSingle = ({ task }: any) => {
 
 export default TaskSingle;
 
-export async function getServerSideProps(context: any) {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { slug } = context.query;
   const res = await axios.get(
     `https://back-mongo-task.vercel.app/api/v1/tasks/${slug}`
@@ -33,4 +43,4 @@ export async function getServerSideProps(context: any) {
       task,
     },
   };
-}
+};

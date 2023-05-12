@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const EditBox = ({ task }: any) => {
-  const [name, setName] = useState(task.name);
-  const [completed, setCompleted] = useState(task.completed);
+const EditBox = ({ currentTask, setCurrentTask }: any) => {
+  const [name, setName] = useState(currentTask.name);
+  const [completed, setCompleted] = useState(currentTask.completed);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompleted(e.target.value === "completed");
@@ -14,19 +14,19 @@ const EditBox = ({ task }: any) => {
 
     try {
       const updatedTask = {
+        _id: currentTask._id,
         name,
         completed,
       };
 
-    await axios.patch(
-      `https://back-mongo-task.vercel.app/api/v1/tasks/${task._id}`,
-      updatedTask,
-      { headers: { "Content-Type": "application/json" } }
-    );
+      await axios.patch(
+        `https://back-mongo-task.vercel.app/api/v1/tasks/${currentTask._id}`,
+        updatedTask,
+        { headers: { "Content-Type": "application/json" } }
+      );
 
       // 更新成功の場合は、タスク一覧を再読み込みする等の処理を追加する
-        window.location.reload();
-        
+      setCurrentTask(updatedTask);
     } catch (err) {
       console.error(err);
       // エラーが発生した場合は、適切なエラーハンドリングを行う
@@ -44,7 +44,7 @@ const EditBox = ({ task }: any) => {
           onSubmit={handleSubmit}
         >
           <h3 className="text-lg font-bold text-center mb-4">
-            【ID】{task._id}
+            【ID】{currentTask._id}
           </h3>
           <div className="mb-4">
             <label
