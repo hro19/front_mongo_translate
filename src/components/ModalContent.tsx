@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
+import TaskEdit from "./TaskEdit";
 
 type ModalContentProps = {
+  tasks: any;
+  task: any;
+  setTasks: any;
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const ModalContent = ({ setModalIsOpen }: ModalContentProps) => {
+const ModalContent = ({ task,tasks,setTasks, setModalIsOpen }: ModalContentProps) => {
   const closeModal = () => {
     setModalIsOpen(false);
+  };
+
+  const [completed, setCompleted] = useState(false);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCompleted(event.target.value === "completed");
   };
 
   return (
@@ -17,7 +27,9 @@ const ModalContent = ({ setModalIsOpen }: ModalContentProps) => {
         className="flex h-full w-full justify-center items-center bg-white p-4 rounded-lg shadow-md"
       >
         <form className="w-full sm:w-4/5 lg:w-3/4 max-w-md">
-          <h3 className="text-lg font-bold text-center mb-4">ID:334444</h3>
+          <h3 className="text-lg font-bold text-center mb-4">
+            【ID】{task._id}
+          </h3>
           <div className="mb-4">
             <label
               className="block text-gray-700 font-bold mb-2"
@@ -30,28 +42,38 @@ const ModalContent = ({ setModalIsOpen }: ModalContentProps) => {
               id="name"
               type="text"
               placeholder="名前を入力してください"
-              defaultValue="島田"
+              defaultValue={task.name}
             />
           </div>
           <div className="mb-4">
-            <label
-              className="block text-gray-700 font-bold mb-2"
-              htmlFor="progress"
-            >
-              進捗
-            </label>
-            <input
-              className="appearance-none border rounded w-full py-2 px-3 text-2xl text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="progress"
-              type="text"
-              placeholder="進捗を入力してください"
-              defaultValue="未完了"
-            />
+            <span className="block text-gray-700 font-bold mb-2">進捗</span>
+            <div className="flex items-center">
+              <input
+                className="mr-2"
+                type="radio"
+                id="inprogress"
+                name="progress"
+                value="inprogress"
+                checked={!completed}
+                onChange={handleChange}
+              />
+              <label htmlFor="inprogress">進行中</label>
+            </div>
+            <div className="flex items-center">
+              <input
+                className="mr-2"
+                type="radio"
+                id="completed"
+                name="progress"
+                value="completed"
+                checked={completed}
+                onChange={handleChange}
+              />
+              <label htmlFor="completed">完了</label>
+            </div>
           </div>
           <div className="flex justify-end space-x-2">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">
-              編集する
-            </button>
+            <TaskEdit tasks={tasks} task={task} setTasks={setTasks} />
             <button
               onClick={closeModal}
               className="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-1 px-4 rounded"

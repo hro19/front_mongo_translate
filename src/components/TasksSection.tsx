@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
+import Modalpop from "../components/Modalpop";
+
 import TaskDelete from "./TaskDelete";
 import TaskCreate from "./TaskCreate";
 
@@ -56,9 +58,7 @@ const TasksSection = () => {
                 {task.completed ? "✅" : "❌"}
               </td>
               <td className="border px-4 py-2">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">
-                  Edit
-                </button>
+                <Modalpop task={task} />
               </td>
               <td className="border px-4 py-2">
                 <TaskDelete tasks={tasks} task={task} setTasks={setTasks} />
