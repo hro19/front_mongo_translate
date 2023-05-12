@@ -1,17 +1,21 @@
 import React from "react";
 import axios from "axios";
 import { GetServerSideProps } from "next";
+import EditBox from "../../components/EditBox";
 
-const Task = ({ task }: any) => {
+const TaskSingle = ({ task }: any) => {
   return (
-    <div>
-      <h1>{task.name}</h1>
-      <p>{task.completed ? "Completed" : "Not Completed"}</p>
-    </div>
+    <>
+      <div>
+        <h1>{task.name}</h1>
+        <p>{task.completed ? "Completed" : "Not Completed"}</p>
+      </div>
+      <EditBox task={task} />
+    </>
   );
 };
 
-export default Task;
+export default TaskSingle;
 
 export async function getServerSideProps(context: any) {
   const { slug } = context.query;
