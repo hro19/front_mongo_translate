@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
-import Modalpop from "../components/Modalpop";
 
-import TaskDelete from "./TaskDelete";
+import TaskIterate from "../components/TaskIterate";
 import TaskCreate from "./TaskCreate";
 
 interface Task {
@@ -33,7 +32,6 @@ const TasksSection = () => {
 
   return (
     <div className="container mx-auto mt-5">
-      <h1 className="text-2xl font-bold mb-5 text-center">Tasks</h1>
       <TaskCreate fetchTasks={fetchTasks} />
       <table className="table-auto w-full">
         <thead>
@@ -45,27 +43,7 @@ const TasksSection = () => {
             <th className="px-4 py-2">Delete</th>
           </tr>
         </thead>
-        <tbody>
-          {tasks.map((task: any, index: number) => (
-            <tr key={task._id} id={task._id}>
-              <td className="border px-4 py-2">{index + 1}</td>
-              <td className="border px-4 py-2">
-                <Link href={`/tasks/${task._id}`} className="underline">
-                  {task.name}
-                </Link>
-              </td>
-              <td className="border px-4 py-2">
-                {task.completed ? "✅" : "❌"}
-              </td>
-              <td className="border px-4 py-2">
-                <Modalpop tasks={tasks} task={task} setTasks={setTasks} />
-              </td>
-              <td className="border px-4 py-2">
-                <TaskDelete tasks={tasks} task={task} setTasks={setTasks} />
-              </td>
-            </tr>
-          ))}
-        </tbody>
+        <TaskIterate tasks={tasks} setTasks={setTasks} />
       </table>
     </div>
   );

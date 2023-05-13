@@ -26,7 +26,7 @@ const Modalpop = ({task,tasks,setTasks}:any) => {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full sm:w-3/5"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[92%] md:w-3/5"
         overlayClassName="fixed inset-0 bg-gray-700 bg-opacity-50"
       >
         <ModalContent
