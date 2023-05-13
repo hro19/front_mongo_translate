@@ -20,9 +20,13 @@ const TaskTable = ({ tasks, setTasks }: any) => {
 
   return (
     <>
-      <div>
-        <label htmlFor="status-select">Status:</label>
-        <select id="status-select" value={status} onChange={handleChange}>
+      <div className="my-4">
+        <select
+          id="status-select"
+          value={status}
+          onChange={handleChange}
+          className="bg-yellow-600 text-white py-2 pl-2 pr-4 rounded-lg"
+        >
           <option value="uncompleted">Uncompleted</option>
           <option value="completed">Completed</option>
           <option value="all">All</option>
