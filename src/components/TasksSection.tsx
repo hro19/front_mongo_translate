@@ -38,7 +38,7 @@ const TasksSection = () => {
     <div className="container mx-auto mt-5">
       <TaskCreate fetchTasks={handleCreateTask} />
 
-      <TaskTable tasks={tasks} setTasks={refetch} isLoading={isLoading} />
+      <TaskTable tasks={tasks} isLoading={isLoading} />
     </div>
   );
 };
