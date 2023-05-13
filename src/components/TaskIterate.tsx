@@ -1,3 +1,5 @@
+// trイテレートのみ構造
+
 import React from 'react'
 import Link from "next/link";
 import Modalpop from "../components/Modalpop";

@@ -1,3 +1,5 @@
+// tasksデータをrestAPIから取得、react-queryで通信
+
 import React from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
