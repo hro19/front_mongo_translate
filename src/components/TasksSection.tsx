@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
+import React from "react";
 import axios from "axios";
+import { useQuery } from "react-query";
 
 import TaskTable from "../components/TaskTable";
 import TaskCreate from "./TaskCreate";
@@ -12,29 +12,35 @@ interface Task {
 }
 
 const TasksSection = () => {
-  const [tasks, setTasks] = useState([]);
+  const {
+    data: tasks,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery<Task[]>("tasks", async () => {
+    const { data } = await axios.get(
+      "https://back-mongo-task.vercel.app/api/v1/tasks"
+    );
+    return data;
+  });
 
-
-  const fetchTasks = async () => {
-    try {
-      const res = await axios.get(
-        "https://back-mongo-task.vercel.app/api/v1/tasks"
-      );
-      setTasks(res.data);
-    } catch (err) {
-      console.error(err);
-    }
+  const handleCreateTask = () => {
+    refetch();
   };
-  
-  useEffect(() => {
-    fetchTasks();
-  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error fetching tasks.</div>;
+  }
 
   return (
     <div className="container mx-auto mt-5">
-      <TaskCreate fetchTasks={fetchTasks} />
+      <TaskCreate fetchTasks={handleCreateTask} />
 
-      <TaskTable tasks={tasks} setTasks={setTasks} />
+      <TaskTable tasks={tasks} setTasks={refetch} />
     </div>
   );
 };
