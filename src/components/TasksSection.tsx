@@ -28,10 +28,6 @@ const TasksSection = () => {
     refetch();
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   if (isError) {
     return <div>Error fetching tasks.</div>;
   }
@@ -40,7 +36,7 @@ const TasksSection = () => {
     <div className="container mx-auto mt-5">
       <TaskCreate fetchTasks={handleCreateTask} />
 
-      <TaskTable tasks={tasks} setTasks={refetch} />
+      <TaskTable tasks={tasks} setTasks={refetch} isLoading={isLoading} />
     </div>
   );
 };

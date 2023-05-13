@@ -1,13 +1,22 @@
 import React, { useState } from "react";
 import TaskIterate from "../components/TaskIterate";
+import BounceLoader from "react-spinners/BounceLoader";
 
-const TaskTable = ({ tasks, setTasks }: any) => {
+const TaskTable = ({ tasks, setTasks,isLoading }: any) => {
   const [status, setStatus] = useState("uncompleted");
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setStatus(e.target.value);
   };
 
+  if (isLoading) {
+      return (
+        <div className="flex justify-center my-4">
+          <BounceLoader color="#43B916" />
+        </div>
+      );
+  }
+    
   const filteredTasks = tasks.filter((task: any) => {
     if (status === "uncompleted") {
       return !task.completed;
