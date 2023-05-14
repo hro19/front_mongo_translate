@@ -7,13 +7,13 @@ interface Task {
   completed: boolean;
 }
 
-const TaskDelete = ({ setTasks, tasks, task }: any) => {
+const TaskDelete = ({ refetch, tasks, task }: any) => {
   const handleDelete = async (id: string) => {
     try {
       await axios.delete(
         `https://back-mongo-task.vercel.app/api/v1/tasks/${id}`
       );
-      setTasks(tasks.filter((task: Task) => task._id !== id));
+      refetch();
     } catch (err) {
       console.error(err);
     }

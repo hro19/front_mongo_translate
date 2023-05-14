@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Modal from "react-modal";
 
-const ModalContent = ({ task,tasks,setTasks,closeModal }: any) => {
+const ModalContent = ({ task, tasks, refetch, closeModal }: any) => {
   const [name, setName] = useState(task.name);
   const [completed, setCompleted] = useState(task.completed);
 
@@ -30,11 +30,10 @@ const ModalContent = ({ task,tasks,setTasks,closeModal }: any) => {
         t._id === task._id ? { ...t, ...updatedTask } : t
       );
       // console.log(updatedTasks);
-      setTasks(updatedTasks);
+      refetch(updatedTasks);
 
       //モーダルを閉じる
       closeModal();
-
     } catch (err) {
       console.error(err);
       // エラーが発生した場合は、適切なエラーハンドリングを行う

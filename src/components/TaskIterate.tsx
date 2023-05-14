@@ -5,7 +5,7 @@ import Link from "next/link";
 import Modalpop from "../components/Modalpop";
 import TaskDelete from "./TaskDelete";
 
-const TaskIterate = ({ tasks, setTasks}: any) => {
+const TaskIterate = ({ tasks, refetch }: any) => {
   return (
     <>
       <tbody>
@@ -19,10 +19,10 @@ const TaskIterate = ({ tasks, setTasks}: any) => {
             </td>
             <td className="border px-4 py-2">{task.completed ? "✅" : "❌"}</td>
             <td className="border px-4 py-2">
-              <Modalpop tasks={tasks} task={task} setTasks={setTasks} />
+              <Modalpop tasks={tasks} task={task} refetch={refetch} />
             </td>
             <td className="border px-4 py-2">
-              <TaskDelete tasks={tasks} task={task} setTasks={setTasks} />
+              <TaskDelete tasks={tasks} task={task} refetch={refetch} />
             </td>
           </tr>
         ))}
