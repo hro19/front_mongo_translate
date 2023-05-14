@@ -4,7 +4,7 @@ import ModalContent from "../components/ModalContent";
 
 Modal.setAppElement("#__next");
 
-const Modalpop = ({ task, tasks, refetch }: any) => {
+const Modalpop = ({ task, refetch }: any) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
@@ -32,7 +32,6 @@ const Modalpop = ({ task, tasks, refetch }: any) => {
         <ModalContent
           setModalIsOpen={setModalIsOpen}
           task={task}
-          tasks={tasks}
           refetch={refetch}
           closeModal={closeModal}
         />

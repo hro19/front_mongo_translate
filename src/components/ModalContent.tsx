@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Modal from "react-modal";
 
-const ModalContent = ({ task, tasks, refetch, closeModal }: any) => {
+const ModalContent = ({ task, refetch, closeModal }: any) => {
   const [name, setName] = useState(task.name);
   const [completed, setCompleted] = useState(task.completed);
 
@@ -26,11 +26,7 @@ const ModalContent = ({ task, tasks, refetch, closeModal }: any) => {
       );
 
       // 更新成功の場合は、タスク一覧を再読み込みする等の処理を追加する
-      const updatedTasks = tasks.map((t: any) =>
-        t._id === task._id ? { ...t, ...updatedTask } : t
-      );
-      // console.log(updatedTasks);
-      refetch(updatedTasks);
+      refetch();
 
       //モーダルを閉じる
       closeModal();

@@ -19,10 +19,10 @@ const TaskIterate = ({ tasks, refetch }: any) => {
             </td>
             <td className="border px-4 py-2">{task.completed ? "✅" : "❌"}</td>
             <td className="border px-4 py-2">
-              <Modalpop tasks={tasks} task={task} refetch={refetch} />
+              <Modalpop task={task} refetch={refetch} />
             </td>
             <td className="border px-4 py-2">
-              <TaskDelete tasks={tasks} task={task} refetch={refetch} />
+              <TaskDelete task={task} refetch={refetch} />
             </td>
           </tr>
         ))}
