@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 
 interface TaskCreateProps {
-  fetchTasks: () => void;
+  refetch: () => void;
 }
 
-const TaskCreate = ({ fetchTasks }: TaskCreateProps) => {
+const TaskCreate = ({ refetch }: TaskCreateProps) => {
   const {
     register,
     handleSubmit,
@@ -16,7 +16,7 @@ const TaskCreate = ({ fetchTasks }: TaskCreateProps) => {
   const onSubmit = async (data: any, e: any) => {
     try {
       await axios.post("https://back-mongo-task.vercel.app/api/v1/tasks", data);
-      fetchTasks(); // タスクリストを更新する
+      refetch(); // タスクリストを更新する
       e.target.reset(); // フォームの値をリセットする
     } catch (error) {
       console.error(error);
