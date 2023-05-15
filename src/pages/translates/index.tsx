@@ -11,11 +11,20 @@ const Home = () => {
   const [translatedText, setTranslatedText] = useState(""); // translatedText ステートを宣言する
   const [apiLimit, setApiLimit] = useState(500000); // apiLimit ステートを宣言する
   const [isJapanese, setIsJapanese] = useState(false); // isJapanese ステートを宣言する
-    const [jaContent, setJaContent] = useState<string | null>(null);
-    const [enContent, setEnContent] = useState<string | null>(null);
+  const [jaContent, setJaContent] = useState<string | null>(null);
+  const [enContent, setEnContent] = useState<string | null>(null);
+
+  //インプットを初期化
+  const handleCreateSuccess = () => {
+    setInputText("");
+    setTranslatedText("");
+    setIsJapanese(false);
+    setJaContent(null);
+    setEnContent(null);
+  };
 
   //インプットした文字をinputTextにセットする
-  const handleInputChange = (event:any) => {
+  const handleInputChange = (event: any) => {
     setInputText(event.target.value);
   };
 
@@ -154,7 +163,13 @@ const Home = () => {
           >
             Speak
           </button>
-          <TranslateCreate jaContent={jaContent} enContent={enContent} />
+          {translatedText && (
+            <TranslateCreate
+              jaContent={jaContent}
+              enContent={enContent}
+              handleCreateSuccess={handleCreateSuccess}
+            />
+          )}
         </div>
       </div>
     </div>

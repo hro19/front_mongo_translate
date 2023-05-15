@@ -4,9 +4,11 @@ import axios from "axios";
 const TranslateCreate = ({
   jaContent,
   enContent,
+  handleCreateSuccess,
 }: {
   jaContent: any;
   enContent: any;
+  handleCreateSuccess: any;
 }) => {
   const handleCreate = async () => {
     try {
@@ -15,6 +17,7 @@ const TranslateCreate = ({
         { jaContent, enContent }
       );
       console.log("Data created:", response.data);
+      handleCreateSuccess();
     } catch (error) {
       console.error("Error creating data:", error);
     }
