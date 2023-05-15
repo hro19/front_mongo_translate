@@ -4,6 +4,8 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { format } from "date-fns";
 
+import TranslateDelete from "../../components/translates/TranslateDelete";
+
 const All = () => {
   const fetchTranslates = async () => {
     const response = await axios.get(
@@ -74,6 +76,7 @@ const speakText = (text: string) => {
                 <p className="border rounded-lg p-2 bg-blue-100 text-left">
                   {translate.jaContent}
                 </p>
+                <TranslateDelete translate={translate} />
               </div>
               <div>
                 <p className="border rounded-lg p-2 bg-pink-100 text-left">
@@ -81,7 +84,7 @@ const speakText = (text: string) => {
                 </p>
                 {isSpeaking ? (
                   <button
-                    className="mt-2 bg-red-500 text-white py-1 px-2 rounded-md hover:bg-red-700 text-sm"
+                    className="mt-2 bg-teal-500 text-white py-1 px-2 rounded-md hover:bg-teal-700 text-sm"
                     onClick={stopSpeaking}
                   >
                     再生ストップ
