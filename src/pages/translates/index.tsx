@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import TranslateCreate from "../../components/translates/TranslateCreate";
+import TranslateTitle from "../../components/translates/TranslateTitle";
 
 const API_KEY = "68fddf2a-cbfe-a9a0-87bf-0269b2ebbf29:fx";
 const API_URL = "https://api-free.deepl.com/v2/translate";
@@ -122,54 +122,48 @@ const Home = () => {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4 text-center inline-block mr-6">
-        翻訳ページ
-      </h1>
-      <span className="border border-yellow-500 text-2xl inline-block">
-        <Link href="/translates/all" className="text-yellow-500">
-          翻訳データALL
-        </Link>
-      </span>
-
-      <p className="mb-3">
-        {!isNaN(apiLimit) && `${apiLimit}文字`}（500000文字まで）
-      </p>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <textarea
-            id="deepl-input"
-            value={inputText}
-            onChange={handleInputChange}
-            className="p-2 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full h-36"
-          />
-          <button
-            onClick={handleTranslate}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mt-4"
-          >
-            Translate
-          </button>
-        </div>
-        <div>
-          <div
-            id="deepl-output"
-            className="p-2 rounded-md border border-gray-300 shadow-sm h-36"
-          >
-            {translatedText}
-          </div>
-          <button
-            onClick={handleSpeak}
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md mt-4"
-          >
-            Speak
-          </button>
-          {translatedText && (
-            <TranslateCreate
-              jaContent={jaContent}
-              enContent={enContent}
-              handleCreateSuccess={handleCreateSuccess}
+    <div className="mx-4 pt-2">
+      <div className="container max-w-[1040px] mx-auto">
+        <TranslateTitle />
+        <p className="mb-3">
+          {!isNaN(apiLimit) && `${apiLimit}文字`}（500000文字まで）
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <textarea
+              id="deepl-input"
+              value={inputText}
+              onChange={handleInputChange}
+              className="p-2 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full h-36"
             />
-          )}
+            <button
+              onClick={handleTranslate}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mt-4"
+            >
+              Translate
+            </button>
+          </div>
+          <div>
+            <div
+              id="deepl-output"
+              className="p-2 rounded-md border border-gray-300 shadow-sm h-36"
+            >
+              {translatedText}
+            </div>
+            <button
+              onClick={handleSpeak}
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md mt-4"
+            >
+              Speak
+            </button>
+            {translatedText && (
+              <TranslateCreate
+                jaContent={jaContent}
+                enContent={enContent}
+                handleCreateSuccess={handleCreateSuccess}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

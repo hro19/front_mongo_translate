@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import { format } from "date-fns";
 
 import TranslateDelete from "../../components/translates/TranslateDelete";
+import TranslateTitle from "../../components/translates/TranslateTitle";
 
 const All = () => {
   const fetchTranslates = async () => {
@@ -55,16 +56,9 @@ const speakText = (text: string) => {
   }
 
   return (
-    <div className="mx-4">
+    <div className="mx-4 pt-2">
       <div className="container max-w-[1040px] mx-auto">
-        <h1 className="text-2xl font-bold mb-4 text-center inline-block mr-6">
-          全ての翻訳データ
-        </h1>
-        <span className="border border-yellow-500 text-2xl inline-block">
-          <Link href="/translates" className="text-yellow-500">
-            新規登録
-          </Link>
-        </span>
+        <TranslateTitle />
 
         {data.map((translate: any, index: number) => (
           <div key={translate._id} className="border-b border-bp mb-2 pb-2 b-4">
