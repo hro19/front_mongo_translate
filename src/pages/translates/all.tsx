@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 import TranslateDelete from "../../components/translates/TranslateDelete";
 import TranslateTitle from "../../components/translates/TranslateTitle";
 import {
-    formatDate,
+  formatDate
 } from "../../components/translates/Honyaku";
 
 const All = () => {
@@ -23,17 +24,17 @@ const All = () => {
 
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-const speakText = (enContent: string) => {
-  if ("speechSynthesis" in window) {
-    const utterance = new SpeechSynthesisUtterance(enContent);
-    utterance.lang = "en-US"; // 読み上げモードを米国英語に設定
-    window.speechSynthesis.speak(utterance);
-    utterance.onend = () => {
-      setIsSpeaking(false); // 読み上げ完了時にisSpeakingをfalseに設定
-    };
-    setIsSpeaking(true);
-  }
-};
+  const speakText = (enContent: string) => {
+    if ("speechSynthesis" in window) {
+      const utterance = new SpeechSynthesisUtterance(enContent);
+      utterance.lang = "en-US"; // 読み上げモードを米国英語に設定
+      window.speechSynthesis.speak(utterance);
+      utterance.onend = () => {
+        setIsSpeaking(false); // 読み上げ完了時にisSpeakingをfalseに設定
+      };
+      setIsSpeaking(true);
+    }
+  };
 
   const stopSpeaking = () => {
     if ("speechSynthesis" in window) {
@@ -42,54 +43,57 @@ const speakText = (enContent: string) => {
     }
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>Error: {(error as Error).message}</div>;
-  }
-
   return (
     <div className="mx-4 pt-2">
       <div className="container max-w-[1040px] mx-auto">
         <TranslateTitle />
 
-        {data.map((translate: any, index: number) => (
-          <div key={translate._id} className="border-b border-bp mb-2 pb-2 b-4">
-            <h2 className="text-sm font-bold text-green-700">
-                    作成日【{formatDate(translate.created_at)}】
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <p className="border rounded-lg p-2 bg-blue-100 text-left">
-                  {translate.jaContent}
-                </p>
-                <TranslateDelete translate={translate} />
-              </div>
-              <div>
-                <p className="border rounded-lg p-2 bg-pink-100 text-left">
-                  {translate.enContent}
-                </p>
-                {isSpeaking ? (
-                  <button
-                    className="mt-2 bg-teal-500 text-white py-1 px-2 rounded-md hover:bg-teal-700 text-sm"
-                    onClick={stopSpeaking}
-                  >
-                    再生ストップ
-                  </button>
-                ) : (
-                  <button
-                    className="mt-2 bg-cyan-500 text-white py-1 px-2 rounded-md hover:bg-cyan-700 text-sm"
-                    onClick={() => speakText(translate.enContent)}
-                  >
-                    音声データ
-                  </button>
-                )}
+        {isLoading ? (
+          <div className="flex justify-center my-4">
+            <ScaleLoader height={80} width={10} radius={5} color="#BFF7FA" />
+          </div>
+        ) : isError ? (
+          <div>Error: {(error as Error).message}</div>
+        ) : (
+          data.map((translate: any, index: number) => (
+            <div
+              key={translate._id}
+              className="border-b border-bp mb-2 pb-2 b-4"
+            >
+              <h2 className="text-sm font-bold text-green-700">
+                作成日【{formatDate(translate.created_at)}】
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <p className="border rounded-lg p-2 bg-blue-100 text-left">
+                    {translate.jaContent}
+                  </p>
+                  <TranslateDelete translate={translate} />
+                </div>
+                <div>
+                  <p className="border rounded-lg p-2 bg-pink-100 text-left">
+                    {translate.enContent}
+                  </p>
+                  {isSpeaking ? (
+                    <button
+                      className="mt-2 bg-teal-500 text-white py-1 px-2 rounded-md hover:bg-teal-700 text-sm"
+                      onClick={stopSpeaking}
+                    >
+                      再生ストップ
+                    </button>
+                  ) : (
+                    <button
+                      className="mt-2 bg-cyan-500 text-white py-1 px-2 rounded-md hover:bg-cyan-700 text-sm"
+                      onClick={() => speakText(translate.enContent)}
+                    >
+                      音声データ
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );
