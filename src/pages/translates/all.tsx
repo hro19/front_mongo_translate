@@ -10,10 +10,10 @@ const All = () => {
     return response.data;
   };
 
-  const { data, isLoading, isError, error } = useQuery<
-    any, // データの型
-    Error // エラーの型
-  >("translates", fetchTranslates);
+  const { data, isLoading, isError, error } = useQuery<any, Error>(
+    "translates",
+    fetchTranslates
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -24,15 +24,24 @@ const All = () => {
   }
 
   return (
-    <div>
-      {data.map((translate: any) => (
-        <div key={translate._id}>
-          <p>日本語: {translate.ja_content}</p>
-          <p>英語: {translate.en_content}</p>
-          <p>作成日時: {translate.created_at}</p>
+      <div>
+          <h1 className="text-center text-3xl text-cyan-500">全ての翻訳データ</h1>
+      {data.map((translate: any, index: number) => (
+        <div key={translate._id} className="border-b border-bp mb-2 pb-2 b-4">
+          <h2 className="text-sm font-bold text-green-700">
+            作成日時: {translate.created_at}
+          </h2>
+        <div className="grid grid-cols-2 gap-4">
+            <p className="border rounded-lg p-2 bg-blue-100 text-left">
+              {translate.ja_content}
+            </p>
+            <p className="border rounded-lg p-2 bg-pink-100 text-left">
+              {translate.en_content}
+            </p>
+          </div>
         </div>
       ))}
-    </div>
+        </div>
   );
 };
 
