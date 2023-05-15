@@ -1,17 +1,25 @@
 import React from "react";
 import axios from "axios";
+import { useMutation, useQueryClient } from "react-query";
 
 const TranslateDelete = ({ translate }: { translate: any }) => {
-  const handleDelete = async () => {
-    try {
-      const response = await axios.delete(
-        `https://back-mongo-translate.vercel.app/api/v1/translates/${translate._id}`
-      );
-      console.log("Data deleted:", response.data);
-      // データの削除後の処理を記述する
-    } catch (error) {
-      console.error("Error deleting data:", error);
-    }
+  const queryClient = useQueryClient();
+
+  const deleteTranslate = async () => {
+    const response = await axios.delete(
+      `https://back-mongo-translate.vercel.app/api/v1/translates/${translate._id}`
+    );
+    return response.data;
+  };
+
+  const { mutate } = useMutation(deleteTranslate, {
+    onSuccess: () => {
+      queryClient.refetchQueries("translates"); // "translates" クエリを最新に更新
+    },
+  });
+
+  const handleDelete = () => {
+    mutate();
   };
 
   return (
