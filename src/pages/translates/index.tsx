@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import TranslateCreate from "../../components/translates/TranslateCreate";
 import TranslateTitle from "../../components/translates/TranslateTitle";
+import {
+  handleTranslate,
+  getApiLimit,
+  handleSpeak,
+} from "../../components/translates/Honyaku";
 
 const API_KEY = "68fddf2a-cbfe-a9a0-87bf-0269b2ebbf29:fx";
 const API_URL = "https://api-free.deepl.com/v2/translate";
@@ -28,98 +33,14 @@ const Home = () => {
     setInputText(event.target.value);
   };
 
-  //翻訳ハンドラー
-  const handleTranslate = () => {
-    let deeplInput = inputText;
-    let isJap = false;
-    let sourceLang = "";
-
-    for (var i = 0; i < deeplInput.length; i++) {
-      //言語判別
-      if (deeplInput.charCodeAt(i) >= 256) {
-        isJap = true;
-        break;
-      }
-    }
-
-    switch (isJap) {
-      case true:
-        sourceLang = "&source_lang=JA&target_lang=EN";
-        setIsJapanese(true);
-        break;
-      case false:
-        sourceLang = "&source_lang=EN&target_lang=JA";
-        setIsJapanese(false);
-        break;
-      default:
-        alert("言語の判別に失敗しました");
-    }
-
-    let content = encodeURI(
-      "auth_key=" + API_KEY + "&text=" + deeplInput + sourceLang
-    );
-    let url = API_URL + "?" + content;
-
-    fetch(url)
-      .then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Could not reach the API: " + response.statusText);
-        }
-      })
-      .then((data) => {
-        setTranslatedText(data.translations[0].text);
-        setApiLimit(apiLimit - data.character_count); // 翻訳に使った文字数を引いて、apiLimit を更新する
-        // 判定とステートの設定
-        if (isJap) {
-          setJaContent(inputText);
-          setEnContent(data.translations[0].text);
-        } else {
-          setJaContent(data.translations[0].text);
-          setEnContent(inputText);
-        }
-      })
-      .catch((error) => {
-        alert("翻訳失敗");
-      });
-  };
-
   //一月のご利用文字数を表示
   useEffect(() => {
-    const getApiLimit = () => {
-      const content = encodeURI("auth_key=" + API_KEY);
-      const url = API_LIMIT_URL + "?" + content;
-
-      fetch(url)
-        .then(function (response) {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error("Could not reach the API: " + response.statusText);
-          }
-        })
-        .then((data) => {
-          setApiLimit(data.character_count);
-        })
-        .catch((error) => {
-          alert("API制限の取得に失敗しました");
-        });
-    };
-
-    getApiLimit();
+    getApiLimit({
+      API_KEY,
+      API_LIMIT_URL,
+      setApiLimit,
+    });
   }, [translatedText]);
-
-  //音声読み上げハンドラー
-  const handleSpeak = () => {
-    const utterance = new SpeechSynthesisUtterance(translatedText);
-    if (isJapanese) {
-      utterance.lang = "en-US";
-    } else {
-      utterance.lang = "ja-JP";
-    }
-    speechSynthesis.speak(utterance);
-  };
 
   return (
     <div className="mx-4 pt-2">
@@ -137,7 +58,19 @@ const Home = () => {
               className="p-2 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full h-36"
             />
             <button
-              onClick={handleTranslate}
+              onClick={() =>
+                handleTranslate({
+                  API_KEY,
+                  API_URL,
+                  inputText,
+                  setIsJapanese,
+                  setTranslatedText,
+                  setApiLimit,
+                  apiLimit,
+                  setJaContent,
+                  setEnContent,
+                })
+              }
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mt-4"
             >
               Translate
@@ -151,7 +84,7 @@ const Home = () => {
               {translatedText}
             </div>
             <button
-              onClick={handleSpeak}
+              onClick={()=> handleSpeak({ translatedText, isJapanese })}
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md mt-4"
             >
               Speak

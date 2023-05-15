@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { format } from "date-fns";
 
 import TranslateDelete from "../../components/translates/TranslateDelete";
 import TranslateTitle from "../../components/translates/TranslateTitle";
+import {
+    formatDate,
+} from "../../components/translates/Honyaku";
 
 const All = () => {
   const fetchTranslates = async () => {
@@ -15,12 +16,6 @@ const All = () => {
     return response.data;
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const formattedDate = format(date, "yyyy年MM月dd日 HH時mm分");
-    return formattedDate;
-  };
-
   const { data, isLoading, isError, error } = useQuery<any, Error>(
     "translates",
     fetchTranslates
@@ -28,9 +23,9 @@ const All = () => {
 
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-const speakText = (text: string) => {
+const speakText = (enContent: string) => {
   if ("speechSynthesis" in window) {
-    const utterance = new SpeechSynthesisUtterance(text);
+    const utterance = new SpeechSynthesisUtterance(enContent);
     utterance.lang = "en-US"; // 読み上げモードを米国英語に設定
     window.speechSynthesis.speak(utterance);
     utterance.onend = () => {
@@ -63,7 +58,7 @@ const speakText = (text: string) => {
         {data.map((translate: any, index: number) => (
           <div key={translate._id} className="border-b border-bp mb-2 pb-2 b-4">
             <h2 className="text-sm font-bold text-green-700">
-              作成日【{formatDate(translate.created_at)}】
+                    作成日【{formatDate(translate.created_at)}】
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
