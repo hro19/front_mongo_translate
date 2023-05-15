@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { format } from "date-fns";
@@ -54,7 +55,15 @@ const speakText = (text: string) => {
   return (
     <div className="mx-4">
       <div className="container max-w-[1040px] mx-auto">
-        <h1 className="text-center text-3xl text-cyan-500">全ての翻訳データ</h1>
+        <h1 className="text-2xl font-bold mb-4 text-center inline-block mr-6">
+          全ての翻訳データ
+        </h1>
+        <span className="border border-yellow-500 text-2xl inline-block">
+          <Link href="/translates" className="text-yellow-500">
+            新規登録
+          </Link>
+        </span>
+
         {data.map((translate: any, index: number) => (
           <div key={translate._id} className="border-b border-bp mb-2 pb-2 b-4">
             <h2 className="text-sm font-bold text-green-700">

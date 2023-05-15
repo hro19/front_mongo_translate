@@ -114,8 +114,14 @@ const Home = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4 text-center">翻訳ページ</h1>
-
+      <h1 className="text-2xl font-bold mb-4 text-center inline-block mr-6">
+        翻訳ページ
+      </h1>
+      <span className="border border-yellow-500 text-2xl inline-block">
+        <Link href="/translates/all" className="text-yellow-500">
+          翻訳データALL
+        </Link>
+      </span>
 
       <p className="mb-3">
         {!isNaN(apiLimit) && `${apiLimit}文字`}（500000文字まで）

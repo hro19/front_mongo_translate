@@ -20,7 +20,14 @@ const TranslateCreate = ({
     }
   };
 
-  return <button onClick={handleCreate}>データ登録</button>;
+  return (
+    <button
+      className="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-md mt-4 ml-2"
+      onClick={handleCreate}
+    >
+      データ登録
+    </button>
+  );
 };
 
 export default TranslateCreate;
