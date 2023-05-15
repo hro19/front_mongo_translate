@@ -63,12 +63,12 @@ const speakText = (text: string) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <p className="border rounded-lg p-2 bg-blue-100 text-left">
-                  {translate.ja_content}
+                  {translate.jaContent}
                 </p>
               </div>
               <div>
                 <p className="border rounded-lg p-2 bg-pink-100 text-left">
-                  {translate.en_content}
+                  {translate.enContent}
                 </p>
                 {isSpeaking ? (
                   <button
@@ -80,7 +80,7 @@ const speakText = (text: string) => {
                 ) : (
                   <button
                     className="mt-2 bg-cyan-500 text-white py-1 px-2 rounded-md hover:bg-cyan-700 text-sm"
-                    onClick={() => speakText(translate.en_content)}
+                    onClick={() => speakText(translate.enContent)}
                   >
                     音声データ
                   </button>

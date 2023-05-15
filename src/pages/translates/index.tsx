@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import TranslateCreate from "../../components/translates/TranslateCreate";
 
 const API_KEY = "68fddf2a-cbfe-a9a0-87bf-0269b2ebbf29:fx";
 const API_URL = "https://api-free.deepl.com/v2/translate";
@@ -9,6 +11,8 @@ const Home = () => {
   const [translatedText, setTranslatedText] = useState(""); // translatedText ステートを宣言する
   const [apiLimit, setApiLimit] = useState(500000); // apiLimit ステートを宣言する
   const [isJapanese, setIsJapanese] = useState(false); // isJapanese ステートを宣言する
+    const [jaContent, setJaContent] = useState<string | null>(null);
+    const [enContent, setEnContent] = useState<string | null>(null);
 
   //インプットした文字をinputTextにセットする
   const handleInputChange = (event:any) => {
@@ -58,6 +62,14 @@ const Home = () => {
       .then((data) => {
         setTranslatedText(data.translations[0].text);
         setApiLimit(apiLimit - data.character_count); // 翻訳に使った文字数を引いて、apiLimit を更新する
+        // 判定とステートの設定
+        if (isJap) {
+          setJaContent(inputText);
+          setEnContent(data.translations[0].text);
+        } else {
+          setJaContent(data.translations[0].text);
+          setEnContent(inputText);
+        }
       })
       .catch((error) => {
         alert("翻訳失敗");
@@ -103,6 +115,8 @@ const Home = () => {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4 text-center">翻訳ページ</h1>
+
+
       <p className="mb-3">
         {!isNaN(apiLimit) && `${apiLimit}文字`}（500000文字まで）
       </p>
@@ -134,6 +148,7 @@ const Home = () => {
           >
             Speak
           </button>
+          <TranslateCreate jaContent={jaContent} enContent={enContent} />
         </div>
       </div>
     </div>
