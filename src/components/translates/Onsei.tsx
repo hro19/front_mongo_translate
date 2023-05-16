@@ -19,10 +19,14 @@ const speakText = ({ content, setIsSpeaking }: any) => {
     utterance.lang = "ja-JP";
   }
   speechSynthesis.speak(utterance);
-  setIsSpeaking(true);
-  utterance.onend = () => {
-    setIsSpeaking(false);
-  };
+
+  // setIsSpeakingが引数としてある場合はfalseを音声終了後にセットする。
+  if (setIsSpeaking) {
+    setIsSpeaking(true);
+    utterance.onend = () => {
+      setIsSpeaking(false);
+    };
+  }
 };
 
 //音声出力中に音声ストップ
