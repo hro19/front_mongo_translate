@@ -6,9 +6,9 @@ const TranslateCreate = ({
   enContent,
   handleCreateSuccess,
 }: {
-  jaContent: any;
-  enContent: any;
-  handleCreateSuccess: any;
+  jaContent: string | null;
+  enContent: string | null;
+  handleCreateSuccess: () => void;
 }) => {
   const [isCreating, setIsCreating] = useState(false); // データ登録中かどうかをトラッキングする状態
 
