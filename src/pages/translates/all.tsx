@@ -49,7 +49,7 @@ const All = () => {
         <TranslateTitle />
 
         {isLoading ? (
-          <div className="flex justify-center my-4">
+          <div className="flex justify-center my-36">
             <ScaleLoader height={80} width={10} radius={5} color="#BFF7FA" />
           </div>
         ) : isError ? (
