@@ -59,11 +59,25 @@ const MuiTable = () => {
         </div>
       ))}
 
-      <Pagination
-        count={Math.ceil(data.length / itemsPerPage)}
-        page={currentPage}
-        onChange={handleChangePage}
-      />
+      <div className="flex justify-center">
+        <Pagination
+          count={Math.ceil(data.length / itemsPerPage)}
+          page={currentPage}
+          onChange={handleChangePage}
+          sx={{
+            "& .MuiPaginationItem-root": {
+              backgroundColor: "lightblue",
+              color: "white",
+              "&:hover": {
+                backgroundColor: "#2C5AFF",
+              },
+              "&.Mui-selected": {
+                backgroundColor: "#2C5AFF",
+              },
+            },
+          }}
+        />
+      </div>
     </div>
   );
 };
