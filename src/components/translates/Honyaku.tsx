@@ -5,7 +5,6 @@ const handleTranslate = ({
   API_KEY,
   API_URL,
   inputText,
-  setIsJapanese,
   setTranslatedText,
   setApiLimit,
   apiLimit,
@@ -27,11 +26,9 @@ const handleTranslate = ({
   switch (isJap) {
     case true:
       sourceLang = "&source_lang=JA&target_lang=EN";
-      setIsJapanese(true);
       break;
     case false:
       sourceLang = "&source_lang=EN&target_lang=JA";
-      setIsJapanese(false);
       break;
     default:
       alert("言語の判別に失敗しました");
