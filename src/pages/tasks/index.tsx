@@ -1,6 +1,6 @@
 import React from "react";
 import { Inter } from "next/font/google";
-import TasksSection from "../../components/TasksSection";
+import TasksSection from "../../components/tasks/TasksSection";
 
 const inter = Inter({ subsets: ["latin"] });
 

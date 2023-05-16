@@ -4,7 +4,7 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 
-import TaskTable from "../components/TaskTable";
+import TaskTable from "./TaskTable";
 import TaskCreate from "./TaskCreate";
 
 interface Task {

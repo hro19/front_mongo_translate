@@ -1,7 +1,7 @@
 // ローディングアニメーションとタスクのフィルター管理
 
 import React, { useState } from "react";
-import TaskIterate from "../components/TaskIterate";
+import TaskIterate from "./TaskIterate";
 import BounceLoader from "react-spinners/BounceLoader";
 
 const TaskTable = ({ tasks, refetch, isLoading }: any) => {

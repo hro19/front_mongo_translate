@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import ModalContent from "../components/ModalContent";
+import ModalContent from "./ModalContent";
 
 Modal.setAppElement("#__next");
 

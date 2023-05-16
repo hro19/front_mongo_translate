@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Link from "next/link";
-import Modalpop from "../components/Modalpop";
+import Modalpop from "./Modalpop";
 import TaskDelete from "./TaskDelete";
 
 const TaskIterate = ({ tasks, refetch }: any) => {

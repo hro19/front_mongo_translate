@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import EditBox from "../../components/EditBox";
+import EditBox from "../../components/tasks/EditBox";
 
 const TaskSingle = ({ task }: any) => {
   const [currentTask, setCurrentTask] = useState(task);
