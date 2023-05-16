@@ -6,8 +6,12 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 
 import TranslateItelete from "../../components/translates/TranslateItelete";
 import TranslateTitle from "../../components/translates/TranslateTitle";
+import { searchFunc } from "../../components/translates/Kensaku";
 
 const All = () => {
+  const [showPosts, setShowPosts] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
   const fetchTranslates = async () => {
     const response = await axios.get(
       "https://back-mongo-translate.vercel.app/api/v1/translates"
@@ -17,7 +21,12 @@ const All = () => {
 
   const { data, isLoading, isError, error } = useQuery<any, Error>(
     "translates",
-    fetchTranslates
+    fetchTranslates,
+    {
+      onSuccess: (data) => {
+        setShowPosts(data);
+      },
+    }
   );
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,7 +40,7 @@ const All = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
 
-    return data
+    return showPosts
       .slice(startIndex, endIndex)
       .map((translate: any) => (
         <TranslateItelete
@@ -46,7 +55,7 @@ const All = () => {
 
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  const speakText = (enContent: string) => {
+  const speakText = (enContent: any) => {
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(enContent);
       utterance.lang = "en-US";
@@ -65,10 +74,23 @@ const All = () => {
     }
   };
 
+  const handleInputChange = (e: any) => {
+    const inputValue = e.target.value;
+    setInputValue(inputValue);
+    searchFunc({ value: inputValue, posts: data, setShowPosts });
+  };
+
   return (
     <div className="mx-4 pt-2">
       <div className="container max-w-[1040px] mx-auto">
         <TranslateTitle />
+        <input
+          type="text"
+          value={inputValue}
+          onChange={handleInputChange}
+          placeholder="Search..."
+          className="border border-gray-300 rounded-md py-2 px-4 mb-4 block w-[400px] placeholder-gray-400"
+        />
 
         {isLoading ? (
           <div className="flex justify-center my-36">
@@ -81,7 +103,7 @@ const All = () => {
             {renderPaginationItems()}
             <div className="flex justify-center mt-4">
               <Pagination
-                count={Math.ceil(data.length / itemsPerPage)}
+                count={Math.ceil(showPosts.length / itemsPerPage)}
                 page={currentPage}
                 onChange={handlePageChange}
                 sx={{
