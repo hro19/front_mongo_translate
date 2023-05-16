@@ -1,3 +1,12 @@
+import { Dispatch, SetStateAction } from "react";
+
+interface Post {
+  _id: string;
+  enContent: string;
+  jaContent: string;
+}
+
+//検索文字に対応したコンテンツをフィルター
 const searchFunc = ({ value, posts, setShowPosts }: any) => {
   // postsが存在する場合はフィルタリングを行う
   if (posts) {
@@ -7,7 +16,7 @@ const searchFunc = ({ value, posts, setShowPosts }: any) => {
       return;
     }
 
-    const searchedPosts = posts.filter((post: any) =>
+    const searchedPosts = posts.filter((post: Post) =>
       Object.values(post).some((item) => {
         if (item === undefined || item === null) {
           return false;

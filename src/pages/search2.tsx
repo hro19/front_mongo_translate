@@ -1,6 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import axios from "axios";
 import { searchFunc } from "../components/translates/Kensaku";
+
+interface Post {
+  _id: string;
+  enContent: string;
+  jaContent: string;
+}
 
 const Search2 = () => {
   const [posts, setPosts] = useState([]);
@@ -19,10 +25,10 @@ const Search2 = () => {
       });
   }, []);
 
-  const handleInputChange = (e:any) => {
-    setInputValue(e.target.value);
-    searchFunc({ value: e.target.value, posts, setShowPosts });
-  };
+const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  setInputValue(e.target.value);
+  searchFunc({ value: e.target.value, posts, setShowPosts });
+};
 
   return (
     <div>
@@ -33,7 +39,7 @@ const Search2 = () => {
         placeholder="Search..."
         className="border border-gray-300 rounded-md py-2 px-4 mb-4 block w-[400px] placeholder-gray-400"
       />
-      {showPosts.map((post: any) => (
+      {showPosts.map((post: Post) => (
         <div key={post._id}>
           <p>{post.enContent}</p>
           <p>{post.jaContent}</p>
