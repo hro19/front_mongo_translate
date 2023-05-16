@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { searchFunc } from "../components/translates/Kensaku";
 
 const Search2 = () => {
   const [posts, setPosts] = useState([]);
@@ -20,27 +21,7 @@ const Search2 = () => {
 
   const handleInputChange = (e:any) => {
     setInputValue(e.target.value);
-    search(e.target.value);
-  };
-
-  const search = (value:any) => {
-    // 検索欄への入力が空の場合は全ての投稿を表示する
-    if (value === "") {
-      setShowPosts(posts);
-      return;
-    }
-
-    const searchedPosts = posts.filter((post) =>
-      Object.values(post).some((item) => {
-        if (item === undefined || item === null) {
-          return false;
-        }
-        const strItem = item.toString();
-        return strItem.toUpperCase().indexOf(value.toUpperCase()) !== -1;
-      })
-    );
-
-    setShowPosts(searchedPosts);
+    searchFunc({ value: e.target.value, posts, setShowPosts });
   };
 
   return (
