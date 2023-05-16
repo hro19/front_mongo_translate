@@ -4,8 +4,11 @@ import TranslateTitle from "../../components/translates/TranslateTitle";
 import {
   handleTranslate,
   getApiLimit,
-  handleSpeak,
 } from "../../components/translates/Honyaku";
+
+import {
+  handleSpeak,
+} from "../../components/translates/Onsei";
 
 const API_KEY = "68fddf2a-cbfe-a9a0-87bf-0269b2ebbf29:fx";
 const API_URL = "https://api-free.deepl.com/v2/translate";

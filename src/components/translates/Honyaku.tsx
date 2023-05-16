@@ -88,16 +88,6 @@ const getApiLimit = ({ API_KEY, API_LIMIT_URL, setApiLimit }: any) => {
     });
 };
 
-//音声読み上げハンドラー
-const handleSpeak = ({ translatedText, isJapanese }: any) => {
-  const utterance = new SpeechSynthesisUtterance(translatedText);
-  if (isJapanese) {
-    utterance.lang = "en-US";
-  } else {
-    utterance.lang = "ja-JP";
-  }
-  speechSynthesis.speak(utterance);
-};
 
 //日付フォーマット
 const formatDate = (dateString: string) => {
@@ -109,7 +99,6 @@ const formatDate = (dateString: string) => {
 export {
   handleTranslate,
   getApiLimit,
-  handleSpeak,
   formatDate,
   // 他の関数も追加する
 };
