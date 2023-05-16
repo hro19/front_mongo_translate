@@ -1,13 +1,9 @@
-import React from 'react';
+import React from "react";
 import TranslateDelete from "../../components/translates/TranslateDelete";
 import { formatDate } from "../../components/translates/Honyaku";
-import { speakText } from "../../components/translates/Onsei";
+import { speakText, stopSpeaking } from "../../components/translates/Onsei";
 
-const TranslateItelete = ({
-  translate,
-  isSpeaking,
-  stopSpeaking,
-}: any) => {
+const TranslateItelete = ({ translate, isSpeaking, setIsSpeaking }: any) => {
   return (
     <>
       <div key={translate._id} className="border-b border-bp mb-2 pb-2 b-4">
@@ -28,14 +24,16 @@ const TranslateItelete = ({
             {isSpeaking ? (
               <button
                 className="mt-2 bg-teal-500 text-white py-1 px-2 rounded-md hover:bg-teal-700 text-sm"
-                onClick={stopSpeaking}
+                onClick={() => stopSpeaking(setIsSpeaking)}
               >
                 再生ストップ
               </button>
             ) : (
               <button
                 className="mt-2 bg-cyan-500 text-white py-1 px-2 rounded-md hover:bg-cyan-700 text-sm"
-                onClick={() => speakText(translate.enContent)}
+                onClick={() =>
+                  speakText({ content: translate.enContent, setIsSpeaking })
+                }
               >
                 音声データ
               </button>
@@ -47,4 +45,4 @@ const TranslateItelete = ({
   );
 };
 
-export default TranslateItelete
+export default TranslateItelete;

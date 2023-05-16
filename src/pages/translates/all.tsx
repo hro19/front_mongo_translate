@@ -11,6 +11,7 @@ import { searchFunc } from "../../components/translates/Kensaku";
 const All = () => {
   const [showPosts, setShowPosts] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   const fetchTranslates = async () => {
     const response = await axios.get(
@@ -29,6 +30,7 @@ const All = () => {
     }
   );
 
+//ページング設定
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
 
@@ -47,22 +49,12 @@ const All = () => {
           key={translate._id}
           translate={translate}
           isSpeaking={isSpeaking}
-          stopSpeaking={stopSpeaking}
+          setIsSpeaking={setIsSpeaking}
         />
       ));
   };
 
-  const [isSpeaking, setIsSpeaking] = useState(false);
-
-
-
-  const stopSpeaking = () => {
-    if ("speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
-      setIsSpeaking(false);
-    }
-  };
-
+//検索インプット
 const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   setInputValue(e.target.value);
   setCurrentPage(1); // ページを1ページ目に設定
