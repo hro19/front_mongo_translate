@@ -48,24 +48,13 @@ const All = () => {
           translate={translate}
           isSpeaking={isSpeaking}
           stopSpeaking={stopSpeaking}
-          speakText={speakText}
         />
       ));
   };
 
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  const speakText = (enContent: any) => {
-    if ("speechSynthesis" in window) {
-      const utterance = new SpeechSynthesisUtterance(enContent);
-      utterance.lang = "en-US";
-      window.speechSynthesis.speak(utterance);
-      utterance.onend = () => {
-        setIsSpeaking(false);
-      };
-      setIsSpeaking(true);
-    }
-  };
+
 
   const stopSpeaking = () => {
     if ("speechSynthesis" in window) {

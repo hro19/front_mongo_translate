@@ -1,12 +1,12 @@
 import React from 'react';
 import TranslateDelete from "../../components/translates/TranslateDelete";
 import { formatDate } from "../../components/translates/Honyaku";
+import { speakText } from "../../components/translates/Onsei";
 
 const TranslateItelete = ({
   translate,
   isSpeaking,
   stopSpeaking,
-  speakText,
 }: any) => {
   return (
     <>

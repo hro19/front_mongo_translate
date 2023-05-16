@@ -6,9 +6,7 @@ import {
   getApiLimit,
 } from "../../components/translates/Honyaku";
 
-import {
-  handleSpeak,
-} from "../../components/translates/Onsei";
+import { speakText } from "../../components/translates/Onsei";
 
 const API_KEY = "68fddf2a-cbfe-a9a0-87bf-0269b2ebbf29:fx";
 const API_URL = "https://api-free.deepl.com/v2/translate";
@@ -18,7 +16,6 @@ const Home = () => {
   const [inputText, setInputText] = useState(""); // inputText ステートを宣言する
   const [translatedText, setTranslatedText] = useState(""); // translatedText ステートを宣言する
   const [apiLimit, setApiLimit] = useState(500000); // apiLimit ステートを宣言する
-  const [isJapanese, setIsJapanese] = useState(false); // isJapanese ステートを宣言する
   const [jaContent, setJaContent] = useState<string | null>(null);
   const [enContent, setEnContent] = useState<string | null>(null);
 
@@ -26,7 +23,6 @@ const Home = () => {
   const handleCreateSuccess = () => {
     setInputText("");
     setTranslatedText("");
-    setIsJapanese(false);
     setJaContent(null);
     setEnContent(null);
   };
@@ -66,7 +62,6 @@ const Home = () => {
                   API_KEY,
                   API_URL,
                   inputText,
-                  setIsJapanese,
                   setTranslatedText,
                   setApiLimit,
                   apiLimit,
@@ -87,7 +82,7 @@ const Home = () => {
               {translatedText}
             </div>
             <button
-              onClick={()=> handleSpeak({ translatedText, isJapanese })}
+              onClick={() => speakText(translatedText)}
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md mt-4"
             >
               Speak
