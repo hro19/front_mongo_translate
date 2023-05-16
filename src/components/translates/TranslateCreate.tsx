@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 const TranslateCreate = ({
@@ -10,8 +10,17 @@ const TranslateCreate = ({
   enContent: any;
   handleCreateSuccess: any;
 }) => {
+  const [isCreating, setIsCreating] = useState(false); // データ登録中かどうかをトラッキングする状態
+
   const handleCreate = async () => {
+    if (isCreating) {
+      // データ登録中の場合は何もしない
+      return;
+    }
+
     try {
+      setIsCreating(true); // データ登録中の状態にする
+
       const response = await axios.post(
         "https://back-mongo-translate.vercel.app/api/v1/translates",
         { jaContent, enContent }
@@ -20,6 +29,8 @@ const TranslateCreate = ({
       handleCreateSuccess();
     } catch (error) {
       console.error("Error creating data:", error);
+    } finally {
+      setIsCreating(false); // データ登録完了後、状態をリセットする
     }
   };
 
