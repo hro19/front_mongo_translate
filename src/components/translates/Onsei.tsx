@@ -1,4 +1,6 @@
 //入力文字が日本語か英語かを判断
+import { Dispatch, SetStateAction } from "react";
+
 const checkEnglish = (content: string) => {
   for (var i = 0; i < content.length; i++) {
     //言語判別
@@ -9,8 +11,12 @@ const checkEnglish = (content: string) => {
   return true; // 日本語が含まれない場合はfalseを返す
 };
 
+interface SpeakTextArgs {
+  content: string;
+  setIsSpeaking?: Dispatch<SetStateAction<boolean>>;
+}
 //文字テキストを音声出力
-const speakText = ({ content, setIsSpeaking }: any) => {
+const speakText = ({ content, setIsSpeaking }: SpeakTextArgs) => {
   const utterance = new SpeechSynthesisUtterance(content);
   const isEng = checkEnglish(content);
   if (isEng) {
