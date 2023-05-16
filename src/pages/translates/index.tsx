@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import TranslateCreate from "../../components/translates/TranslateCreate";
 import TranslateTitle from "../../components/translates/TranslateTitle";
 import {
@@ -28,9 +28,9 @@ const Home = () => {
   };
 
   //インプットした文字をinputTextにセットする
-  const handleInputChange = (event: any) => {
-    setInputText(event.target.value);
-  };
+const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  setInputText(event.target.value);
+};
 
   //一月のご利用文字数を表示
   useEffect(() => {
@@ -82,9 +82,7 @@ const Home = () => {
               {translatedText}
             </div>
             <button
-              onClick={() =>
-                speakText({ content: translatedText})
-              }
+              onClick={() => speakText({ content: translatedText })}
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md mt-4"
             >
               Speak
