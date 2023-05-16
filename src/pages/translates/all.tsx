@@ -13,12 +13,18 @@ const All = () => {
   const [inputValue, setInputValue] = useState("");
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  const fetchTranslates = async () => {
+    const fetchTranslates = async () => {
     const response = await axios.get(
-      "https://back-mongo-translate.vercel.app/api/v1/translates"
+        "https://back-mongo-translate.vercel.app/api/v1/translates"
     );
-    return response.data;
-  };
+    const data = response.data;
+    const sortedData = data.sort((a: any, b: any) => {
+      return (
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
+    });
+    return sortedData;
+    };
 
   const { data, isLoading, isError, error } = useQuery<any, Error>(
     "translates",
