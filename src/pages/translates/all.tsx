@@ -8,6 +8,13 @@ import TranslateItelete from "../../components/translates/TranslateItelete";
 import TranslateTitle from "../../components/translates/TranslateTitle";
 import { searchFunc } from "../../components/translates/Kensaku";
 
+interface Translate {
+  _id: string;
+  enContent: string;
+  jaContent: string;
+  created_at: string;
+}
+
 const All = () => {
   const [showPosts, setShowPosts] = useState([]);
   const [inputValue, setInputValue] = useState("");
@@ -50,7 +57,7 @@ const All = () => {
 
     return showPosts
       .slice(startIndex, endIndex)
-      .map((translate: any) => (
+      .map((translate: Translate) => (
         <TranslateItelete
           key={translate._id}
           translate={translate}
