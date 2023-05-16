@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
+import { Pagination } from "@mui/material";
 import ScaleLoader from "react-spinners/ScaleLoader";
 
 import TranslateItelete from "../../components/translates/TranslateItelete";
 import TranslateTitle from "../../components/translates/TranslateTitle";
-
 
 const All = () => {
   const fetchTranslates = async () => {
@@ -20,15 +20,39 @@ const All = () => {
     fetchTranslates
   );
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
+
+  const handlePageChange = (event: any, page: any) => {
+    setCurrentPage(page);
+  };
+
+  const renderPaginationItems = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
+    return data
+      .slice(startIndex, endIndex)
+      .map((translate: any) => (
+        <TranslateItelete
+          key={translate._id}
+          translate={translate}
+          isSpeaking={isSpeaking}
+          stopSpeaking={stopSpeaking}
+          speakText={speakText}
+        />
+      ));
+  };
+
   const [isSpeaking, setIsSpeaking] = useState(false);
 
   const speakText = (enContent: string) => {
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(enContent);
-      utterance.lang = "en-US"; // 読み上げモードを米国英語に設定
+      utterance.lang = "en-US";
       window.speechSynthesis.speak(utterance);
       utterance.onend = () => {
-        setIsSpeaking(false); // 読み上げ完了時にisSpeakingをfalseに設定
+        setIsSpeaking(false);
       };
       setIsSpeaking(true);
     }
@@ -53,9 +77,28 @@ const All = () => {
         ) : isError ? (
           <div>Error: {(error as Error).message}</div>
         ) : (
-          data.map((translate: any, index: number) => (
-            <TranslateItelete key={translate._id} translate={translate} isSpeaking={isSpeaking} stopSpeaking={stopSpeaking} speakText={speakText} />
-          ))
+          <>
+            {renderPaginationItems()}
+            <div className="flex justify-center mt-4">
+              <Pagination
+                count={Math.ceil(data.length / itemsPerPage)}
+                page={currentPage}
+                onChange={handlePageChange}
+                sx={{
+                  "& .MuiPaginationItem-root": {
+                    backgroundColor: "#aaaaaa",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: "#444444",
+                    },
+                    "&.Mui-selected": {
+                      backgroundColor: "#444444",
+                    },
+                  },
+                }}
+              />
+            </div>
+          </>
         )}
       </div>
     </div>
