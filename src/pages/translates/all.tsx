@@ -74,11 +74,11 @@ const All = () => {
     }
   };
 
-  const handleInputChange = (e: any) => {
-    const inputValue = e.target.value;
-    setInputValue(inputValue);
-    searchFunc({ value: inputValue, posts: data, setShowPosts });
-  };
+const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  setInputValue(e.target.value);
+  setCurrentPage(1); // ページを1ページ目に設定
+  searchFunc({ value: e.target.value, posts: data, setShowPosts }); // 検索を実行
+};
 
   return (
     <div className="mx-4 pt-2">
