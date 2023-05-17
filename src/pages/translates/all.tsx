@@ -16,7 +16,7 @@ interface Translate {
 }
 
 const All = () => {
-const [showPosts, setShowPosts] = useState<Translate[]>([]);
+  const [showPosts, setShowPosts] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [isSpeaking, setIsSpeaking] = useState(false);
 
