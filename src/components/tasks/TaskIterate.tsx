@@ -5,11 +5,22 @@ import Link from "next/link";
 import Modalpop from "./Modalpop";
 import TaskDelete from "./TaskDelete";
 
-const TaskIterate = ({ tasks, refetch }: any) => {
+interface Task {
+  _id: string;
+  name: string;
+  completed: boolean;
+}
+
+interface TaskIterateProps {
+  tasks: Task[];
+  refetch: () => Promise<any>;
+}
+
+const TaskIterate = ({ tasks, refetch }: TaskIterateProps) => {
   return (
     <>
       <tbody>
-        {tasks.map((task: any, index: number) => (
+        {tasks.map((task: Task, index: number) => (
           <tr key={task._id} id={task._id}>
             <td className="border px-4 py-2">{index + 1}</td>
             <td className="border px-4 py-2">
