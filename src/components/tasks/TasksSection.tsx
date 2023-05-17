@@ -21,7 +21,7 @@ const TasksSection = () => {
     refetch,
   } = useQuery<Task[]>("tasks", async () => {
     const { data } = await axios.get(
-      "https://back-mongo-task.vercel.app/api/v1/tasks"
+      "https://back-mongo-task2.vercel.app/api/v1/tasks"
     );
     return data;
   });

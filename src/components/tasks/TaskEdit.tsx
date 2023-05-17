@@ -11,7 +11,7 @@ const TaskDelete = ({ setTasks, tasks, task }: any) => {
   const handleEdit = async (id: string, editedTask: Task) => {
     try {
       const response = await axios.patch(
-        `https://back-mongo-task.vercel.app/api/v1/tasks/${id}`,
+        `https://back-mongo-task2.vercel.app/api/v1/tasks/${id}`,
         editedTask
       );
       setTasks(

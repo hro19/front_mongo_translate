@@ -34,7 +34,7 @@ export default TaskSingle;
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { slug } = context.query;
   const res = await axios.get(
-    `https://back-mongo-task.vercel.app/api/v1/tasks/${slug}`
+    `https://back-mongo-task2.vercel.app/api/v1/tasks/${slug}`
   );
   const task = res.data;
 

@@ -20,7 +20,7 @@ const ModalContent = ({ task, refetch, closeModal }: any) => {
       };
 
       await axios.patch(
-        `https://back-mongo-task.vercel.app/api/v1/tasks/${task._id}`,
+        `https://back-mongo-task2.vercel.app/api/v1/tasks/${task._id}`,
         updatedTask,
         { headers: { "Content-Type": "application/json" } }
       );

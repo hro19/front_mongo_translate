@@ -11,7 +11,7 @@ const TaskDelete = ({ refetch, task }: any) => {
   const handleDelete = async (id: string) => {
     try {
       await axios.delete(
-        `https://back-mongo-task.vercel.app/api/v1/tasks/${id}`
+        `https://back-mongo-task2.vercel.app/api/v1/tasks/${id}`
       );
       refetch();
     } catch (err) {

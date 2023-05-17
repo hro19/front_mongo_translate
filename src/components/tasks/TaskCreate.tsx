@@ -15,7 +15,7 @@ const TaskCreate = ({ refetch }: TaskCreateProps) => {
 
   const onSubmit = async (data: any, e: any) => {
     try {
-      await axios.post("https://back-mongo-task.vercel.app/api/v1/tasks", data);
+      await axios.post("https://back-mongo-task2.vercel.app/api/v1/tasks", data);
       refetch(); // タスクリストを更新する
       e.target.reset(); // フォームの値をリセットする
     } catch (error) {
