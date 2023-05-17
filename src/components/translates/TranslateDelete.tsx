@@ -2,7 +2,18 @@ import React from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 
-const TranslateDelete = ({ translate }: { translate: any }) => {
+interface Translate {
+  _id: string;
+  enContent: string;
+  jaContent: string;
+  created_at: string;
+}
+
+interface TranslateDeleteProps {
+  translate: Translate;
+}
+
+const TranslateDelete = ({ translate }: TranslateDeleteProps) => {
   const queryClient = useQueryClient();
 
   const deleteTranslate = async () => {
@@ -12,14 +23,14 @@ const TranslateDelete = ({ translate }: { translate: any }) => {
     return response.data;
   };
 
-  const { mutate } = useMutation(deleteTranslate, {
+  const mutation = useMutation(deleteTranslate, {
     onSuccess: () => {
       queryClient.refetchQueries("translates"); // "translates" クエリを最新に更新
     },
   });
 
   const handleDelete = () => {
-    mutate();
+    mutation.mutate();
   };
 
   return (
