@@ -25,7 +25,7 @@ const [showPosts, setShowPosts] = useState<Translate[]>([]);
         "https://back-mongo-translate.vercel.app/api/v1/translates"
     );
     const data = response.data;
-    const sortedData = data.sort((a: any, b: any) => {
+    const sortedData = data.sort((a: Translate, b: Translate) => {
       return (
         new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
       );
@@ -47,7 +47,7 @@ const [showPosts, setShowPosts] = useState<Translate[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
 
-  const handlePageChange = (event: any, page: any) => {
+  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
     setCurrentPage(page);
   };
 
