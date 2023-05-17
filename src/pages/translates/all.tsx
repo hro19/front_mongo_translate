@@ -20,9 +20,9 @@ const All = () => {
   const [inputValue, setInputValue] = useState("");
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-    const fetchTranslates = async () => {
+  const fetchTranslates = async () => {
     const response = await axios.get(
-        "https://back-mongo-translate.vercel.app/api/v1/translates"
+      "https://back-mongo-translate.vercel.app/api/v1/translates"
     );
     const data = response.data;
     const sortedData = data.sort((a: Translate, b: Translate) => {
@@ -31,7 +31,7 @@ const All = () => {
       );
     });
     return sortedData;
-    };
+  };
 
   const { data, isLoading, isError, error } = useQuery<any, Error>(
     "translates",
@@ -43,11 +43,14 @@ const All = () => {
     }
   );
 
-//ページング設定
+  //ページング設定
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    page: number
+  ) => {
     setCurrentPage(page);
   };
 
@@ -66,13 +69,14 @@ const All = () => {
         />
       ));
   };
+  //ページング設定終了
 
-//検索インプット
-const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  setInputValue(e.target.value);
-  setCurrentPage(1); // ページを1ページ目に設定
-  searchFunc({ value: e.target.value, posts: data, setShowPosts }); // 検索を実行
-};
+  //検索インプット
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+    setCurrentPage(1); // ページを1ページ目に設定
+    searchFunc({ value: e.target.value, posts: data, setShowPosts }); // 検索を実行
+  };
 
   return (
     <div className="mx-4 pt-2">
