@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Link from "next/link";
 import EditBox from "../../components/tasks/EditBox";
 
-const TaskSingle = ({ task }: any) => {
+interface Task {
+  _id: string;
+  name: string;
+  completed: boolean;
+}
+
+const TaskSingle = (task: Task) => {
   const [currentTask, setCurrentTask] = useState(task);
 
-  const handleUpdateTask = (updatedTask: any) => {
+  const handleUpdateTask = (updatedTask: Task) => {
     setCurrentTask(updatedTask);
   };
 
@@ -31,7 +37,9 @@ const TaskSingle = ({ task }: any) => {
 
 export default TaskSingle;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   const { slug } = context.query;
   const res = await axios.get(
     `https://back-mongo-task2.vercel.app/api/v1/tasks/${slug}`
