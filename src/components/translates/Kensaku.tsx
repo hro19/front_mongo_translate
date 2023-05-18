@@ -28,7 +28,7 @@ const searchFunc = ({ value, posts, setShowPosts }: any) => {
 
     setShowPosts(searchedPosts);
   } else {
-    // postsが存在しない場合は全件表示
+    // postsが存在しない場合は空の配列を返す
     setShowPosts([]);
   }
 };
