@@ -7,7 +7,12 @@ interface Task {
   completed: boolean;
 }
 
-const TaskDelete = ({ refetch, task }: any) => {
+interface TaskDeleteProps {
+  task: Task;
+  refetch: () => void;
+}
+
+const TaskDelete = ({ task, refetch }: TaskDeleteProps) => {
   const handleDelete = async (id: string) => {
     try {
       await axios.delete(
