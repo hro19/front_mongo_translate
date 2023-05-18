@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
-
 interface Post {
   _id: string;
   enContent: string;
