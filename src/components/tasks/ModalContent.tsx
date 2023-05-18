@@ -2,7 +2,19 @@ import React, { useState } from "react";
 import axios from "axios";
 import Modal from "react-modal";
 
-const ModalContent = ({ task, refetch, closeModal }: any) => {
+interface Task {
+  _id: string;
+  name: string;
+  completed: boolean;
+}
+
+interface ModalContentProps {
+  task: Task;
+  refetch: () => void;
+  closeModal: () => void;
+}
+
+const ModalContent = ({ task, refetch, closeModal }: ModalContentProps) => {
   const [name, setName] = useState(task.name);
   const [completed, setCompleted] = useState(task.completed);
 

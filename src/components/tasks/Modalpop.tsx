@@ -39,7 +39,6 @@ const Modalpop = ({ task, refetch }: ModalpopProps) => {
         overlayClassName="fixed inset-0 bg-gray-700 bg-opacity-50"
       >
         <ModalContent
-          setModalIsOpen={setModalIsOpen}
           task={task}
           refetch={refetch}
           closeModal={closeModal}
