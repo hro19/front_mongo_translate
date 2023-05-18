@@ -11,12 +11,12 @@ interface Task {
 }
 
 interface TaskTableProps {
-  tasks: Task[];
+  tasks?: Task[]; // オプショナルに設定
   refetch: () => void;
   isLoading: boolean;
 }
 
-const TaskTable = ({ tasks, refetch, isLoading }: TaskTableProps) => {
+const TaskTable = ({ tasks = [], refetch, isLoading }: TaskTableProps) => {
   const [status, setStatus] = useState("uncompleted");
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
