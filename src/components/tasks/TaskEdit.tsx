@@ -7,7 +7,13 @@ interface Task {
   completed: boolean;
 }
 
-const TaskDelete = ({ setTasks, tasks, task }: any) => {
+interface TaskDeleteProps {
+  task: Task;
+  tasks: Task[];
+  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+}
+
+const TaskDelete = ({ task, tasks, setTasks }: TaskDeleteProps) => {
   const handleEdit = async (id: string, editedTask: Task) => {
     try {
       const response = await axios.patch(
@@ -31,7 +37,9 @@ const TaskDelete = ({ setTasks, tasks, task }: any) => {
     <>
       <button
         className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded"
-        onClick={() => handleEdit(task._id, { ...task, completed: !task.completed })}
+        onClick={() =>
+          handleEdit(task._id, { ...task, completed: !task.completed })
+        }
       >
         Toggle Completion
       </button>
