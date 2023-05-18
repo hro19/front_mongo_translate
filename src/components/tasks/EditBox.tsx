@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import axios from "axios";
 
 interface Task {
@@ -9,7 +10,8 @@ interface Task {
 
 interface EditBoxProps {
   currentTask: Task;
-  setCurrentTask: React.Dispatch<React.SetStateAction<Task>>;
+  setCurrentTask: Dispatch<SetStateAction<Task>>;
+  onUpdateTask: (updatedTask: Task) => void;
 }
 
 const EditBox = ({ currentTask, setCurrentTask }: EditBoxProps) => {
