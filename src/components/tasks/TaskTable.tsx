@@ -4,7 +4,19 @@ import React, { useState } from "react";
 import TaskIterate from "./TaskIterate";
 import BounceLoader from "react-spinners/BounceLoader";
 
-const TaskTable = ({ tasks, refetch, isLoading }: any) => {
+interface Task {
+  _id: string;
+  name: string;
+  completed: boolean;
+}
+
+interface TaskTableProps {
+  tasks: Task[];
+  refetch: () => void;
+  isLoading: boolean;
+}
+
+const TaskTable = ({ tasks, refetch, isLoading }: TaskTableProps) => {
   const [status, setStatus] = useState("uncompleted");
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -19,7 +31,7 @@ const TaskTable = ({ tasks, refetch, isLoading }: any) => {
     );
   }
 
-  const filteredTasks = tasks.filter((task: any) => {
+  const filteredTasks = tasks.filter((task: Task) => {
     if (status === "uncompleted") {
       return !task.completed;
     } else if (status === "completed") {
