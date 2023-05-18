@@ -1,7 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const EditBox = ({ currentTask, setCurrentTask }: any) => {
+interface Task {
+  _id: string;
+  name: string;
+  completed: boolean;
+}
+
+interface EditBoxProps {
+  currentTask: Task;
+  setCurrentTask: React.Dispatch<React.SetStateAction<Task>>;
+}
+
+const EditBox = ({ currentTask, setCurrentTask }: EditBoxProps) => {
   const [name, setName] = useState(currentTask.name);
   const [completed, setCompleted] = useState(currentTask.completed);
 
