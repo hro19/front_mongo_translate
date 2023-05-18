@@ -2,9 +2,18 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import ModalContent from "./ModalContent";
 
-Modal.setAppElement("#__next");
+interface Task {
+  _id: string;
+  name: string;
+  completed: boolean;
+}
 
-const Modalpop = ({ task, refetch }: any) => {
+interface ModalpopProps {
+  task: Task;
+  refetch: () => void;
+}
+
+const Modalpop = ({ task, refetch }: ModalpopProps) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
