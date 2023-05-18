@@ -13,7 +13,7 @@ interface Task {
 
 interface TaskIterateProps {
   tasks: Task[];
-  refetch: () => Promise<any>;
+  refetch: () => void;
 }
 
 const TaskIterate = ({ tasks, refetch }: TaskIterateProps) => {
