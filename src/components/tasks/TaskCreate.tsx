@@ -1,23 +1,38 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
+
+interface TaskData {
+  name: string;
+  completed: boolean;
+  // その他のタスクデータのプロパティを定義
+}
 
 interface TaskCreateProps {
   refetch: () => void;
 }
 
-const TaskCreate = ({ refetch }: TaskCreateProps) => {
+interface FormData {
+  name: string;
+  completed: boolean;
+}
+
+const TaskCreate: React.FC<TaskCreateProps> = ({ refetch }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+    reset,
+  } = useForm<FormData>();
 
-  const onSubmit = async (data: any, e: any) => {
+  const onSubmit: SubmitHandler<FormData> = async (data, e) => {
     try {
-      await axios.post("https://back-mongo-task2.vercel.app/api/v1/tasks", data);
+      await axios.post(
+        "https://back-mongo-task2.vercel.app/api/v1/tasks",
+        data
+      );
       refetch(); // タスクリストを更新する
-      e.target.reset(); // フォームの値をリセットする
+      e?.target.reset(); // フォームの値をリセットする
     } catch (error) {
       console.error(error);
     }
