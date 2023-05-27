@@ -4,17 +4,7 @@ import React from 'react'
 import Link from "next/link";
 import Modalpop from "./Modalpop";
 import TaskDelete from "./TaskDelete";
-
-interface Task {
-  _id: string;
-  name: string;
-  completed: boolean;
-}
-
-interface TaskIterateProps {
-  tasks: Task[];
-  refetch: () => void;
-}
+import { Task, TaskIterateProps } from "../../ts/Task";
 
 const TaskIterate = ({ tasks, refetch }: TaskIterateProps) => {
   return (
