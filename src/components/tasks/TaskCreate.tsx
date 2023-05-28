@@ -2,12 +2,6 @@ import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 
-type TaskData = {
-  name: string;
-  completed: boolean;
-  // その他のタスクデータのプロパティを定義
-};
-
 type TaskCreateProps = {
   refetch: () => void;
 };
