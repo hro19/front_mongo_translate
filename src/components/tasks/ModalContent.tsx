@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Modal from "react-modal";
-import { Task } from "../../ts/Task";
+import { Task, TaskRefetch } from "../../ts/Task";
 
-interface ModalContentProps {
-  task: Task;
-  refetch: () => void;
+type ModalContentProps = TaskRefetch & {
   closeModal: () => void;
-}
+};
 
 const ModalContent = ({ task, refetch, closeModal }: ModalContentProps) => {
   const [name, setName] = useState(task.name);
