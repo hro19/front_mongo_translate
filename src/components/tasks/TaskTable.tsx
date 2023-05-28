@@ -43,7 +43,7 @@ const TaskTable = ({ tasks = [], refetch, isLoading }: TaskTableProps) => {
           id="status-select"
           value={status}
           onChange={handleChange}
-          className="bg-yellow-600 text-white py-2 pl-2 pr-4 rounded-lg"
+          className="bg-yellow-600 text-white py-2 pl-2 pr-4 rounded-lg cursor-pointer"
         >
           <option value="uncompleted">Uncompleted</option>
           <option value="completed">Completed</option>
