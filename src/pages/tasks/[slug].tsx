@@ -1,26 +1,25 @@
 import React, { useState } from "react";
+import { GetServerSideProps } from "next";
 import axios from "axios";
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Link from "next/link";
 import EditBox from "../../components/tasks/EditBox";
+import { Task } from "../../ts/Task";
 
-interface Task {
-  _id: string;
-  name: string;
-  completed: boolean;
-}
+type SingleTaskPageProps = {
+  task: Task;
+};
 
-const TaskSingle = (task: Task) => {
+const SingleTaskPage = ({ task }: SingleTaskPageProps) => {
   const [currentTask, setCurrentTask] = useState(task);
-
-  const handleUpdateTask = (updatedTask: Task) => {
-    setCurrentTask(updatedTask);
-  };
-
+    const handleUpdateTask = (updatedTask: Task) => {
+      setCurrentTask(updatedTask);
+    };
+    
   return (
     <>
       <div>
         <h1>{currentTask.name}</h1>
+        <p>{currentTask._id}</p>
         <p>{currentTask.completed ? "Completed" : "Not Completed"}</p>
       </div>
       <EditBox
@@ -35,20 +34,30 @@ const TaskSingle = (task: Task) => {
   );
 };
 
-export default TaskSingle;
-
-export const getServerSideProps: GetServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+export const getServerSideProps: GetServerSideProps<
+  SingleTaskPageProps
+> = async (context) => {
   const { slug } = context.query;
-  const res = await axios.get(
-    `https://back-mongo-task2.vercel.app/api/v1/tasks/${slug}`
-  );
-  const task = res.data;
 
-  return {
-    props: {
-      task,
-    },
-  };
+  try {
+    const response = await axios.get(
+      `https://back-mongo-task2.vercel.app/api/v1/tasks/${slug}`
+    );
+    const task = response.data;
+
+    return {
+      props: {
+        task,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching single task:", error);
+    return {
+      props: {
+        task: null,
+      },
+    };
+  }
 };
+
+export default SingleTaskPage;
