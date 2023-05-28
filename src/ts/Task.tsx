@@ -4,6 +4,11 @@ export type Task = {
   completed: boolean;
 };
 
+export type TaskRefetch = {
+  task: Task;
+  refetch: () => void;
+}
+
 export type TaskIterateProps = {
   tasks: Task[];
   refetch: () => void;

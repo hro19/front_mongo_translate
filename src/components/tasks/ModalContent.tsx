@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Modal from "react-modal";
-
-interface Task {
-  _id: string;
-  name: string;
-  completed: boolean;
-}
+import { Task } from "../../ts/Task";
 
 interface ModalContentProps {
   task: Task;

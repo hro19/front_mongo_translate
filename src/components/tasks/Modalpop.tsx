@@ -1,19 +1,9 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import ModalContent from "./ModalContent";
+import { TaskRefetch } from "../../ts/Task";
 
-interface Task {
-  _id: string;
-  name: string;
-  completed: boolean;
-}
-
-interface ModalpopProps {
-  task: Task;
-  refetch: () => void;
-}
-
-const Modalpop = ({ task, refetch }: ModalpopProps) => {
+const Modalpop = ({ task, refetch }: TaskRefetch) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
@@ -38,11 +28,7 @@ const Modalpop = ({ task, refetch }: ModalpopProps) => {
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[92%] md:w-3/5"
         overlayClassName="fixed inset-0 bg-gray-700 bg-opacity-50"
       >
-        <ModalContent
-          task={task}
-          refetch={refetch}
-          closeModal={closeModal}
-        />
+        <ModalContent task={task} refetch={refetch} closeModal={closeModal} />
       </Modal>
     </div>
   );

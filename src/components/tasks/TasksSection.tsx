@@ -4,14 +4,9 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 
+import { Task } from "../../ts/Task";
 import TaskTable from "./TaskTable";
 import TaskCreate from "./TaskCreate";
-
-interface Task {
-  _id: string;
-  name: string;
-  completed: boolean;
-}
 
 const TasksSection = () => {
   const {

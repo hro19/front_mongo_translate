@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { Dispatch, SetStateAction } from "react";
 import axios from "axios";
-
-interface Task {
-  _id: string;
-  name: string;
-  completed: boolean;
-}
+import { Task } from "../../ts/Task";
 
 interface EditBoxProps {
   currentTask: Task;

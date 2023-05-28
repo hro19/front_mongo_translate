@@ -3,12 +3,7 @@
 import React, { useState } from "react";
 import TaskIterate from "./TaskIterate";
 import BounceLoader from "react-spinners/BounceLoader";
-
-interface Task {
-  _id: string;
-  name: string;
-  completed: boolean;
-}
+import { Task } from "../../ts/Task";
 
 interface TaskTableProps {
   tasks?: Task[]; // オプショナルに設定

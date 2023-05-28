@@ -1,13 +1,8 @@
 import React from 'react'
 import axios from "axios";
+import { Task, TaskIterateProps } from "../../ts/Task";
 
-interface Task {
-  _id: string;
-  name: string;
-  completed: boolean;
-}
-
-interface TaskDeleteProps {
+type TaskDeleteProps = {
   task: Task;
   refetch: () => void;
 }

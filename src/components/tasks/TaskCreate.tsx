@@ -2,22 +2,22 @@ import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 
-interface TaskData {
+type TaskData = {
   name: string;
   completed: boolean;
   // その他のタスクデータのプロパティを定義
-}
+};
 
-interface TaskCreateProps {
+type TaskCreateProps = {
   refetch: () => void;
-}
+};
 
-interface FormData {
+type FormData = {
   name: string;
   completed: boolean;
-}
+};
 
-const TaskCreate: React.FC<TaskCreateProps> = ({ refetch }) => {
+const TaskCreate = ({ refetch }: TaskCreateProps) => {
   const {
     register,
     handleSubmit,
