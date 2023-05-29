@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
-import { AiOutlineUserAdd } from "react-icons/ai";
+import { AiOutlineUsergroupAdd } from "react-icons/ai";
 
 type TaskCreateProps = {
   refetch: () => void;
@@ -66,10 +66,8 @@ const TaskCreate = ({ refetch }: TaskCreateProps) => {
           />
           <span className="ml-2">Completed</span>
         </label>
-        <button
-          className="ml-4 bg-emerald-700 hover:bg-emerald-600 cursor-pointer text-white font-bold py-2 px-4 rounded"
-        >
-          <AiOutlineUserAdd
+        <button className="ml-4 bg-emerald-700 hover:bg-emerald-600 cursor-pointer text-white font-bold py-2 px-4 rounded">
+          <AiOutlineUsergroupAdd
             className="icon text-white mb-1 mr-1 inline-block"
             size="1.3rem"
           />
