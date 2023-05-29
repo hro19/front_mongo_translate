@@ -8,7 +8,7 @@ interface TaskDeleteProps {
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 
-const TaskDelete = ({ task, tasks, setTasks }: TaskDeleteProps) => {
+const TaskEdit = ({ task, tasks, setTasks }: TaskDeleteProps) => {
   const handleEdit = async (id: string, editedTask: Task) => {
     try {
       const response = await axios.patch(
@@ -42,4 +42,4 @@ const TaskDelete = ({ task, tasks, setTasks }: TaskDeleteProps) => {
   );
 };
 
-export default TaskDelete
+export default TaskEdit
