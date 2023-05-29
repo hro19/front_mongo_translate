@@ -52,7 +52,7 @@ const TaskTable = ({ tasks = [], refetch, isLoading }: TaskTableProps) => {
       <table className="table-auto w-full">
         <thead>
           <tr>
-            <th className="px-4 py-2">#</th>
+            <th className="px-4 py-2"></th>
             <th className="px-4 py-2">Name</th>
             <th className="px-4 py-2">Completed</th>
             <th className="px-4 py-2">Edit</th>
