@@ -1,12 +1,14 @@
-// trイテレートのみ構造
-
-import React from 'react'
+import React from "react";
 import Link from "next/link";
 import Modalpop from "./Modalpop";
 import TaskDelete from "./TaskDelete";
 import { Task, TaskIterateProps } from "../../ts/Task";
 
 const TaskIterate = ({ tasks, refetch }: TaskIterateProps) => {
+  if (!tasks) {
+    return <p>タスクデータがありません</p>;
+  }
+
   return (
     <>
       <tbody>
@@ -32,4 +34,4 @@ const TaskIterate = ({ tasks, refetch }: TaskIterateProps) => {
   );
 };
 
-export default TaskIterate
+export default TaskIterate;
