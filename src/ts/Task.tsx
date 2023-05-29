@@ -10,6 +10,6 @@ export type TaskRefetch = {
 }
 
 export type TaskIterateProps = {
-  tasks: Task[];
+  tasks?: Task[];
   refetch: () => void;
 };
