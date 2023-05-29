@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
+import { AiOutlineUserAdd } from "react-icons/ai";
 
 type TaskCreateProps = {
   refetch: () => void;
@@ -39,6 +40,7 @@ const TaskCreate = ({ refetch }: TaskCreateProps) => {
         className="mx-8 bg-blue-50 border border-gray-300 rounded-lg p-4 flex flex-row items-center"
       >
         <label className="mr-4 flex items-center h-full">
+          <AiOutlineUserAdd className="icon text-green-800" size="1.5rem" />
           <span>Name:</span>
           <input
             {...register("name", {
