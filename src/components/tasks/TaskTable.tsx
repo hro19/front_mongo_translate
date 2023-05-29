@@ -3,13 +3,11 @@
 import React, { useState } from "react";
 import TaskIterate from "./TaskIterate";
 import BounceLoader from "react-spinners/BounceLoader";
-import { Task } from "../../ts/Task";
+import { Task,TaskIterateProps } from "../../ts/Task";
 
-interface TaskTableProps {
-  tasks?: Task[]; // オプショナルに設定
-  refetch: () => void;
+type TaskTableProps = TaskIterateProps & {
   isLoading: boolean;
-}
+};
 
 const TaskTable = ({ tasks = [], refetch, isLoading }: TaskTableProps) => {
   const [status, setStatus] = useState("uncompleted");

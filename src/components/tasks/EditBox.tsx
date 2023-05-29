@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import axios from "axios";
 import { Task } from "../../ts/Task";
 
-interface EditBoxProps {
+type EditBoxProps = {
   currentTask: Task;
   setCurrentTask: Dispatch<SetStateAction<Task>>;
   onUpdateTask: (updatedTask: Task) => void;
