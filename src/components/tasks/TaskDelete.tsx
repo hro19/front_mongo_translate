@@ -1,18 +1,27 @@
-import React from 'react'
+import React from "react";
 import axios from "axios";
-import { TaskRefetch } from "../../ts/Task";
+import { useMutation, useQueryClient } from "react-query";
+import { TaskObj } from "../../ts/Task";
 import { AiOutlineUserDelete } from "react-icons/ai";
 
-const TaskDelete = ({ task, refetch }: TaskRefetch) => {
-  const handleDelete = async (id: string) => {
-    try {
+const TaskDelete = ({ task }: TaskObj) => {
+  const queryClient = useQueryClient();
+
+  const deleteTaskMutation = useMutation(
+    async (id: string) => {
       await axios.delete(
         `https://back-mongo-task2.vercel.app/api/v1/tasks/${id}`
       );
-      refetch();
-    } catch (err) {
-      console.error(err);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("tasks");
+      },
     }
+  );
+
+  const handleDelete = (id: string) => {
+    deleteTaskMutation.mutate(id);
   };
 
   return (
@@ -31,4 +40,4 @@ const TaskDelete = ({ task, refetch }: TaskRefetch) => {
   );
 };
 
-export default TaskDelete
+export default TaskDelete;

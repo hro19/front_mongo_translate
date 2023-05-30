@@ -4,6 +4,10 @@ export type Task = {
   completed: boolean;
 };
 
+export type TaskObj = {
+  task: Task;
+};
+
 export type TaskRefetch = {
   task: Task;
   refetch: () => void;
