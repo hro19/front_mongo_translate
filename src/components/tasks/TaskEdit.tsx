@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from "axios";
-import { Task, TaskIterateObj } from "../../ts/Task";
+import { Task } from "../../ts/Task";
 
 interface TaskDeleteProps {
   task: Task;
