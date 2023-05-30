@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
-import { TranslateIterateObj } from "../../ts/Translate";
+import { TranslateObj } from "../../ts/Translate";
 
-const TranslateDelete = ({ translate }: TranslateIterateObj) => {
+const TranslateDelete = ({ translate }: TranslateObj) => {
   const queryClient = useQueryClient();
 
   const deleteTranslate = async () => {

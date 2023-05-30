@@ -5,6 +5,6 @@ export type Translate = {
   created_at: string;
 };
 
-export type TranslateIterateObj = {
+export type TranslateObj = {
   translate: Translate;
 };
