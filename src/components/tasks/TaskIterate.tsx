@@ -2,9 +2,9 @@ import React from "react";
 import Link from "next/link";
 import Modalpop from "./Modalpop";
 import TaskDelete from "./TaskDelete";
-import { Task, TaskIterateProps } from "../../ts/Task";
+import { Task, TaskIterateObj } from "../../ts/Task";
 
-const TaskIterate = ({ tasks, refetch }: TaskIterateProps) => {
+const TaskIterate = ({ tasks }: TaskIterateObj) => {
   if (!tasks) {
     return <p>タスクデータがありません</p>;
   }
@@ -22,7 +22,7 @@ const TaskIterate = ({ tasks, refetch }: TaskIterateProps) => {
             </td>
             <td className="border px-4 py-2">{task.completed ? "✅" : "❌"}</td>
             <td className="border px-4 py-2">
-              <Modalpop task={task} refetch={refetch} />
+              <Modalpop task={task} />
             </td>
             <td className="border px-4 py-2">
               <TaskDelete task={task} />

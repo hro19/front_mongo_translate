@@ -29,7 +29,7 @@ const TasksSection = () => {
     <div className="container mx-auto mt-5">
       <TaskCreate />
 
-      <TaskTable tasks={tasks} refetch={refetch} isLoading={isLoading} />
+      <TaskTable tasks={tasks} isLoading={isLoading} />
     </div>
   );
 };

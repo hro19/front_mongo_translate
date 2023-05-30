@@ -3,13 +3,13 @@
 import React, { useState } from "react";
 import TaskIterate from "./TaskIterate";
 import BounceLoader from "react-spinners/BounceLoader";
-import { Task,TaskIterateProps } from "../../ts/Task";
+import { Task, TaskIterateObj } from "../../ts/Task";
 
-type TaskTableProps = TaskIterateProps & {
+type TaskTableProps = TaskIterateObj & {
   isLoading: boolean;
 };
 
-const TaskTable = ({ tasks = [], refetch, isLoading }: TaskTableProps) => {
+const TaskTable = ({ tasks = [], isLoading }: TaskTableProps) => {
   const [status, setStatus] = useState("uncompleted");
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -59,7 +59,7 @@ const TaskTable = ({ tasks = [], refetch, isLoading }: TaskTableProps) => {
             <th className="px-4 py-2">Delete</th>
           </tr>
         </thead>
-        <TaskIterate tasks={filteredTasks} refetch={refetch} />
+        <TaskIterate tasks={filteredTasks} />
       </table>
     </>
   );

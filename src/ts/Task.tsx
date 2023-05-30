@@ -8,12 +8,6 @@ export type TaskObj = {
   task: Task;
 };
 
-export type TaskRefetch = {
-  task: Task;
-  refetch: () => void;
-}
-
-export type TaskIterateProps = {
+export type TaskIterateObj = {
   tasks?: Task[];
-  refetch: () => void;
 };

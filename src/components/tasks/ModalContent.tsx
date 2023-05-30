@@ -1,15 +1,32 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Modal from "react-modal";
-import { Task, TaskRefetch } from "../../ts/Task";
+import { Task, TaskObj } from "../../ts/Task";
+import { useMutation, useQueryClient } from "react-query";
 
-type ModalContentProps = TaskRefetch & {
+type ModalContentProps = TaskObj & {
   closeModal: () => void;
 };
 
-const ModalContent = ({ task, refetch, closeModal }: ModalContentProps) => {
+const ModalContent = ({ task, closeModal }: ModalContentProps) => {
   const [name, setName] = useState(task.name);
   const [completed, setCompleted] = useState(task.completed);
+
+  const queryClient = useQueryClient();
+
+  const updateTaskMutation = useMutation(
+    async (updatedTask: Task) => {
+      await axios.patch(
+        `https://back-mongo-task2.vercel.app/api/v1/tasks/${task._id}`,
+        updatedTask,
+        { headers: { "Content-Type": "application/json" } }
+      );
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("tasks");
+      },
+    }
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompleted(e.target.value === "completed");
@@ -19,19 +36,13 @@ const ModalContent = ({ task, refetch, closeModal }: ModalContentProps) => {
     e.preventDefault();
 
     try {
-      const updatedTask = {
+      const updatedTask: Task = {
+        ...task,
         name,
         completed,
       };
 
-      await axios.patch(
-        `https://back-mongo-task2.vercel.app/api/v1/tasks/${task._id}`,
-        updatedTask,
-        { headers: { "Content-Type": "application/json" } }
-      );
-
-      // 更新成功の場合は、タスク一覧を再読み込みする等の処理を追加する
-      refetch();
+      await updateTaskMutation.mutateAsync(updatedTask);
 
       //モーダルを閉じる
       closeModal();
@@ -40,7 +51,6 @@ const ModalContent = ({ task, refetch, closeModal }: ModalContentProps) => {
       // エラーが発生した場合は、適切なエラーハンドリングを行う
     }
   };
-
   return (
     <div className="bg-slate-500">
       <div
