@@ -25,7 +25,7 @@ const TaskIterate = ({ tasks, refetch }: TaskIterateProps) => {
               <Modalpop task={task} refetch={refetch} />
             </td>
             <td className="border px-4 py-2">
-              <TaskDelete task={task} refetch={refetch} />
+              <TaskDelete task={task} />
             </td>
           </tr>
         ))}
