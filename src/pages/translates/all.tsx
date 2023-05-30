@@ -7,13 +7,7 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 import TranslateItelete from "../../components/translates/TranslateItelete";
 import TranslateTitle from "../../components/translates/TranslateTitle";
 import { searchFunc } from "../../components/translates/Kensaku";
-
-interface Translate {
-  _id: string;
-  enContent: string;
-  jaContent: string;
-  created_at: string;
-}
+import { Translate } from "../../ts/Translate";
 
 const All = () => {
   const [showPosts, setShowPosts] = useState([]);

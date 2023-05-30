@@ -1,19 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
+import { TranslateObj } from "../../ts/Translate";
 
-interface Translate {
-  _id: string;
-  enContent: string;
-  jaContent: string;
-  created_at: string;
-}
-
-interface TranslateDeleteProps {
-  translate: Translate;
-}
-
-const TranslateDelete = ({ translate }: TranslateDeleteProps) => {
+const TranslateDelete = ({ translate }: TranslateObj) => {
   const queryClient = useQueryClient();
 
   const deleteTranslate = async () => {
