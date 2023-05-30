@@ -50,15 +50,12 @@ const ModalContent = ({ task, closeModal }: ModalContentProps) => {
   };
 
   return (
-    <div className="bg-slate-500">
+    <div className="">
       <div
         id="pop"
-        className="flex h-full w-full justify-center items-center bg-white p-4"
+        className="flex h-full w-full justify-center items-center bg-white p-8 lg:max-w-[600px] mx-auto"
       >
-        <form
-          className="w-full sm:w-4/5 lg:w-3/4 max-w-md"
-          onSubmit={handleSubmit}
-        >
+        <form className="w-full sm:w-4/5 lg:w-1/2" onSubmit={handleSubmit}>
           <ModalContentForm
             name={name}
             setName={setName}
