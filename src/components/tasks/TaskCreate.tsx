@@ -2,17 +2,14 @@ import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
-
-type TaskCreateProps = {
-  refetch: () => void;
-};
+import { useMutation, useQueryClient } from "react-query";
 
 type FormData = {
   name: string;
   completed: boolean;
 };
 
-const TaskCreate = ({ refetch }: TaskCreateProps) => {
+const TaskCreate = () => {
   const {
     register,
     handleSubmit,
@@ -20,17 +17,28 @@ const TaskCreate = ({ refetch }: TaskCreateProps) => {
     reset,
   } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<FormData> = async (data, e) => {
-    try {
+  const queryClient = useQueryClient();
+
+  const createTaskMutation = useMutation(
+    async (data: FormData) => {
       await axios.post(
         "https://back-mongo-task2.vercel.app/api/v1/tasks",
         data
       );
-      refetch(); // タスクリストを更新する
-      e?.target.reset(); // フォームの値をリセットする
-    } catch (error) {
-      console.error(error);
+    },
+    {
+      onSuccess: () => {
+        //タスクリストのデータが最新の状態に更新されます。
+        queryClient.invalidateQueries("tasks");
+        //react-hook-formの関数で、フォームの値を初期化
+        reset();
+      },
     }
+  );
+
+  //タスク作成リクエストが発行されます;
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    createTaskMutation.mutate(data);
   };
 
   return (
@@ -66,7 +74,10 @@ const TaskCreate = ({ refetch }: TaskCreateProps) => {
           />
           <span className="ml-2">Completed</span>
         </label>
-        <button className="ml-4 bg-emerald-700 hover:bg-emerald-600 cursor-pointer text-white font-bold py-2 px-4 rounded">
+        <button
+          type="submit"
+          className="ml-4 bg-emerald-700 hover:bg-emerald-600 cursor-pointer text-white font-bold py-2 px-4 rounded"
+        >
           <AiOutlineUsergroupAdd
             className="icon text-white mb-1 mr-1 inline-block"
             size="1.3rem"
