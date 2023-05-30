@@ -3,6 +3,7 @@ import TranslateDelete from "../../components/translates/TranslateDelete";
 import { formatDate } from "../../components/translates/Honyaku";
 import { speakText, stopSpeaking } from "../../components/translates/Onsei";
 import { Translate } from "../../ts/Translate";
+import { AiFillPauseCircle,AiOutlineSound } from "react-icons/ai";
 
 type TranslateIteleteProps = {
   translate: Translate;
@@ -33,7 +34,10 @@ const TranslateItelete = ({translate,isSpeaking,setIsSpeaking,}: TranslateItelet
                 className="mt-2 bg-teal-500 text-white py-1 px-2 rounded-md hover:bg-teal-700 text-sm"
                 onClick={() => stopSpeaking(setIsSpeaking)}
               >
-                再生ストップ
+                <AiFillPauseCircle
+                  className="icon text-white my-1 mx-2 inline-block"
+                  size="1.4rem"
+                />
               </button>
             ) : (
               <button
@@ -42,7 +46,10 @@ const TranslateItelete = ({translate,isSpeaking,setIsSpeaking,}: TranslateItelet
                   speakText({ content: translate.enContent, setIsSpeaking })
                 }
               >
-                音声データ
+                <AiOutlineSound
+                  className="icon text-white my-1 mx-2 inline-block"
+                  size="1.4rem"
+                />
               </button>
             )}
           </div>

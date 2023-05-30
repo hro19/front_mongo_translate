@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import { TranslateObj } from "../../ts/Translate";
+import { AiOutlineDelete } from "react-icons/ai";
 
 const TranslateDelete = ({ translate }: TranslateObj) => {
   const queryClient = useQueryClient();
@@ -28,7 +29,10 @@ const TranslateDelete = ({ translate }: TranslateObj) => {
       className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded-md mt-2"
       onClick={handleDelete}
     >
-      削除
+      <AiOutlineDelete
+        className="icon text-white my-1 mx-2 inline-block"
+        size="1.4rem"
+      />
     </button>
   );
 };
