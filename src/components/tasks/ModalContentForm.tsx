@@ -25,7 +25,7 @@ const ModalContentForm = ({
           id="name"
           type="text"
           placeholder="名前を入力してください"
-          value={name}
+          defaultValue={task.name}
           onChange={(e) => setName(e.target.value)}
         />
       </div>
@@ -38,7 +38,7 @@ const ModalContentForm = ({
             id="inprogress"
             name="progress"
             value="inprogress"
-            checked={!completed}
+            checked={!task.completed}
             onChange={handleChange}
           />
           <label htmlFor="inprogress">進行中</label>
@@ -50,7 +50,7 @@ const ModalContentForm = ({
             id="completed"
             name="progress"
             value="completed"
-            checked={completed}
+            checked={task.completed}
             onChange={handleChange}
           />
           <label htmlFor="completed">完了</label>
