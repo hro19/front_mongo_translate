@@ -38,7 +38,7 @@ const ModalContentForm = ({
             id="inprogress"
             name="progress"
             value="inprogress"
-            checked={!task.completed}
+            defaultChecked={!task.completed}
             onChange={handleChange}
           />
           <label htmlFor="inprogress">進行中</label>
@@ -50,7 +50,7 @@ const ModalContentForm = ({
             id="completed"
             name="progress"
             value="completed"
-            checked={task.completed}
+            defaultChecked={task.completed}
             onChange={handleChange}
           />
           <label htmlFor="completed">完了</label>
