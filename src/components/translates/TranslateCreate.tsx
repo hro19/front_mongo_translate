@@ -1,25 +1,26 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const TranslateCreate = ({
-  jaContent,
-  enContent,
-  handleCreateSuccess,
-}: {
+type TranslateCreateProps = {
   jaContent: string | null;
   enContent: string | null;
   handleCreateSuccess: () => void;
+};
+
+const TranslateCreate: React.FC<TranslateCreateProps> = ({
+  jaContent,
+  enContent,
+  handleCreateSuccess,
 }) => {
-  const [isCreating, setIsCreating] = useState(false); // データ登録中かどうかをトラッキングする状態
+  const [isCreating, setIsCreating] = useState(false);
 
   const handleCreate = async () => {
     if (isCreating) {
-      // データ登録中の場合は何もしない
       return;
     }
 
     try {
-      setIsCreating(true); // データ登録中の状態にする
+      setIsCreating(true);
 
       const response = await axios.post(
         "https://back-mongo-translate.vercel.app/api/v1/translates",
@@ -30,7 +31,7 @@ const TranslateCreate = ({
     } catch (error) {
       console.error("Error creating data:", error);
     } finally {
-      setIsCreating(false); // データ登録完了後、状態をリセットする
+      setIsCreating(false);
     }
   };
 

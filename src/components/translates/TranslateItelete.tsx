@@ -2,25 +2,15 @@ import React, { Dispatch, SetStateAction } from "react";
 import TranslateDelete from "../../components/translates/TranslateDelete";
 import { formatDate } from "../../components/translates/Honyaku";
 import { speakText, stopSpeaking } from "../../components/translates/Onsei";
+import { Translate } from "../../ts/Translate";
 
-interface Translate {
-  _id: string;
-  enContent: string;
-  jaContent: string;
-  created_at: string;
-}
-
-interface TranslateIteleteProps {
+type TranslateIteleteProps = {
   translate: Translate;
   isSpeaking: boolean;
   setIsSpeaking: Dispatch<SetStateAction<boolean>>;
 }
 
-const TranslateItelete = ({
-  translate,
-  isSpeaking,
-  setIsSpeaking,
-}: TranslateIteleteProps) => {
+const TranslateItelete = ({translate,isSpeaking,setIsSpeaking,}: TranslateIteleteProps) => {
   return (
     <>
       <div key={translate._id} className="border-b border-bp mb-2 pb-2 b-4">

@@ -1,8 +1,4 @@
-interface Post {
-  _id: string;
-  enContent: string;
-  jaContent: string;
-}
+import { Translate } from "../../ts/Translate";
 
 //検索文字に対応したコンテンツをフィルター
 const searchFunc = ({ value, posts, setShowPosts }: any) => {
@@ -14,7 +10,7 @@ const searchFunc = ({ value, posts, setShowPosts }: any) => {
       return;
     }
 
-    const searchedPosts = posts.filter((post: Post) =>
+    const searchedPosts = posts.filter((post: Translate) =>
       Object.values(post).some((item) => {
         if (item === undefined || item === null) {
           return false;
