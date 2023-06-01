@@ -8,6 +8,7 @@ const ModalContentForm = ({
   setCompleted,
   task,
   closeModal,
+  handleUpdate,
 }: any) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompleted(e.target.value === "completed");
@@ -64,8 +65,9 @@ const ModalContentForm = ({
         キャンセル
       </button>
       <button
-        type="submit"
+        type="button"
         className="bg-blue-500 text-white py-2 px-4 rounded"
+        onClick={handleUpdate}
       >
         更新する
       </button>

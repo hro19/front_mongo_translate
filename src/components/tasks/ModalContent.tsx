@@ -29,7 +29,7 @@ const ModalContent = ({ task, closeModal }: ModalContentProps) => {
     }
   );
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -55,7 +55,7 @@ const ModalContent = ({ task, closeModal }: ModalContentProps) => {
         id="pop"
         className="flex h-full w-full justify-center items-center bg-white p-8 lg:max-w-[600px] mx-auto"
       >
-        <form className="w-full sm:w-4/5 lg:w-1/2" onSubmit={handleSubmit}>
+        <form className="w-full sm:w-4/5 lg:w-1/2">
           <ModalContentForm
             name={name}
             setName={setName}
@@ -63,6 +63,7 @@ const ModalContent = ({ task, closeModal }: ModalContentProps) => {
             setCompleted={setCompleted}
             task={task}
             closeModal={closeModal}
+            handleUpdate={handleUpdate}
           />
         </form>
       </div>
