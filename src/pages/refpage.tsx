@@ -11,11 +11,7 @@ const FormPage = () => {
       <h1 className="text-4xl text-pink-700 font-bold border-b-2 pb-2 mb-4">
         フォーム画面
       </h1>
-      <form
-        className="space-y-4"
-      >
         <RefpageForm handleSubmit={handleSubmit} />
-      </form>
     </div>
   );
 };
