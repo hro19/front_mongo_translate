@@ -1,5 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { Task } from "../../ts/Task";
+
+type FormSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+
+type ModalContentFormProps = {
+  name: string;
+  setName: React.Dispatch<React.SetStateAction<string>>;
+  completed: boolean;
+  setCompleted: React.Dispatch<React.SetStateAction<boolean>>;
+  task: Task;
+  closeModal: () => void;
+  handleUpdate: any;
+};
 
 const ModalContentForm = ({
   name,
@@ -9,7 +21,7 @@ const ModalContentForm = ({
   task,
   closeModal,
   handleUpdate,
-}: any) => {
+}: ModalContentFormProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompleted(e.target.value === "completed");
   };
