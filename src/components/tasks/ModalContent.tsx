@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Task, TaskObj } from "../../ts/Task";
+import { Task, TaskObj,FormData } from "../../ts/Task";
 import { useMutation, useQueryClient } from "react-query";
 import ModalContentForm from "./ModalContentForm";
+
+//バックエンドのエンドポイントにアクセスして、アップデートの仕組みを定義する
+//更新データをreact-queryを使って管理する
 
 type ModalContentProps = TaskObj & {
   closeModal: () => void;
 };
 
 const ModalContent = ({ task, closeModal }: ModalContentProps) => {
-  const [name, setName] = useState(task.name);
-  const [completed, setCompleted] = useState(task.completed);
-
   const queryClient = useQueryClient();
 
   const updateTaskMutation = useMutation(
@@ -29,8 +29,13 @@ const ModalContent = ({ task, closeModal }: ModalContentProps) => {
     }
   );
 
-  const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleUpdate = async (
+    e: React.FormEvent<HTMLFormElement>,
+    values: FormData
+  ) => {
     e.preventDefault();
+
+    const { name, completed } = values;
 
     try {
       const updatedTask: Task = {
@@ -41,7 +46,7 @@ const ModalContent = ({ task, closeModal }: ModalContentProps) => {
 
       await updateTaskMutation.mutateAsync(updatedTask);
 
-      //モーダルを閉じる
+      // モーダルを閉じる
       closeModal();
     } catch (err) {
       console.error(err);
@@ -57,13 +62,12 @@ const ModalContent = ({ task, closeModal }: ModalContentProps) => {
       >
         <form className="w-full sm:w-4/5 lg:w-1/2">
           <ModalContentForm
-            name={name}
-            setName={setName}
-            completed={completed}
-            setCompleted={setCompleted}
             task={task}
             closeModal={closeModal}
-            handleUpdate={handleUpdate}
+            handleSubmit={(
+              e: React.FormEvent<HTMLFormElement>,
+              values: FormData
+            ) => handleUpdate(e, values)}
           />
         </form>
       </div>

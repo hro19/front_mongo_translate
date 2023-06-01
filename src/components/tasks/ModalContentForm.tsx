@@ -1,27 +1,20 @@
-import React from "react";
+import React,{useState} from "react";
 import { Task } from "../../ts/Task";
 
-type FormSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+//inputデータを取得し、送信用データを作る
+//バリデード管理をする
+//親コンポーネントから受け取った送信用のハンドラーをbuttonに設置
 
 type ModalContentFormProps = {
-  name: string;
-  setName: React.Dispatch<React.SetStateAction<string>>;
-  completed: boolean;
-  setCompleted: React.Dispatch<React.SetStateAction<boolean>>;
   task: Task;
   closeModal: () => void;
-  handleUpdate: any;
+  handleSubmit: any;
 };
 
-const ModalContentForm = ({
-  name,
-  setName,
-  completed,
-  setCompleted,
-  task,
-  closeModal,
-  handleUpdate,
-}: ModalContentFormProps) => {
+const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps) => {
+  const [name, setName] = useState(task.name);
+  const [completed, setCompleted] = useState(task.completed);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompleted(e.target.value === "completed");
   };
@@ -79,7 +72,7 @@ const ModalContentForm = ({
       <button
         type="button"
         className="bg-blue-500 text-white py-2 px-4 rounded"
-        onClick={handleUpdate}
+        onClick={(e) => handleSubmit(e, { name, completed })}
       >
         更新する
       </button>
