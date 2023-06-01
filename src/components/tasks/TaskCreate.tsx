@@ -3,11 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import TaskCreateForm from "../../components/tasks/TaskCreateForm";
-
-type FormData = {
-  name: string;
-  completed: boolean;
-};
+import { FormData } from "../../ts/Task";
 
 const TaskCreate = () => {
   const {
