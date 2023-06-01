@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import RefpageForm from "../components/ref/RefpageForm";
 
-const FormPage = () => {
-  const handleSubmit = (name: string, content: string) => {
-    console.log({ name, content });
-  };
+const Refpage = () => {
+  const refElement = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (refElement.current) {
+      console.log("要素の幅:", refElement.current.clientWidth);
+    }
+  }, []);
 
   return (
-    <div className="max-w-md mx-auto p-4">
-      <h1 className="text-4xl text-pink-700 font-bold border-b-2 pb-2 mb-4">
-        フォーム画面
-      </h1>
-        <RefpageForm handleSubmit={handleSubmit} />
+    <div>
+      <h1>ref実験</h1>
+      <p>親コンポーネントです</p>
+      <p>親コンポーネントです</p>
+      <p>親コンポーネントです</p>
+      <RefpageForm refElement={refElement} />
     </div>
   );
 };
 
-export default FormPage;
+export default Refpage;
