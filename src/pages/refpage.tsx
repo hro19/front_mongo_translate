@@ -5,9 +5,22 @@ const Refpage = () => {
   const refElement = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    if (refElement.current) {
-      console.log("要素の幅:", refElement.current.clientWidth);
-    }
+    const handleResize = () => {
+      if (refElement.current) {
+        console.log("要素の幅:", refElement.current.clientWidth);
+      }
+    };
+
+    // ページロード時の処理
+    handleResize();
+
+    // リサイズイベントのリスナーを追加
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      // リスナーの削除
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (
