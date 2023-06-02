@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import axios from "axios";
 import Link from "next/link";
-import EditBox from "../../components/tasks/EditBox";
+import SlugEditBox from "../../components/tasks/SlugEditBox";
 import { Task } from "../../ts/Task";
 
 type SingleTaskPageProps = {
@@ -22,7 +22,7 @@ const SingleTaskPage = ({ task }: SingleTaskPageProps) => {
         <p>{currentTask._id}</p>
         <p>{currentTask.completed ? "Completed" : "Not Completed"}</p>
       </div>
-      <EditBox
+      <SlugEditBox
         currentTask={currentTask}
         setCurrentTask={setCurrentTask}
         onUpdateTask={handleUpdateTask}

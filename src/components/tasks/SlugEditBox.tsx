@@ -9,7 +9,7 @@ type EditBoxProps = {
   onUpdateTask: (updatedTask: Task) => void;
 }
 
-const EditBox = ({ currentTask, setCurrentTask }: EditBoxProps) => {
+const SlugEditBox = ({ currentTask, setCurrentTask }: EditBoxProps) => {
   const [name, setName] = useState(currentTask.name);
   const [completed, setCompleted] = useState(currentTask.completed);
 
@@ -109,4 +109,4 @@ const EditBox = ({ currentTask, setCurrentTask }: EditBoxProps) => {
   );
 };
 
-export default EditBox;
+export default SlugEditBox;
