@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Dispatch, SetStateAction } from "react";
 import axios from "axios";
+import SnakeMessage from "../../components/taskShingle/SnakeMessage";
 import { Task,TaskObj } from "../../ts/Task";
 
 export type EditBoxProps = TaskObj & {
@@ -10,6 +11,7 @@ export type EditBoxProps = TaskObj & {
 const SlugEditBox = ({ task, setCurrentTask }: EditBoxProps) => {
   const [name, setName] = useState(task.name);
   const [completed, setCompleted] = useState(task.completed);
+  const [isSnake, setIsSnake] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompleted(e.target.value === "completed");
@@ -33,6 +35,8 @@ const SlugEditBox = ({ task, setCurrentTask }: EditBoxProps) => {
 
       // 更新成功の場合は、タスク一覧を再読み込みする等の処理を追加する
       setCurrentTask(updatedTask);
+    console.error("成功");
+      setIsSnake(true); 
     } catch (err) {
       console.error(err);
       // エラーが発生した場合は、適切なエラーハンドリングを行う
@@ -103,6 +107,7 @@ const SlugEditBox = ({ task, setCurrentTask }: EditBoxProps) => {
           </button>
         </form>
       </div>
+      {isSnake && <SnakeMessage />}
     </div>
   );
 };
