@@ -6,12 +6,15 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 
 import TranslateTitle from "../../components/translates/TranslateTitle";
 import TranslateInput from "../../components/translates/TranslateInput";
-import TranslateItelete from "../../components/translates/TranslateItelete";
+import RenderPaginationItems from "../../components/translates/RenderPaginationItems";
 import { Translate } from "../../ts/Translate";
 
 const All = () => {
   const [showPosts, setShowPosts] = useState([]);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  //ページング設定
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
 
   const fetchTranslates = async () => {
     const response = await axios.get(
@@ -36,10 +39,6 @@ const All = () => {
     }
   );
 
-  //ページング設定
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4;
-
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     page: number
@@ -47,21 +46,6 @@ const All = () => {
     setCurrentPage(page);
   };
 
-  const renderPaginationItems = () => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-
-    return showPosts
-      .slice(startIndex, endIndex)
-      .map((translate: Translate) => (
-        <TranslateItelete
-          key={translate._id}
-          translate={translate}
-          isSpeaking={isSpeaking}
-          setIsSpeaking={setIsSpeaking}
-        />
-      ));
-  };
   //ページング設定終了
 
   return (
@@ -82,7 +66,7 @@ const All = () => {
           <div>Error: {(error as Error).message}</div>
         ) : (
           <>
-            {renderPaginationItems()}
+            <RenderPaginationItems itemsPerPage={itemsPerPage} currentPage={currentPage} isSpeaking={isSpeaking} setIsSpeaking={setIsSpeaking} showPosts={showPosts} />
             <div className="flex justify-center mt-4">
               <Pagination
                 count={Math.ceil(showPosts.length / itemsPerPage)}
