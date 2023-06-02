@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { Dispatch, SetStateAction } from "react";
 import axios from "axios";
-import { Task } from "../../ts/Task";
+import { Task,TaskObj } from "../../ts/Task";
 
-type EditBoxProps = {
-  currentTask: Task;
+export type EditBoxProps = TaskObj & {
   setCurrentTask: Dispatch<SetStateAction<Task>>;
-  onUpdateTask: (updatedTask: Task) => void;
-}
+};
 
-const SlugEditBox = ({ currentTask, setCurrentTask }: EditBoxProps) => {
-  const [name, setName] = useState(currentTask.name);
-  const [completed, setCompleted] = useState(currentTask.completed);
+const SlugEditBox = ({ task, setCurrentTask }: EditBoxProps) => {
+  const [name, setName] = useState(task.name);
+  const [completed, setCompleted] = useState(task.completed);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompleted(e.target.value === "completed");
@@ -22,13 +20,13 @@ const SlugEditBox = ({ currentTask, setCurrentTask }: EditBoxProps) => {
 
     try {
       const updatedTask = {
-        _id: currentTask._id,
+        _id: task._id,
         name,
         completed,
       };
 
       await axios.patch(
-        `https://back-mongo-task2.vercel.app/api/v1/tasks/${currentTask._id}`,
+        `https://back-mongo-task2.vercel.app/api/v1/tasks/${task._id}`,
         updatedTask,
         { headers: { "Content-Type": "application/json" } }
       );
@@ -52,7 +50,7 @@ const SlugEditBox = ({ currentTask, setCurrentTask }: EditBoxProps) => {
           onSubmit={handleSubmit}
         >
           <h3 className="text-lg font-bold text-center mb-4">
-            【ID】{currentTask._id}
+            【ID】{task._id}
           </h3>
           <div className="mb-4">
             <label

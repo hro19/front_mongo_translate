@@ -2,41 +2,10 @@ import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import axios from "axios";
 import Link from "next/link";
-import SlugEditBox from "../../components/tasks/SlugEditBox";
-import { Task } from "../../ts/Task";
+import SlugEditBox from "../../components/taskShingle/SlugEditBox";
+import { TaskObj } from "../../ts/Task";
 
-type SingleTaskPageProps = {
-  task: Task;
-};
-
-const SingleTaskPage = ({ task }: SingleTaskPageProps) => {
-  const [currentTask, setCurrentTask] = useState(task);
-    const handleUpdateTask = (updatedTask: Task) => {
-      setCurrentTask(updatedTask);
-    };
-    
-  return (
-    <>
-      <div>
-        <h1>{currentTask.name}</h1>
-        <p>{currentTask._id}</p>
-        <p>{currentTask.completed ? "Completed" : "Not Completed"}</p>
-      </div>
-      <SlugEditBox
-        currentTask={currentTask}
-        setCurrentTask={setCurrentTask}
-        onUpdateTask={handleUpdateTask}
-      />
-      <Link href="/tasks/" className="text-4xl mt-6">
-        トップに戻る
-      </Link>
-    </>
-  );
-};
-
-export const getServerSideProps: GetServerSideProps<
-  SingleTaskPageProps
-> = async (context) => {
+export const getServerSideProps: GetServerSideProps<TaskObj> = async (context) => {
   const { slug } = context.query;
 
   try {
@@ -58,6 +27,27 @@ export const getServerSideProps: GetServerSideProps<
       },
     };
   }
+};
+
+const SingleTaskPage = ({ task }: TaskObj) => {
+  const [currentTask, setCurrentTask] = useState(task);
+
+  return (
+    <>
+      <div>
+        <h1>{currentTask.name}</h1>
+        <p>{currentTask._id}</p>
+        <p>{currentTask.completed ? "Completed" : "Not Completed"}</p>
+      </div>
+      <SlugEditBox
+        task={currentTask}
+        setCurrentTask={setCurrentTask}
+      />
+      <Link href="/tasks/" className="text-4xl mt-6">
+        トップに戻る
+      </Link>
+    </>
+  );
 };
 
 export default SingleTaskPage;
