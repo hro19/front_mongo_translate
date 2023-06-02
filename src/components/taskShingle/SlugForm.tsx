@@ -1,4 +1,10 @@
-import React, { ChangeEvent, FormEvent, Dispatch, SetStateAction } from "react";
+import React, {
+  FormEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { Task } from "../../ts/Task";
 
 type SlugFormProps = {
@@ -21,6 +27,17 @@ const SlugForm = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompleted(e.target.value === "completed");
   };
+
+  const [checkEdit, setCheckEdit] = useState(false);
+  useEffect(() => {
+    if (name !== task.name || completed !== task.completed) {
+      // console.log("name changed:", name);
+      // console.log("completed changed:", completed);
+      setCheckEdit(true);
+    } else {
+      setCheckEdit(false);
+    }
+  }, [name, completed]);
 
   return (
     <form className="w-full sm:w-4/5 lg:w-3/4 max-w-md" onSubmit={handleSubmit}>
@@ -67,7 +84,10 @@ const SlugForm = ({
       </div>
       <button
         type="submit"
-        className="bg-blue-500 text-white py-2 px-4 rounded"
+        className={`bg-blue-500 text-white py-2 px-4 rounded ${
+          checkEdit ? "" : "disabled bg-gray-300"
+        }`}
+        disabled={!checkEdit}
       >
         更新する
       </button>
