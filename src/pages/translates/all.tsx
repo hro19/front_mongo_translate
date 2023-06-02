@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { Pagination } from "@mui/material";
 import ScaleLoader from "react-spinners/ScaleLoader";
 
 import TranslateTitle from "../../components/translates/TranslateTitle";
 import TranslateInput from "../../components/translates/TranslateInput";
 import RenderPaginationItems from "../../components/translates/RenderPaginationItems";
+import TranslatePagination from "@/components/translates/TranslatePagination";
 import { Translate } from "../../ts/Translate";
 
 const All = () => {
@@ -39,15 +39,6 @@ const All = () => {
     }
   );
 
-  const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
-    page: number
-  ) => {
-    setCurrentPage(page);
-  };
-
-  //ページング設定終了
-
   return (
     <div className="mx-4 pt-2">
       <div className="container max-w-[1040px] mx-auto">
@@ -66,26 +57,19 @@ const All = () => {
           <div>Error: {(error as Error).message}</div>
         ) : (
           <>
-            <RenderPaginationItems itemsPerPage={itemsPerPage} currentPage={currentPage} isSpeaking={isSpeaking} setIsSpeaking={setIsSpeaking} showPosts={showPosts} />
-            <div className="flex justify-center mt-4">
-              <Pagination
-                count={Math.ceil(showPosts.length / itemsPerPage)}
-                page={currentPage}
-                onChange={handlePageChange}
-                sx={{
-                  "& .MuiPaginationItem-root": {
-                    backgroundColor: "#aaaaaa",
-                    color: "white",
-                    "&:hover": {
-                      backgroundColor: "#444444",
-                    },
-                    "&.Mui-selected": {
-                      backgroundColor: "#444444",
-                    },
-                  },
-                }}
-              />
-            </div>
+            <RenderPaginationItems
+              showPosts={showPosts}
+              currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
+              isSpeaking={isSpeaking}
+              setIsSpeaking={setIsSpeaking}
+            />
+            <TranslatePagination
+              showPosts={showPosts}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              itemsPerPage={itemsPerPage}
+            />
           </>
         )}
       </div>
