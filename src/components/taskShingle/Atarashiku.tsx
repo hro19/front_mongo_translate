@@ -42,7 +42,7 @@ const handleSubmit = async (
   updatedTask: Task,
   second: number,
   setIsSnake: React.Dispatch<React.SetStateAction<boolean>>,
-  setCurrentTask: React.Dispatch<React.SetStateAction<any>>,
+  setCurrentTask: React.Dispatch<React.SetStateAction<Task>>,
   setCheckEdit: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   e.preventDefault();
