@@ -42,10 +42,11 @@ const handleSubmit = async (
   updatedTask: Task,
   second: number,
   setIsSnake: React.Dispatch<React.SetStateAction<boolean>>,
-  setCurrentTask: React.Dispatch<React.SetStateAction<any>>
+  setCurrentTask: React.Dispatch<React.SetStateAction<any>>,
+  setCheckEdit: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-e.preventDefault();
-try {
+  e.preventDefault();
+  try {
     // PATCHメソッドのエンドポイントにアクセスして、値を更新する通信を行う
     await PatchSingleTask(_id, updatedTask);
 
@@ -55,12 +56,15 @@ try {
     // 更新成功の場合は、ポップオーバーで知らせる
     setIsSnake(true);
 
+    // 「更新するボタン」を無効にする
+    setCheckEdit(false);
+
     // ●秒後に setIsSnake(false) を実行し、ポップオーバーを消す
     SecCount(second, setIsSnake);
-} catch (err) {
+  } catch (err) {
     console.error(err);
     // エラーが発生した場合は、適切なエラーハンドリングを行う
-}
+  }
 };
 
 

@@ -1,65 +1,58 @@
-import React, {
-  FormEvent,
-  Dispatch,
-  SetStateAction,
-  useState,
-  useEffect
-} from "react";
+import React, {Dispatch,SetStateAction,useState,useEffect} from "react";
 import SlugFormInput from "../../components/taskShingle/SlugFormInput";
-import { CheckEditDisabled } from "../../components/taskShingle/Atarashiku";
-import { Task } from "../../ts/Task";
+import SnakeMessage from "../../components/taskShingle/SnakeMessage";
+import { Task, TaskObj } from "../../ts/Task";
+import {handleSubmit,CheckEditDisabled} from "../../components/taskShingle/Atarashiku";
 
-//checkEdit関数　元データと現データが同じならば送信しない
-//handleSubmitCheck関数　handleSubmitを基に作成、編集成功時にcheckEditをfalseに
-
-type SlugFormProps = {
-  task: Task;
-  name: string;
-  completed: boolean;
-  setName: Dispatch<SetStateAction<string>>;
-  setCompleted: Dispatch<SetStateAction<boolean>>;
-  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+export type EditBoxProps = TaskObj & {
+  setCurrentTask: Dispatch<SetStateAction<Task>>;
 };
 
-const SlugForm = ({
-  task,
-  name,
-  completed,
-  setName,
-  setCompleted,
-  handleSubmit,
-}: SlugFormProps) => {
+const SlugEditBox = ({ task, setCurrentTask }: EditBoxProps) => {
+  //popoverメッセージを制御する
+  const [isSnake, setIsSnake] = useState(false);
+  const snakeDuration = 2500;
 
-  const [checkEdit, setCheckEdit] = useState(false);
-  useEffect(() => {CheckEditDisabled(name, completed, task, setCheckEdit);}, [name, completed]);
+  const [name, setName] = useState(task.name);
+  const [completed, setCompleted] = useState(task.completed);
 
-  const handleSubmitCheck = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    try {
-      await handleSubmit(e);
-      setCheckEdit(false);
-    } catch (err) {
-      console.error(err);
-      // エラーが発生した場合は、適切なエラーハンドリングを行う
-    }
+  const updatedTask = {
+    _id: task._id,
+    name,
+    completed,
   };
 
+  //カリー化を使用してhandleSubmit関数を部分適用することで、必要な引数を渡した新しい関数を作成
+  const handleSubmitCurried = (e: React.FormEvent<HTMLFormElement>) => {
+    handleSubmit(e,task._id,updatedTask,snakeDuration,setIsSnake,setCurrentTask,setCheckEdit);
+  };
+
+  //checkEdit関数　元データと現データが同じならば送信ボタンがDisableになる
+  const [checkEdit, setCheckEdit] = useState(false);
+  useEffect(() => {
+    CheckEditDisabled(name, completed, task, setCheckEdit);
+  }, [name, completed]);
+
   return (
-    <form
-      className="w-full sm:w-4/5 lg:w-3/4 max-w-md"
-      onSubmit={handleSubmitCheck}
-    >
-      <SlugFormInput
-        task={task}
-        name={name}
-        setName={setName}
-        completed={completed}
-        setCompleted={setCompleted}
-        checkEdit={checkEdit}
-      />
-    </form>
+    <div className="bg-slate-500">
+      <div className="flex h-full w-full justify-center items-center bg-slate-200 p-4">
+        <form
+          className="w-full sm:w-4/5 lg:w-3/4 max-w-md"
+          onSubmit={handleSubmitCurried}
+        >
+          <SlugFormInput
+            task={task}
+            name={name}
+            setName={setName}
+            completed={completed}
+            setCompleted={setCompleted}
+            checkEdit={checkEdit}
+          />
+        </form>
+      </div>
+      {isSnake && <SnakeMessage snakeDuration={snakeDuration} />}
+    </div>
   );
 };
 
-export default SlugForm;
+export default SlugEditBox;

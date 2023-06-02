@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import axios from "axios";
 import Link from "next/link";
-import SlugEditBox from "../../components/taskShingle/SlugEditBox";
+import SlugForm from "../../components/taskShingle/SlugForm";
 import { TaskObj } from "../../ts/Task";
 
 export const getServerSideProps: GetServerSideProps<TaskObj> = async (context) => {
@@ -39,7 +39,7 @@ const SingleTaskPage = ({ task }: TaskObj) => {
         <p>{currentTask._id}</p>
         <p>{currentTask.completed ? "Completed" : "Not Completed"}</p>
       </div>
-      <SlugEditBox
+      <SlugForm
         task={currentTask}
         setCurrentTask={setCurrentTask}
       />
