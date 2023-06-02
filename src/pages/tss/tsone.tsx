@@ -8,8 +8,13 @@ const TsOne = () => {
   const point = { x: 135, y: 35 };
   type Point = typeof point;
 
+  type Person = {
+    name: string;
+  };
 
-  
+  let only1: 1;
+  only1 = 1;
+
   return (
     <>
       <ul>
