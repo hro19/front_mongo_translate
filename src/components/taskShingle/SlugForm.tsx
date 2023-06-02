@@ -24,6 +24,7 @@ const SlugForm = ({
   setCompleted,
   handleSubmit,
 }: SlugFormProps) => {
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompleted(e.target.value === "completed");
   };
@@ -39,8 +40,23 @@ const SlugForm = ({
     }
   }, [name, completed]);
 
+  const handleSubmitCheck = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      await handleSubmit(e);
+      setCheckEdit(false);
+    } catch (err) {
+      console.error(err);
+      // エラーが発生した場合は、適切なエラーハンドリングを行う
+    }
+  };
+
   return (
-    <form className="w-full sm:w-4/5 lg:w-3/4 max-w-md" onSubmit={handleSubmit}>
+    <form
+      className="w-full sm:w-4/5 lg:w-3/4 max-w-md"
+      onSubmit={handleSubmitCheck}
+    >
       <h3 className="text-lg font-bold text-center mb-4">【ID】{task._id}</h3>
       <div className="mb-4">
         <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
