@@ -19,7 +19,7 @@ const SnakeMessage = ({ snakeDuration }: SnakeMessageProps) => {
   return (
     <Snackbar
       open={open}
-      autoHideDuration={snakeDuration}
+      autoHideDuration={snakeDuration-300}
       onClose={() => setOpen(false)}
     >
       <Alert severity="success" onClose={() => setOpen(false)}>
