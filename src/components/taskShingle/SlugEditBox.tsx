@@ -4,7 +4,10 @@ import axios from "axios";
 import SnakeMessage from "../../components/taskShingle/SnakeMessage";
 import SlugForm from "./SlugForm";
 import { Task, TaskObj } from "../../ts/Task";
-import { SecCount } from "../../components/taskShingle/Atarashiku";
+import {
+  SecCount,
+  PatchSingleTask,
+} from "../../components/taskShingle/Atarashiku";
 
 export type EditBoxProps = TaskObj & {
   setCurrentTask: Dispatch<SetStateAction<Task>>;
@@ -16,28 +19,26 @@ const SlugEditBox = ({ task, setCurrentTask }: EditBoxProps) => {
   const [isSnake, setIsSnake] = useState(false);
   const snakeDuration = 2500; 
 
+  const updatedTask = {
+    _id: task._id,
+    name,
+    completed,
+  };
+
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
 
   try {
-    const updatedTask = {
-      _id: task._id,
-      name,
-      completed,
-    };
-
-    await axios.patch(
-      `https://back-mongo-task2.vercel.app/api/v1/tasks/${task._id}`,
-      updatedTask,
-      { headers: { "Content-Type": "application/json" } }
-    );
+    // PATCHメソッドのエンドポイントにアクセスして、値を更新する通信を行う
+    await PatchSingleTask(task._id, updatedTask);
 
     // 更新成功の場合は、タスク一覧を再読み込みする等の処理を追加する
     setCurrentTask(updatedTask);
 
+    // 更新成功の場合は、ポップオーバーで知らせる
     setIsSnake(true);
 
-    // ●秒後に setIsSnake(false) を実行する
+    // ●秒後に setIsSnake(false) を実行し、ポップオーバーを消す
     SecCount(snakeDuration, setIsSnake);
   } catch (err) {
     console.error(err);
