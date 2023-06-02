@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from "react";
 
 const TsOne = () => {
   const obj = { a: 1, b: 2, c: 3 };
@@ -24,10 +24,16 @@ const TsOne = () => {
   type Listanimal = (string | number)[];
 
   //ユニオン型の絞り込み
-  const maybeUserId: string | null = localStorage.getItem("userId");
-  if (typeof maybeUserId === "string") {
-    const userId: string = maybeUserId; // この分岐内では文字列型に絞り込まれるため、代入できる。
-  }
+  useEffect(() => {
+    // localStorage を使用するコードをここに書く
+    localStorage.setItem("access_yn", "私の名前をローカルストレージに");
+    const maybeUserId: string | null = localStorage.getItem("access_yn");
+    let userId: string | undefined;
+    if (typeof maybeUserId === "string") {
+      userId = maybeUserId;
+    }
+    console.log(userId); // ブロック内での代入が行われた場合に、userId の値が出力されます
+  }, []);
 
   return (
     <>
