@@ -6,7 +6,6 @@ import { useQuery } from "react-query";
 
 import { Task } from "../../ts/Task";
 import TaskTable from "./TaskTable";
-import TaskCreate from "./TaskCreate";
 
 const TasksSection = () => {
   const {
@@ -26,11 +25,9 @@ const TasksSection = () => {
   }
 
   return (
-    <div className="container mx-auto mt-5">
-      <TaskCreate />
-
+    <>
       <TaskTable tasks={tasks} isLoading={isLoading} />
-    </div>
+    </>
   );
 };
 
