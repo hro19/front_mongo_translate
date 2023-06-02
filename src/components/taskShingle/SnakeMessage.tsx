@@ -2,27 +2,28 @@ import React, { useState, useEffect } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
-const SnakeMessage = ({}) => {
-  const [open, setOpen] = useState(false);
+type SnakeMessageProps = {
+  snakeDuration: number;
+};
 
-  // メッセージの表示時間（ミリ秒）
-  const duration = 5000;
+const SnakeMessage = ({ snakeDuration }: SnakeMessageProps) => {
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setOpen(true);
     setTimeout(() => {
       setOpen(false);
-    }, duration);
+    }, snakeDuration);
   }, []);
 
   return (
     <Snackbar
       open={open}
-      autoHideDuration={duration}
+      autoHideDuration={snakeDuration}
       onClose={() => setOpen(false)}
     >
       <Alert severity="success" onClose={() => setOpen(false)}>
-        メッセージが編集に成功しました！
+        メッセージの編集に成功しました！
       </Alert>
     </Snackbar>
   );

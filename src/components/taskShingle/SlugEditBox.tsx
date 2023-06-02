@@ -12,36 +12,42 @@ const SlugEditBox = ({ task, setCurrentTask }: EditBoxProps) => {
   const [name, setName] = useState(task.name);
   const [completed, setCompleted] = useState(task.completed);
   const [isSnake, setIsSnake] = useState(false);
+  const snakeDuration = 2500; 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompleted(e.target.value === "completed");
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-    try {
-      const updatedTask = {
-        _id: task._id,
-        name,
-        completed,
-      };
+  try {
+    const updatedTask = {
+      _id: task._id,
+      name,
+      completed,
+    };
 
-      await axios.patch(
-        `https://back-mongo-task2.vercel.app/api/v1/tasks/${task._id}`,
-        updatedTask,
-        { headers: { "Content-Type": "application/json" } }
-      );
+    await axios.patch(
+      `https://back-mongo-task2.vercel.app/api/v1/tasks/${task._id}`,
+      updatedTask,
+      { headers: { "Content-Type": "application/json" } }
+    );
 
-      // 更新成功の場合は、タスク一覧を再読み込みする等の処理を追加する
-      setCurrentTask(updatedTask);
-    console.error("成功");
-      setIsSnake(true); 
-    } catch (err) {
-      console.error(err);
-      // エラーが発生した場合は、適切なエラーハンドリングを行う
-    }
-  };
+    // 更新成功の場合は、タスク一覧を再読み込みする等の処理を追加する
+    setCurrentTask(updatedTask);
+
+    setIsSnake(true);
+
+    // 5秒後に setIsSnake(false) を実行する
+    setTimeout(() => {
+      setIsSnake(false);
+    }, snakeDuration);
+  } catch (err) {
+    console.error(err);
+    // エラーが発生した場合は、適切なエラーハンドリングを行う
+  }
+};
 
   return (
     <div className="bg-slate-500">
@@ -107,7 +113,7 @@ const SlugEditBox = ({ task, setCurrentTask }: EditBoxProps) => {
           </button>
         </form>
       </div>
-      {isSnake && <SnakeMessage />}
+      {isSnake && <SnakeMessage snakeDuration={snakeDuration} />}
     </div>
   );
 };
