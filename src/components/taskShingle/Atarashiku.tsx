@@ -64,5 +64,23 @@ try {
 };
 
 
+// 値に変化があれば「更新するボタン」が有効になる
+//第一引数 入力されているname
+//第二引数 入力されているcompleted
+//第三引数 更新するためのデータ{_id,name,completed}
+//第四引数 真偽するためのsetter
 
-export { SecCount, PatchSingleTask, handleSubmit };
+const CheckEditDisabled = (
+  name: string,
+  completed: boolean,
+  task: Task,
+  setCheckEdit: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+  if (name !== task.name || completed !== task.completed) {
+    setCheckEdit(true);
+  } else {
+    setCheckEdit(false);
+  }
+};
+
+export { SecCount, PatchSingleTask, handleSubmit, CheckEditDisabled };

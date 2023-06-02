@@ -2,10 +2,11 @@ import React, {
   FormEvent,
   Dispatch,
   SetStateAction,
-  useEffect,
   useState,
+  useEffect
 } from "react";
 import SlugFormInput from "../../components/taskShingle/SlugFormInput";
+import { CheckEditDisabled } from "../../components/taskShingle/Atarashiku";
 import { Task } from "../../ts/Task";
 
 //checkEdit関数　元データと現データが同じならば送信しない
@@ -30,15 +31,7 @@ const SlugForm = ({
 }: SlugFormProps) => {
 
   const [checkEdit, setCheckEdit] = useState(false);
-  useEffect(() => {
-    if (name !== task.name || completed !== task.completed) {
-      // console.log("name changed:", name);
-      // console.log("completed changed:", completed);
-      setCheckEdit(true);
-    } else {
-      setCheckEdit(false);
-    }
-  }, [name, completed]);
+  useEffect(() => {CheckEditDisabled(name, completed, task, setCheckEdit);}, [name, completed]);
 
   const handleSubmitCheck = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

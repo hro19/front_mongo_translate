@@ -3,9 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import SnakeMessage from "../../components/taskShingle/SnakeMessage";
 import SlugForm from "./SlugForm";
 import { Task, TaskObj } from "../../ts/Task";
-import {
-  handleSubmit,
-} from "../../components/taskShingle/Atarashiku";
+import {handleSubmit} from "../../components/taskShingle/Atarashiku";
 
 export type EditBoxProps = TaskObj & {
   setCurrentTask: Dispatch<SetStateAction<Task>>;
