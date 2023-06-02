@@ -1,18 +1,20 @@
 import React, {Dispatch,SetStateAction,useState,useEffect} from "react";
 import SlugFormInput from "../../components/taskShingle/SlugFormInput";
-import SnakeMessage from "../../components/taskShingle/SnakeMessage";
 import { Task, TaskObj } from "../../ts/Task";
 import {handleSubmit,CheckEditDisabled} from "../../components/taskShingle/Atarashiku";
 
 export type EditBoxProps = TaskObj & {
   setCurrentTask: Dispatch<SetStateAction<Task>>;
+  snakeDuration: number;
+  setIsSnake: Dispatch<SetStateAction<boolean>>;
 };
 
-const SlugEditBox = ({ task, setCurrentTask }: EditBoxProps) => {
-  //popoverメッセージを制御する
-  const [isSnake, setIsSnake] = useState(false);
-  const snakeDuration = 2500;
-
+const SlugEditBox = ({
+  task,
+  setCurrentTask,
+  snakeDuration,
+  setIsSnake,
+}: EditBoxProps) => {
   const [name, setName] = useState(task.name);
   const [completed, setCompleted] = useState(task.completed);
 
@@ -24,7 +26,15 @@ const SlugEditBox = ({ task, setCurrentTask }: EditBoxProps) => {
 
   //カリー化を使用してhandleSubmit関数を部分適用することで、必要な引数を渡した新しい関数を作成
   const handleSubmitCurried = (e: React.FormEvent<HTMLFormElement>) => {
-    handleSubmit(e,task._id,updatedTask,snakeDuration,setIsSnake,setCurrentTask,setCheckEdit);
+    handleSubmit(
+      e,
+      task._id,
+      updatedTask,
+      snakeDuration,
+      setIsSnake,
+      setCurrentTask,
+      setCheckEdit
+    );
   };
 
   //checkEdit関数　元データと現データが同じならば送信ボタンがDisableになる
@@ -50,7 +60,6 @@ const SlugEditBox = ({ task, setCurrentTask }: EditBoxProps) => {
           />
         </form>
       </div>
-      {isSnake && <SnakeMessage snakeDuration={snakeDuration} />}
     </div>
   );
 };

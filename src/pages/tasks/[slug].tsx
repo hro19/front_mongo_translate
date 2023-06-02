@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next";
 import axios from "axios";
 import Link from "next/link";
 import SlugForm from "../../components/taskShingle/SlugForm";
+import SnakeMessage from "../../components/taskShingle/SnakeMessage";
 import { TaskObj } from "../../ts/Task";
 
 export const getServerSideProps: GetServerSideProps<TaskObj> = async (context) => {
@@ -31,6 +32,9 @@ export const getServerSideProps: GetServerSideProps<TaskObj> = async (context) =
 
 const SingleTaskPage = ({ task }: TaskObj) => {
   const [currentTask, setCurrentTask] = useState(task);
+  //popoverメッセージを制御する
+  const [isSnake, setIsSnake] = useState(false);
+  const snakeDuration = 2000;
 
   return (
     <>
@@ -42,7 +46,10 @@ const SingleTaskPage = ({ task }: TaskObj) => {
       <SlugForm
         task={currentTask}
         setCurrentTask={setCurrentTask}
+        snakeDuration={snakeDuration}
+        setIsSnake={setIsSnake}
       />
+      {isSnake && <SnakeMessage snakeDuration={snakeDuration} />}
       <Link href="/tasks/" className="text-4xl mt-6">
         トップに戻る
       </Link>
