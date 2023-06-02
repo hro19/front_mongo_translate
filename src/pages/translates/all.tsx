@@ -11,7 +11,7 @@ import { Translate } from "../../ts/Translate";
 
 const All = () => {
   const [showPosts, setShowPosts] = useState([]);
-  const [isSpeaking, setIsSpeaking] = useState(false);
+
   //ページング設定
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
@@ -61,8 +61,6 @@ const All = () => {
               showPosts={showPosts}
               currentPage={currentPage}
               itemsPerPage={itemsPerPage}
-              isSpeaking={isSpeaking}
-              setIsSpeaking={setIsSpeaking}
             />
             <TranslatePagination
               showPosts={showPosts}

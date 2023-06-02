@@ -5,10 +5,9 @@ import { Translate } from "../../ts/Translate";
 const RenderPaginationItems = ({
   itemsPerPage,
   currentPage,
-  isSpeaking,
-  setIsSpeaking,
   showPosts,
 }: any) => {
+  const [isSpeaking, setIsSpeaking] = useState(false);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
