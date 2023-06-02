@@ -19,13 +19,19 @@ const TsOne = () => {
   numberOrString = "小早川";
   console.log(numberOrString);
 
+  //ユニオン型の配列
+  // ダメな例です、この場合、string型もしくはnumberの配列の型とはんだんされてしまいます。type List = string | number[];
+  type Listanimal = (string | number)[];
+  
 
   return (
     <>
       <ul>
         <li>typeof型演算子</li>
         <li>リテラル型で特定の値だけを格納できるようにする</li>
-        <li>ユニオン型で一つの変数に複数の型を持たせることができるようにする</li>
+        <li>
+          ユニオン型で一つの変数に複数の型を持たせることができるようにする
+        </li>
         <li>typeof型演算子</li>
       </ul>
     </>
