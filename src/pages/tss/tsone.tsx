@@ -22,7 +22,12 @@ const TsOne = () => {
   //ユニオン型の配列
   // ダメな例です、この場合、string型もしくはnumberの配列の型とはんだんされてしまいます。type List = string | number[];
   type Listanimal = (string | number)[];
-  
+
+  //ユニオン型の絞り込み
+  const maybeUserId: string | null = localStorage.getItem("userId");
+  if (typeof maybeUserId === "string") {
+    const userId: string = maybeUserId; // この分岐内では文字列型に絞り込まれるため、代入できる。
+  }
 
   return (
     <>
@@ -32,7 +37,7 @@ const TsOne = () => {
         <li>
           ユニオン型で一つの変数に複数の型を持たせることができるようにする
         </li>
-        <li>typeof型演算子</li>
+        <li>ユニオン型</li>
       </ul>
     </>
   );
