@@ -12,7 +12,7 @@ const searchFunc = ({ value, posts, setShowPosts }: any) => {
 
     const searchedPosts = posts.filter((post: Translate) =>
       Object.values(post).some((item) => {
-        if (item === undefined || item === null) {
+        if (typeof item !== "string" && typeof item !== "number") {
           return false;
         }
         const strItem = item.toString();
