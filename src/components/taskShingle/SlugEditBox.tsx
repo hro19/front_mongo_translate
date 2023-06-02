@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Dispatch, SetStateAction } from "react";
-import axios from "axios";
 import SnakeMessage from "../../components/taskShingle/SnakeMessage";
 import SlugForm from "./SlugForm";
 import { Task, TaskObj } from "../../ts/Task";
 import {
   SecCount,
   PatchSingleTask,
+  handleSubmit,
 } from "../../components/taskShingle/Atarashiku";
 
 export type EditBoxProps = TaskObj & {
@@ -17,7 +17,7 @@ const SlugEditBox = ({ task, setCurrentTask }: EditBoxProps) => {
   const [name, setName] = useState(task.name);
   const [completed, setCompleted] = useState(task.completed);
   const [isSnake, setIsSnake] = useState(false);
-  const snakeDuration = 2500; 
+  const snakeDuration = 2500;
 
   const updatedTask = {
     _id: task._id,
@@ -25,35 +25,24 @@ const SlugEditBox = ({ task, setCurrentTask }: EditBoxProps) => {
     completed,
   };
 
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-
-  try {
-    // PATCHメソッドのエンドポイントにアクセスして、値を更新する通信を行う
-    await PatchSingleTask(task._id, updatedTask);
-
-    // 更新成功の場合は、タスク一覧を再読み込みする等の処理を追加する
-    setCurrentTask(updatedTask);
-
-    // 更新成功の場合は、ポップオーバーで知らせる
-    setIsSnake(true);
-
-    // ●秒後に setIsSnake(false) を実行し、ポップオーバーを消す
-    SecCount(snakeDuration, setIsSnake);
-  } catch (err) {
-    console.error(err);
-    // エラーが発生した場合は、適切なエラーハンドリングを行う
-  }
-};
+  //カリー化を使用してhandleSubmit関数を部分適用することで、必要な引数を渡した新しい関数を作成
+  const handleSubmitCurried = (e: React.FormEvent<HTMLFormElement>) => {
+    handleSubmit(
+      e,
+      task._id,
+      updatedTask,
+      snakeDuration,
+      setIsSnake,
+      setCurrentTask
+    );
+  };
 
   return (
     <div className="bg-slate-500">
-      <div
-        className="flex h-full w-full justify-center items-center bg-slate-200 p-4"
-      >
+      <div className="flex h-full w-full justify-center items-center bg-slate-200 p-4">
         <SlugForm
           task={task}
-          handleSubmit={handleSubmit}
+          handleSubmit={handleSubmitCurried}
           name={name}
           setName={setName}
           completed={completed}

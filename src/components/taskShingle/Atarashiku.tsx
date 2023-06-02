@@ -15,7 +15,7 @@ const SecCount = (
 };
 
 
-// PATCHメソッドのエンドポイントにアクセスして、値を更新する通信
+// PATCHメソッドのエンドポイントにアクセスして、値を更新する通信を行う
 //第一引数 目的とする「_id」
 //第二引数 更新するためのデータ{_id,name,completed}
 
@@ -28,7 +28,37 @@ const PatchSingleTask = (_id: string, updatedTask: Task) => {
 };
 
 
+// 更新ハンドラー
+//第一引数 e(event)
+//第二引数 更新するためのデータ{_id,name,completed}
+
+const handleSubmit = async (
+  e: React.FormEvent<HTMLFormElement>,
+  _id: string,
+  updatedTask: Task,
+  second: number,
+  setIsSnake: React.Dispatch<React.SetStateAction<boolean>>,
+  setCurrentTask: React.Dispatch<React.SetStateAction<any>>
+) => {
+e.preventDefault();
+try {
+    // PATCHメソッドのエンドポイントにアクセスして、値を更新する通信を行う
+    await PatchSingleTask(_id, updatedTask);
+
+    // 更新成功の場合は、タスク一覧を再読み込みする等の処理を追加する
+    setCurrentTask(updatedTask);
+
+    // 更新成功の場合は、ポップオーバーで知らせる
+    setIsSnake(true);
+
+    // ●秒後に setIsSnake(false) を実行し、ポップオーバーを消す
+    SecCount(second, setIsSnake);
+} catch (err) {
+    console.error(err);
+    // エラーが発生した場合は、適切なエラーハンドリングを行う
+}
+};
 
 
 
-export { SecCount, PatchSingleTask };
+export { SecCount, PatchSingleTask, handleSubmit };
