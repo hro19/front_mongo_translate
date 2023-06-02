@@ -4,14 +4,13 @@ import { useQuery } from "react-query";
 import { Pagination } from "@mui/material";
 import ScaleLoader from "react-spinners/ScaleLoader";
 
-import TranslateItelete from "../../components/translates/TranslateItelete";
 import TranslateTitle from "../../components/translates/TranslateTitle";
-import { searchFunc } from "../../components/translates/Kensaku";
+import TranslateInput from "../../components/translates/TranslateInput";
+import TranslateItelete from "../../components/translates/TranslateItelete";
 import { Translate } from "../../ts/Translate";
 
 const All = () => {
   const [showPosts, setShowPosts] = useState([]);
-  const [inputValue, setInputValue] = useState("");
   const [isSpeaking, setIsSpeaking] = useState(false);
 
   const fetchTranslates = async () => {
@@ -65,23 +64,14 @@ const All = () => {
   };
   //ページング設定終了
 
-  //検索インプット
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-    setCurrentPage(1); // ページを1ページ目に設定
-    searchFunc({ value: e.target.value, posts: data, setShowPosts }); // 検索を実行
-  };
-
   return (
     <div className="mx-4 pt-2">
       <div className="container max-w-[1040px] mx-auto">
         <TranslateTitle />
-        <input
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder="Search..."
-          className="border border-gray-300 rounded-md py-2 px-4 mb-4 block w-[400px] placeholder-gray-400"
+        <TranslateInput
+          data={data}
+          setCurrentPage={setCurrentPage}
+          setShowPosts={setShowPosts}
         />
 
         {isLoading ? (
