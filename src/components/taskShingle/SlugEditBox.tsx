@@ -49,8 +49,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   return (
     <div className="bg-slate-500">
       <div
-        id="pop"
-        className="flex h-full w-full justify-center items-center bg-white p-4"
+        className="flex h-full w-full justify-center items-center bg-slate-200 p-4"
       >
         <SlugForm
           task={task}
