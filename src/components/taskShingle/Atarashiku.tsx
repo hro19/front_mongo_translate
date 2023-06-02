@@ -30,7 +30,11 @@ const PatchSingleTask = (_id: string, updatedTask: Task) => {
 
 // 更新ハンドラー
 //第一引数 e(event)
-//第二引数 更新するためのデータ{_id,name,completed}
+//第二引数 目的とする「_id」
+//第三引数 更新するためのデータ{_id,name,completed}
+//第四引数 秒
+//第五引数 setIsSnake
+//第六引数 setCurrentTask
 
 const handleSubmit = async (
   e: React.FormEvent<HTMLFormElement>,

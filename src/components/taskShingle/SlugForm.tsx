@@ -60,8 +60,8 @@ const SlugForm = ({
       <SlugFormInput
         task={task}
         name={name}
-        completed={completed}
         setName={setName}
+        completed={completed}
         setCompleted={setCompleted}
         checkEdit={checkEdit}
       />

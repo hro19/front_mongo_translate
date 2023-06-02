@@ -4,8 +4,6 @@ import SnakeMessage from "../../components/taskShingle/SnakeMessage";
 import SlugForm from "./SlugForm";
 import { Task, TaskObj } from "../../ts/Task";
 import {
-  SecCount,
-  PatchSingleTask,
   handleSubmit,
 } from "../../components/taskShingle/Atarashiku";
 
@@ -41,8 +39,8 @@ const SlugEditBox = ({ task, setCurrentTask }: EditBoxProps) => {
     <div className="bg-slate-500">
       <div className="flex h-full w-full justify-center items-center bg-slate-200 p-4">
         <SlugForm
-          task={task}
           handleSubmit={handleSubmitCurried}
+          task={task}
           name={name}
           setName={setName}
           completed={completed}
