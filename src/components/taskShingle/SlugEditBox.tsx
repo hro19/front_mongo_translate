@@ -3,7 +3,8 @@ import { Dispatch, SetStateAction } from "react";
 import axios from "axios";
 import SnakeMessage from "../../components/taskShingle/SnakeMessage";
 import SlugForm from "./SlugForm";
-import { Task,TaskObj } from "../../ts/Task";
+import { Task, TaskObj } from "../../ts/Task";
+import { SecCount } from "../../components/taskShingle/Atarashiku";
 
 export type EditBoxProps = TaskObj & {
   setCurrentTask: Dispatch<SetStateAction<Task>>;
@@ -36,10 +37,8 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
     setIsSnake(true);
 
-    // 5秒後に setIsSnake(false) を実行する
-    setTimeout(() => {
-      setIsSnake(false);
-    }, snakeDuration);
+    // ●秒後に setIsSnake(false) を実行する
+    SecCount(snakeDuration, setIsSnake);
   } catch (err) {
     console.error(err);
     // エラーが発生した場合は、適切なエラーハンドリングを行う
