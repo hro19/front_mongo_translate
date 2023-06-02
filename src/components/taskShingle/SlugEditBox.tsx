@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Dispatch, SetStateAction } from "react";
 import axios from "axios";
 import SnakeMessage from "../../components/taskShingle/SnakeMessage";
-import ShingleForm from "../../components/taskShingle/ShingleForm";
+import SlugForm from "./SlugForm";
 import { Task,TaskObj } from "../../ts/Task";
 
 export type EditBoxProps = TaskObj & {
@@ -52,7 +52,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         id="pop"
         className="flex h-full w-full justify-center items-center bg-white p-4"
       >
-        <ShingleForm
+        <SlugForm
           task={task}
           handleSubmit={handleSubmit}
           name={name}

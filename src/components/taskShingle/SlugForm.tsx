@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, Dispatch, SetStateAction } from "react";
 import { Task } from "../../ts/Task";
 
-type ShingleFormProps = {
+type SlugFormProps = {
   task: Task;
   name: string;
   completed: boolean;
@@ -10,7 +10,14 @@ type ShingleFormProps = {
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
 };
 
-const ShingleForm = ({task,name,completed,setName,setCompleted,handleSubmit}: ShingleFormProps) => {
+const SlugForm = ({
+  task,
+  name,
+  completed,
+  setName,
+  setCompleted,
+  handleSubmit,
+}: SlugFormProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompleted(e.target.value === "completed");
   };
@@ -68,4 +75,4 @@ const ShingleForm = ({task,name,completed,setName,setCompleted,handleSubmit}: Sh
   );
 };
 
-export default ShingleForm;
+export default SlugForm;
