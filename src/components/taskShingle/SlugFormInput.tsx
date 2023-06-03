@@ -1,6 +1,7 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { useEffect } from "react";
 import { TaskObj } from "../../ts/Task";
 import { useAtom } from "jotai";
+import {CheckEditDisabled} from "../../components/taskShingle/Atarashiku";
 import { checkEditAtom, nameAtom, completedAtom } from "../../jotai/atoms";
 //formの要素であるinputのhtml構造を書く
 //react-hook-formのバリデーションを書く
@@ -13,6 +14,11 @@ const SlugFormInput = ({ task }: TaskObj) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompleted(e.target.value === "completed");
   };
+
+  //checkEdit関数　元データと現データが同じならば送信ボタンがDisableになる
+  useEffect(() => {
+    CheckEditDisabled(name, completed, task, setCheckEdit);
+  }, [name, completed]);
 
   return (
     <>

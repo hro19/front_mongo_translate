@@ -1,7 +1,7 @@
-import React, {Dispatch,SetStateAction,useState,useEffect} from "react";
+import React, {Dispatch,SetStateAction} from "react";
 import SlugFormInput from "../../components/taskShingle/SlugFormInput";
 import { Task, TaskObj } from "../../ts/Task";
-import { handleSubmit, CheckEditDisabled } from "../../components/taskShingle/Atarashiku";
+import { handleSubmit } from "../../components/taskShingle/Atarashiku";
 import { useAtom } from "jotai";
 import {
   isSnakeAtom,
@@ -25,6 +25,9 @@ const SlugForm = ({
   const [name, setName] = useAtom(nameAtom);
   const [completed, setCompleted] = useAtom(completedAtom);
 
+  //checkEdit関数　元データと現データが同じならば送信ボタンがDisableになる
+  const [checkEdit, setCheckEdit] = useAtom(checkEditAtom);
+
   const updatedTask = {
     _id: task._id,
     name,
@@ -44,12 +47,6 @@ const SlugForm = ({
     );
   };
 
-  //checkEdit関数　元データと現データが同じならば送信ボタンがDisableになる
-  const [checkEdit, setCheckEdit] = useAtom(checkEditAtom);
-  useEffect(() => {
-    CheckEditDisabled(name, completed, task, setCheckEdit);
-  }, [name, completed]);
-
   return (
     <div className="bg-slate-500">
       <div className="flex h-full w-full justify-center items-center bg-slate-200 p-4">
@@ -57,9 +54,7 @@ const SlugForm = ({
           className="w-full sm:w-4/5 lg:w-3/4 max-w-md"
           onSubmit={handleSubmitCurried}
         >
-          <SlugFormInput
-            task={task}
-          />
+          <SlugFormInput task={task} />
         </form>
       </div>
     </div>
