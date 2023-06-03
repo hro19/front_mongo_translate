@@ -7,6 +7,8 @@ import {
   isSnakeAtom,
   snakeDurationAtom,
   checkEditAtom,
+  nameAtom,
+  completedAtom
 } from "../../jotai/atoms";
 
 export type EditBoxProps = TaskObj & {
@@ -20,8 +22,8 @@ const SlugForm = ({
   const [isSnake, setIsSnake] = useAtom(isSnakeAtom);
   const [snakeDuration, setSnakeDuration] = useAtom(snakeDurationAtom);
 
-  const [name, setName] = useState(task.name);
-  const [completed, setCompleted] = useState(task.completed);
+  const [name, setName] = useAtom(nameAtom);
+  const [completed, setCompleted] = useAtom(completedAtom);
 
   const updatedTask = {
     _id: task._id,
@@ -57,10 +59,6 @@ const SlugForm = ({
         >
           <SlugFormInput
             task={task}
-            name={name}
-            setName={setName}
-            completed={completed}
-            setCompleted={setCompleted}
           />
         </form>
       </div>

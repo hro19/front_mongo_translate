@@ -1,28 +1,15 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { Task } from "../../ts/Task";
+import { TaskObj } from "../../ts/Task";
 import { useAtom } from "jotai";
-import {checkEditAtom} from "../../jotai/atoms";
+import { checkEditAtom, nameAtom, completedAtom } from "../../jotai/atoms";
 //formの要素であるinputのhtml構造を書く
 //react-hook-formのバリデーションを書く
 
-type SlugFormInputProps = {
-  task: Task;
-  name: string;
-  completed: boolean;
-  setName: Dispatch<SetStateAction<string>>;
-  setCompleted: Dispatch<SetStateAction<boolean>>;
-};
-
-const SlugFormInput = ({
-  task,
-  name,
-  completed,
-  setName,
-  setCompleted,
-}: SlugFormInputProps) => {
-  
+const SlugFormInput = ({ task }: TaskObj) => {
+  const [name, setName] = useAtom(nameAtom);
+  const [completed, setCompleted] = useAtom(completedAtom);
   const [checkEdit, setCheckEdit] = useAtom(checkEditAtom);
-  
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompleted(e.target.value === "completed");
   };
