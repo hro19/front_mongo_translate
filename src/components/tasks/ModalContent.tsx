@@ -3,15 +3,23 @@ import axios from "axios";
 import { Task, TaskObj,FormData } from "../../ts/Task";
 import { useMutation, useQueryClient } from "react-query";
 import ModalContentForm from "./ModalContentForm";
+import { SecCount } from "../../components/taskShingle/Atarashiku";
 
 //バックエンドのエンドポイントにアクセスして、アップデートの仕組みを定義する
 //更新データをreact-queryを使って管理する
 
 type ModalContentProps = TaskObj & {
+  setIsSnake: any;
+  snakeDuration: number;
   closeModal: () => void;
 };
 
-const ModalContent = ({ task, closeModal }: ModalContentProps) => {
+const ModalContent = ({
+  task,
+  closeModal,
+  setIsSnake,
+  snakeDuration,
+}: ModalContentProps) => {
   const queryClient = useQueryClient();
 
   const updateTaskMutation = useMutation(
@@ -45,6 +53,10 @@ const ModalContent = ({ task, closeModal }: ModalContentProps) => {
       };
 
       await updateTaskMutation.mutateAsync(updatedTask);
+
+      // 更新成功の場合は、ポップオーバーで知らせる
+      setIsSnake(true);
+      SecCount(snakeDuration, setIsSnake);
 
       // モーダルを閉じる
       closeModal();

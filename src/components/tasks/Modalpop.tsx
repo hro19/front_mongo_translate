@@ -4,7 +4,12 @@ import ModalContent from "./ModalContent";
 import { TaskObj } from "../../ts/Task";
 import { AiOutlineEdit } from "react-icons/ai";
 
-const Modalpop = ({ task }: TaskObj) => {
+type ModalpopProps = TaskObj & {
+  setIsSnake: any;
+  snakeDuration: number;
+};
+
+const Modalpop = ({ task, setIsSnake, snakeDuration }: ModalpopProps) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
@@ -33,7 +38,12 @@ const Modalpop = ({ task }: TaskObj) => {
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[92%] md:w-3/5"
         overlayClassName="fixed inset-0 bg-gray-700 bg-opacity-50"
       >
-        <ModalContent task={task} closeModal={closeModal} />
+        <ModalContent
+          task={task}
+          closeModal={closeModal}
+          setIsSnake={setIsSnake}
+          snakeDuration={snakeDuration}
+        />
       </Modal>
     </div>
   );
