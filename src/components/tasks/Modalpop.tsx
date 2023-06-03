@@ -4,12 +4,7 @@ import ModalContent from "./ModalContent";
 import { TaskObj } from "../../ts/Task";
 import { AiOutlineEdit } from "react-icons/ai";
 
-type ModalpopProps = TaskObj & {
-  setIsSnake: any;
-  snakeDuration: number;
-};
-
-const Modalpop = ({ task, setIsSnake, snakeDuration }: ModalpopProps) => {
+const Modalpop = ({ task }: TaskObj) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
@@ -41,8 +36,6 @@ const Modalpop = ({ task, setIsSnake, snakeDuration }: ModalpopProps) => {
         <ModalContent
           task={task}
           closeModal={closeModal}
-          setIsSnake={setIsSnake}
-          snakeDuration={snakeDuration}
         />
       </Modal>
     </div>

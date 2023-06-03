@@ -4,22 +4,22 @@ import { Task, TaskObj,FormData } from "../../ts/Task";
 import { useMutation, useQueryClient } from "react-query";
 import ModalContentForm from "./ModalContentForm";
 import { SecCount } from "../../components/taskShingle/Atarashiku";
+import { useAtom } from "jotai";
+import { isSnakeAtom,snakeDurationAtom } from "../../jotai/atoms";
 
 //バックエンドのエンドポイントにアクセスして、アップデートの仕組みを定義する
 //更新データをreact-queryを使って管理する
 
 type ModalContentProps = TaskObj & {
-  setIsSnake: any;
-  snakeDuration: number;
   closeModal: () => void;
 };
 
 const ModalContent = ({
   task,
   closeModal,
-  setIsSnake,
-  snakeDuration,
 }: ModalContentProps) => {
+  const [isSnake, setIsSnake] = useAtom(isSnakeAtom);
+  const [snakeDuration, setSnakeDuration] = useAtom(snakeDurationAtom);
   const queryClient = useQueryClient();
 
   const updateTaskMutation = useMutation(
