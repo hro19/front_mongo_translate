@@ -9,7 +9,7 @@ export type EditBoxProps = TaskObj & {
   setIsSnake: Dispatch<SetStateAction<boolean>>;
 };
 
-const SlugEditBox = ({
+const SlugForm = ({
   task,
   setCurrentTask,
   snakeDuration,
@@ -64,4 +64,4 @@ const SlugEditBox = ({
   );
 };
 
-export default SlugEditBox;
+export default SlugForm;
