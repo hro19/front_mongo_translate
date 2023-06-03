@@ -9,6 +9,7 @@ import { checkEditAtom, nameAtom, completedAtom } from "../../jotai/atoms";
 const SlugFormInput = ({ task }: TaskObj) => {
   const [name, setName] = useAtom(nameAtom);
   const [completed, setCompleted] = useAtom(completedAtom);
+
   const [checkEdit, setCheckEdit] = useAtom(checkEditAtom);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
