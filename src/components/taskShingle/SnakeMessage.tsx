@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import { useAtom } from "jotai";
+import { snakeDurationAtom } from "../../jotai/atoms";
 
-type SnakeMessageProps = {
-  snakeDuration: number;
-};
-
-const SnakeMessage = ({ snakeDuration }: SnakeMessageProps) => {
+const SnakeMessage = () => {
+  const [snakeDuration, setSnakeDuration] = useAtom(snakeDurationAtom);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
