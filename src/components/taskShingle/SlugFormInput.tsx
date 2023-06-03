@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Task } from "../../ts/Task";
-
+import { useAtom } from "jotai";
+import {checkEditAtom} from "../../jotai/atoms";
 //formの要素であるinputのhtml構造を書く
 //react-hook-formのバリデーションを書く
 
@@ -10,7 +11,6 @@ type SlugFormInputProps = {
   completed: boolean;
   setName: Dispatch<SetStateAction<string>>;
   setCompleted: Dispatch<SetStateAction<boolean>>;
-  checkEdit: boolean;
 };
 
 const SlugFormInput = ({
@@ -19,8 +19,10 @@ const SlugFormInput = ({
   completed,
   setName,
   setCompleted,
-  checkEdit,
 }: SlugFormInputProps) => {
+  
+  const [checkEdit, setCheckEdit] = useAtom(checkEditAtom);
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompleted(e.target.value === "completed");
   };

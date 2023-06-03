@@ -3,7 +3,11 @@ import SlugFormInput from "../../components/taskShingle/SlugFormInput";
 import { Task, TaskObj } from "../../ts/Task";
 import { handleSubmit, CheckEditDisabled } from "../../components/taskShingle/Atarashiku";
 import { useAtom } from "jotai";
-import { isSnakeAtom, snakeDurationAtom } from "../../jotai/atoms";
+import {
+  isSnakeAtom,
+  snakeDurationAtom,
+  checkEditAtom,
+} from "../../jotai/atoms";
 
 export type EditBoxProps = TaskObj & {
   setCurrentTask: Dispatch<SetStateAction<Task>>;
@@ -15,7 +19,7 @@ const SlugForm = ({
 }: EditBoxProps) => {
   const [isSnake, setIsSnake] = useAtom(isSnakeAtom);
   const [snakeDuration, setSnakeDuration] = useAtom(snakeDurationAtom);
-  
+
   const [name, setName] = useState(task.name);
   const [completed, setCompleted] = useState(task.completed);
 
@@ -39,7 +43,7 @@ const SlugForm = ({
   };
 
   //checkEdit関数　元データと現データが同じならば送信ボタンがDisableになる
-  const [checkEdit, setCheckEdit] = useState(false);
+  const [checkEdit, setCheckEdit] = useAtom(checkEditAtom);
   useEffect(() => {
     CheckEditDisabled(name, completed, task, setCheckEdit);
   }, [name, completed]);
@@ -57,7 +61,6 @@ const SlugForm = ({
             setName={setName}
             completed={completed}
             setCompleted={setCompleted}
-            checkEdit={checkEdit}
           />
         </form>
       </div>
