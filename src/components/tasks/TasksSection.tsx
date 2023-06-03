@@ -8,17 +8,18 @@ import { Task } from "../../ts/Task";
 import TaskTable from "./TaskTable";
 
 const TasksSection = () => {
-  const {
-    data: tasks,
-    isLoading,
-    isError,
-    refetch,
-  } = useQuery<Task[]>("tasks", async () => {
+  const fetchTasks = async () => {
     const { data } = await axios.get(
       "https://back-mongo-task2.vercel.app/api/v1/tasks"
     );
     return data;
-  });
+  };
+
+  const {
+    data: tasks,
+    isLoading,
+    isError,
+  } = useQuery<Task[]>("tasks", fetchTasks);
 
   if (isError) {
     return <div>Error fetching tasks.</div>;
