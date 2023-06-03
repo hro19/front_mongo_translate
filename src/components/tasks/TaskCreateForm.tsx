@@ -1,7 +1,14 @@
 import React from 'react';
+import { FormData } from "../../ts/Task";
+import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 
-const TaskCreateForm = ({ register,errors }:any) => {
+type TaskCreateFormProps = {
+  register: UseFormRegister<FormData>;
+  errors: FieldErrors<FormData>;
+};
+
+const TaskCreateForm = ({ register, errors }: TaskCreateFormProps) => {
   return (
     <>
       <label className="mr-4 flex items-center h-full">
