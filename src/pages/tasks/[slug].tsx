@@ -36,7 +36,6 @@ const SingleTaskPage = ({ task }: TaskObj) => {
   const [currentTask, setCurrentTask] = useState(task);
   //popoverメッセージを制御する
   const [isSnake, setIsSnake] = useAtom(isSnakeAtom);
-  const [snakeDuration, setSnakeDuration] = useAtom(snakeDurationAtom);
 
   return (
     <>
@@ -48,7 +47,6 @@ const SingleTaskPage = ({ task }: TaskObj) => {
       <SlugForm
         task={currentTask}
         setCurrentTask={setCurrentTask}
-        snakeDuration={snakeDuration}
       />
       {isSnake && <SnakeMessage />}
       <Link href="/tasks/" className="text-4xl mt-6">
