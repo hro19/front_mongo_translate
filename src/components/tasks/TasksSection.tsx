@@ -16,7 +16,7 @@ const TasksSection = () => {
   };
 
   const {
-    data: tasks,
+    data,
     isLoading,
     isError,
   } = useQuery<Task[]>("tasks", fetchTasks);
@@ -27,7 +27,7 @@ const TasksSection = () => {
 
   return (
     <>
-      <TaskTable tasks={tasks} isLoading={isLoading} />
+      <TaskTable tasks={data} isLoading={isLoading} />
     </>
   );
 };
