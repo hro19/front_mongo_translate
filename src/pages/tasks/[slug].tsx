@@ -6,9 +6,11 @@ import { useAtom } from "jotai";
 import { isSnakeAtom, taskAtom } from "../../jotai/atoms";
 import SlugForm from "../../components/taskShingle/SlugForm";
 import SnakeMessage from "../../components/taskShingle/SnakeMessage";
-import { TaskObj } from "../../ts/Task";
+import { CurrentTaskObj } from "../../ts/Task";
 
-export const getServerSideProps: GetServerSideProps<any> = async (context) => {
+export const getServerSideProps: GetServerSideProps<CurrentTaskObj> = async (
+  context
+) => {
   const { slug } = context.query;
 
   try {
@@ -32,7 +34,7 @@ export const getServerSideProps: GetServerSideProps<any> = async (context) => {
   }
 };
 
-const SingleTaskPage = ({ currentTask }: any) => {
+const SingleTaskPage = ({ currentTask }: CurrentTaskObj) => {
   const [task, setTask] = useAtom(taskAtom);
 
   //currentTaskをTaskとしてセットする

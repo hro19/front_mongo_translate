@@ -8,6 +8,10 @@ export type TaskObj = {
   task: Task;
 };
 
+export type CurrentTaskObj = {
+  currentTask: Task;
+};
+
 export type TaskIterateObj = {
   tasks?: Task[];
 };
