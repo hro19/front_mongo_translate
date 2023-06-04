@@ -42,7 +42,7 @@ const handleSubmit = async (
   updatedTask: Task,
   second: number,
   setIsSnake: React.Dispatch<React.SetStateAction<boolean>>,
-  setCurrentTask: React.Dispatch<React.SetStateAction<Task>>,
+  setTask: React.Dispatch<React.SetStateAction<Task>>,
   setCheckEdit: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   e.preventDefault();
@@ -51,7 +51,7 @@ const handleSubmit = async (
     await PatchSingleTask(_id, updatedTask);
 
     // 更新成功の場合は、タスク一覧を再読み込みする等の処理を追加する
-    setCurrentTask(updatedTask);
+    setTask(updatedTask);
 
     // 更新成功の場合は、ポップオーバーで知らせる
     setIsSnake(true);

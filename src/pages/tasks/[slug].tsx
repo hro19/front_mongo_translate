@@ -1,53 +1,56 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { GetServerSideProps } from "next";
 import axios from "axios";
 import Link from "next/link";
 import { useAtom } from "jotai";
-import { isSnakeAtom, snakeDurationAtom } from "../../jotai/atoms";
+import { isSnakeAtom, taskAtom } from "../../jotai/atoms";
 import SlugForm from "../../components/taskShingle/SlugForm";
 import SnakeMessage from "../../components/taskShingle/SnakeMessage";
 import { TaskObj } from "../../ts/Task";
 
-export const getServerSideProps: GetServerSideProps<TaskObj> = async (context) => {
+export const getServerSideProps: GetServerSideProps<any> = async (context) => {
   const { slug } = context.query;
 
   try {
     const response = await axios.get(
       `https://back-mongo-task2.vercel.app/api/v1/tasks/${slug}`
     );
-    const task = response.data;
+    const currentTask = response.data;
 
     return {
       props: {
-        task,
+        currentTask,
       },
     };
   } catch (error) {
     console.error("Error fetching single task:", error);
     return {
       props: {
-        task: null,
+        currentTask: null,
       },
     };
   }
 };
 
-const SingleTaskPage = ({ task }: TaskObj) => {
-  const [currentTask, setCurrentTask] = useState(task);
+const SingleTaskPage = ({ currentTask }: any) => {
+  const [task, setTask] = useAtom(taskAtom);
+
+  //currentTaskをTaskとしてセットする
+  useEffect(() => {
+    setTask(currentTask);
+  }, []);
+
   //popoverメッセージを制御する
   const [isSnake, setIsSnake] = useAtom(isSnakeAtom);
 
   return (
     <>
       <div>
-        <h1>{currentTask.name}</h1>
-        <p>{currentTask._id}</p>
-        <p>{currentTask.completed ? "Completed" : "Not Completed"}</p>
+        <h1>{task.name}</h1>
+        <p>{task._id}</p>
+        <p>{task.completed ? "Completed" : "Not Completed"}</p>
       </div>
-      <SlugForm
-        task={currentTask}
-        setCurrentTask={setCurrentTask}
-      />
+      <SlugForm />
       {isSnake && <SnakeMessage />}
       <Link href="/tasks/" className="text-4xl mt-6">
         トップに戻る

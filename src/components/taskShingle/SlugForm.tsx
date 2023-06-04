@@ -1,6 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect } from "react";
 import SlugFormInput from "../../components/taskShingle/SlugFormInput";
-import { Task, TaskObj } from "../../ts/Task";
 import { handleSubmit } from "../../components/taskShingle/Atarashiku";
 import { useAtom } from "jotai";
 import {
@@ -8,23 +7,19 @@ import {
   snakeDurationAtom,
   checkEditAtom,
   nameAtom,
-  completedAtom
+  completedAtom,
+  taskAtom
 } from "../../jotai/atoms";
 
-export type EditBoxProps = TaskObj & {
-  setCurrentTask: Dispatch<SetStateAction<Task>>;
-};
+const SlugForm = () => {
+  const [task, setTask] = useAtom(taskAtom);
 
-const SlugForm = ({
-  task,
-  setCurrentTask,
-}: EditBoxProps) => {
   const [isSnake, setIsSnake] = useAtom(isSnakeAtom);
   const [snakeDuration, setSnakeDuration] = useAtom(snakeDurationAtom);
 
   const [name, setName] = useAtom(nameAtom);
   const [completed, setCompleted] = useAtom(completedAtom);
-  
+
   useEffect(() => {
     setName(task.name);
     setCompleted(task.completed);
@@ -47,7 +42,7 @@ const SlugForm = ({
       updatedTask,
       snakeDuration,
       setIsSnake,
-      setCurrentTask,
+      setTask,
       setCheckEdit
     );
   };

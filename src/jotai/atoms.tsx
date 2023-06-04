@@ -6,3 +6,5 @@ export const checkEditAtom = atom(false);
 
 export const nameAtom = atom("");
 export const completedAtom = atom(false);
+
+export const taskAtom = atom({ _id: "", name: "", completed: false });
