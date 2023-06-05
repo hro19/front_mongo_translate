@@ -13,18 +13,18 @@ const API_URL = "https://api-free.deepl.com/v2/translate";
 const API_LIMIT_URL = "https://api-free.deepl.com/v2/usage";
 
 const Home = () => {
-  const [inputText, setInputText] = useState(""); // inputText ステートを宣言する
-  const [translatedText, setTranslatedText] = useState(""); // translatedText ステートを宣言する
-  const [apiLimit, setApiLimit] = useState(500000); // apiLimit ステートを宣言する
-  const [jaContent, setJaContent] = useState<string | null>(null);
-  const [enContent, setEnContent] = useState<string | null>(null);
+  const [inputText, setInputText] = useState<string>(""); // inputText ステートを宣言する
+  const [translatedText, setTranslatedText] = useState<string>(""); // translatedText ステートを宣言する
+  const [apiLimit, setApiLimit] = useState<number>(500000); // apiLimit ステートを宣言する
+  const [jaContent, setJaContent] = useState<string>("");
+  const [enContent, setEnContent] = useState<string>("");
 
   //インプットを初期化
   const handleCreateSuccess = () => {
     setInputText("");
     setTranslatedText("");
-    setJaContent(null);
-    setEnContent(null);
+    setJaContent("");
+    setEnContent("");
   };
 
   //インプットした文字をinputTextにセットする
