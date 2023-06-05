@@ -31,16 +31,15 @@ const TaskTable = ({ tasks = [], isLoading }: TaskTableProps) => {
 
   return (
     <>
-     <TaskSelect />
-
+      <TaskSelect />
       <table className="table-auto w-full">
         <thead>
-          <tr>
-            <th className="px-4 py-2"></th>
-            <th className="px-4 py-2">Name</th>
-            <th className="px-4 py-2">Completed</th>
-            <th className="px-4 py-2">Edit</th>
-            <th className="px-4 py-2">Delete</th>
+          <tr className="bg-blue-900 text-white leading-8">
+            <th></th>
+            <th>Name</th>
+            <th>Completed</th>
+            <th>Edit</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <TaskIterate tasks={filteredTasks} />
