@@ -87,9 +87,7 @@ const Home = () => {
             >
               Speak
             </button>
-            {translatedText && (
-              <TranslateCreate />
-            )}
+            {translatedText && inputText &&(<TranslateCreate />)}
           </div>
         </div>
       </div>
