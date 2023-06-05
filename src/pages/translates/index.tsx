@@ -1,10 +1,9 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import TranslateCreate from "../../components/translates/TranslateCreate";
 import TranslateTitle from "../../components/translates/TranslateTitle";
-import {
-  handleTranslate,
-  getApiLimit,
-} from "../../components/translates/Honyaku";
+import {handleTranslate,getApiLimit} from "../../components/translates/Honyaku";
+import { useAtom } from "jotai";
+import {jaContentAtom,enContentAtom} from "../../jotai/translatesAtoms";
 
 import { speakText } from "../../components/translates/Onsei";
 
@@ -16,8 +15,8 @@ const Home = () => {
   const [inputText, setInputText] = useState<string>(""); // inputText ステートを宣言する
   const [translatedText, setTranslatedText] = useState<string>(""); // translatedText ステートを宣言する
   const [apiLimit, setApiLimit] = useState<number>(500000); // apiLimit ステートを宣言する
-  const [jaContent, setJaContent] = useState<string>("");
-  const [enContent, setEnContent] = useState<string>("");
+  const [jaContent, setJaContent] = useAtom(jaContentAtom);
+  const [enContent, setEnContent] = useAtom(enContentAtom);
 
   //インプットを初期化
   const handleCreateSuccess = () => {
@@ -94,8 +93,6 @@ const Home = () => {
             </button>
             {translatedText && (
               <TranslateCreate
-                jaContent={jaContent}
-                enContent={enContent}
                 handleCreateSuccess={handleCreateSuccess}
               />
             )}

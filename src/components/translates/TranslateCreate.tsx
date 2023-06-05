@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useAtom } from "jotai";
+import { jaContentAtom, enContentAtom } from "../../jotai/translatesAtoms";
 
 type TranslateCreateProps = {
-  jaContent: string | null;
-  enContent: string | null;
   handleCreateSuccess: () => void;
 };
 
-const TranslateCreate: React.FC<TranslateCreateProps> = ({
-  jaContent,
-  enContent,
-  handleCreateSuccess,
-}) => {
+const TranslateCreate = ({ handleCreateSuccess }: TranslateCreateProps) => {
+  const [jaContent, setJaContent] = useAtom(jaContentAtom);
+  const [enContent, setEnContent] = useAtom(enContentAtom);
   const [isCreating, setIsCreating] = useState(false);
 
   const handleCreate = async () => {
