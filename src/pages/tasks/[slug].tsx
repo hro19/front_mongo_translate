@@ -50,7 +50,7 @@ const SingleTaskPage = ({ currentTask }: CurrentTaskObj) => {
       <div>
         <h1>{task.name}</h1>
         <p>{task._id}</p>
-        <p>{task.completed ? "Completed" : "Not Completed"}</p>
+        <p>{task.completed ? "完了" : "進行中"}</p>
       </div>
       <SlugForm />
       {isSnake && <SnakeMessage />}
