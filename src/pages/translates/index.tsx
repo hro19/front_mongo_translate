@@ -3,8 +3,12 @@ import TranslateCreate from "../../components/translates/TranslateCreate";
 import TranslateTitle from "../../components/translates/TranslateTitle";
 import {handleTranslate,getApiLimit} from "../../components/translates/Honyaku";
 import { useAtom } from "jotai";
-import {jaContentAtom,enContentAtom} from "../../jotai/translatesAtoms";
-
+import {
+  inputTextAtom,
+  translatedTextAtom,
+  jaContentAtom,
+  enContentAtom,
+} from "../../jotai/translatesAtoms";
 import { speakText } from "../../components/translates/Onsei";
 
 const API_KEY = "68fddf2a-cbfe-a9a0-87bf-0269b2ebbf29:fx";
@@ -12,19 +16,11 @@ const API_URL = "https://api-free.deepl.com/v2/translate";
 const API_LIMIT_URL = "https://api-free.deepl.com/v2/usage";
 
 const Home = () => {
-  const [inputText, setInputText] = useState<string>(""); // inputText ステートを宣言する
-  const [translatedText, setTranslatedText] = useState<string>(""); // translatedText ステートを宣言する
-  const [apiLimit, setApiLimit] = useState<number>(500000); // apiLimit ステートを宣言する
+  const [inputText, setInputText] = useAtom(inputTextAtom); // inputText ステートを宣言する
+  const [translatedText, setTranslatedText] = useAtom(translatedTextAtom); // translatedText ステートを宣言する
   const [jaContent, setJaContent] = useAtom(jaContentAtom);
   const [enContent, setEnContent] = useAtom(enContentAtom);
-
-  //インプットを初期化
-  const handleCreateSuccess = () => {
-    setInputText("");
-    setTranslatedText("");
-    setJaContent("");
-    setEnContent("");
-  };
+  const [apiLimit, setApiLimit] = useState<number>(500000); // apiLimit ステートを宣言する
 
   //インプットした文字をinputTextにセットする
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -92,9 +88,7 @@ const Home = () => {
               Speak
             </button>
             {translatedText && (
-              <TranslateCreate
-                handleCreateSuccess={handleCreateSuccess}
-              />
+              <TranslateCreate />
             )}
           </div>
         </div>

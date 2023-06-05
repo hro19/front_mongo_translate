@@ -1,35 +1,37 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useAtom } from "jotai";
-import { jaContentAtom, enContentAtom } from "../../jotai/translatesAtoms";
+import {
+  inputTextAtom,
+  translatedTextAtom,
+  jaContentAtom,
+  enContentAtom,
+} from "../../jotai/translatesAtoms";
 
-type TranslateCreateProps = {
-  handleCreateSuccess: () => void;
-};
-
-const TranslateCreate = ({ handleCreateSuccess }: TranslateCreateProps) => {
+const TranslateCreate = () => {
+  const [inputText, setInputText] = useAtom(inputTextAtom); // inputText ステートを宣言する
+  const [translatedText, setTranslatedText] = useAtom(translatedTextAtom); // translatedText ステートを宣言する
   const [jaContent, setJaContent] = useAtom(jaContentAtom);
   const [enContent, setEnContent] = useAtom(enContentAtom);
-  const [isCreating, setIsCreating] = useState(false);
+
+  //インプットを初期化
+  const handleCreateSuccess = () => {
+    setInputText("");
+    setTranslatedText("");
+    setJaContent("");
+    setEnContent("");
+  };
 
   const handleCreate = async () => {
-    if (isCreating) {
-      return;
-    }
-
     try {
-      setIsCreating(true);
-
       const response = await axios.post(
         "https://back-mongo-translate.vercel.app/api/v1/translates",
         { jaContent, enContent }
       );
-      console.log("Data created:", response.data);
+      //console.log("Data created:", response.data);
       handleCreateSuccess();
     } catch (error) {
       console.error("Error creating data:", error);
-    } finally {
-      setIsCreating(false);
     }
   };
 
