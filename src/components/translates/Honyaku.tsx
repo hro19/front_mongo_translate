@@ -8,8 +8,6 @@ const API_LIMIT_URL = "https://api-free.deepl.com/v2/usage";
 const handleTranslate = ({
   inputText,
   setTranslatedText,
-  setApiLimit,
-  apiLimit,
 }: any) => {
   let deeplInput = inputText;
   let isJap = false;
@@ -35,7 +33,6 @@ const handleTranslate = ({
     })
     .then((data) => {
       setTranslatedText(data.translations[0].text);
-      setApiLimit(apiLimit - data.character_count); // 翻訳に使った文字数を引いて、apiLimit を更新する
     })
     .catch((error) => {
       alert("翻訳失敗");
