@@ -36,7 +36,7 @@ const PatchSingleTask = (_id: string, updatedTask: Task) => {
 //第五引数 setIsSnake
 //第六引数 setCurrentTask
 
-const handleSubmit = async (
+const createHandler = async (
   e: React.FormEvent<HTMLFormElement>,
   _id: string,
   updatedTask: Task,
@@ -87,4 +87,4 @@ const CheckEditDisabled = (
   }
 };
 
-export { SecCount, PatchSingleTask, handleSubmit, CheckEditDisabled };
+export { SecCount, PatchSingleTask, createHandler, CheckEditDisabled };
