@@ -2,7 +2,6 @@
 
 import React from "react";
 import TaskIterate from "./TaskIterate";
-import BounceLoader from "react-spinners/BounceLoader";
 import TaskSelect from "../../components/tasks/TaskSelect";
 import Loading from "../../components/tasks/Loading";
 import { Task, TaskIterateObj } from "../../ts/Task";
