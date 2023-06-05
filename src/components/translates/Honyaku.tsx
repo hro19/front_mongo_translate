@@ -78,15 +78,18 @@ const formatDate = (dateString: string) => {
 
 //言語判別
 //第一引数　インプットデータ英語か日本語
-//第二引数　インプットデータが英語か日本語をジャッジした結果、初期値はfalse
-function detectLanguage(deeplInput:string, isJap = false) {
-  for (let i = 0; i < deeplInput.length; i++) {
-    if (deeplInput.charCodeAt(i) >= 256) {
-      isJap = true;
-      break;
-    }
+function detectLanguage(text:string) {
+  const japaneseRegex =
+    /[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}ーａ-ｚＡ-Ｚ０-９々〆〤]/u;
+  const englishRegex = /[a-zA-Z]/;
+
+  if (japaneseRegex.test(text)) {
+    return true; // 日本語ならばtrueを返す
+  } else if (englishRegex.test(text)) {
+    return false; // 英語ならばfalseを返す
+  } else {
+    return false; // 上記のいずれにも当てはまらない場合は英語として扱う（falseを返す）
   }
-  return isJap;
 }
 
 //音声データ用のURLフラグメントを取得
