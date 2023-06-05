@@ -3,17 +3,8 @@ import TranslateCreate from "../../components/translates/TranslateCreate";
 import TranslateTitle from "../../components/translates/TranslateTitle";
 import {handleTranslate,getApiLimit} from "../../components/translates/Honyaku";
 import { useAtom } from "jotai";
-import {
-  inputTextAtom,
-  translatedTextAtom,
-  jaContentAtom,
-  enContentAtom,
-} from "../../jotai/translatesAtoms";
+import {inputTextAtom,translatedTextAtom} from "../../jotai/translatesAtoms";
 import { speakText } from "../../components/translates/Onsei";
-
-const API_KEY = "68fddf2a-cbfe-a9a0-87bf-0269b2ebbf29:fx";
-const API_URL = "https://api-free.deepl.com/v2/translate";
-const API_LIMIT_URL = "https://api-free.deepl.com/v2/usage";
 
 const Home = () => {
   const [inputText, setInputText] = useAtom(inputTextAtom); // inputText ステートを宣言する
@@ -33,8 +24,6 @@ const Home = () => {
   //一月のご利用文字数を表示
   useEffect(() => {
     getApiLimit({
-      API_KEY,
-      API_LIMIT_URL,
       setApiLimit,
     });
   }, [translatedText]);
@@ -57,8 +46,6 @@ const Home = () => {
             <button
               onClick={() =>
                 handleTranslate({
-                  API_KEY,
-                  API_URL,
                   inputText,
                   setTranslatedText,
                   setApiLimit,

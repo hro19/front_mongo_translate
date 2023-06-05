@@ -1,9 +1,11 @@
 import { format } from "date-fns";
 
+const API_KEY = "68fddf2a-cbfe-a9a0-87bf-0269b2ebbf29:fx";
+const API_URL = "https://api-free.deepl.com/v2/translate";
+const API_LIMIT_URL = "https://api-free.deepl.com/v2/usage";
+
 //翻訳ハンドラー
 const handleTranslate = ({
-  API_KEY,
-  API_URL,
   inputText,
   setTranslatedText,
   setApiLimit,
@@ -41,7 +43,7 @@ const handleTranslate = ({
 };
 
 //一月のご利用文字数を表示
-const getApiLimit = ({ API_KEY, API_LIMIT_URL, setApiLimit }: any) => {
+const getApiLimit = ({ setApiLimit }: any) => {
   const content = encodeURI("auth_key=" + API_KEY);
   const url = API_LIMIT_URL + "?" + content;
 
