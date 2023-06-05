@@ -3,18 +3,17 @@
 import React, { useState } from "react";
 import TaskIterate from "./TaskIterate";
 import BounceLoader from "react-spinners/BounceLoader";
+import TaskSelect from "../../components/tasks/TaskSelect";
 import { Task, TaskIterateObj } from "../../ts/Task";
+import { useAtom } from "jotai";
+import { tasksStateAtom } from "../../jotai/atoms";
 
 type TaskTableProps = TaskIterateObj & {
   isLoading: boolean;
 };
 
 const TaskTable = ({ tasks = [], isLoading }: TaskTableProps) => {
-  const [status, setStatus] = useState("uncompleted");
-
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setStatus(e.target.value);
-  };
+  const [tasksState, setTasksState] = useAtom(tasksStateAtom);
 
   if (isLoading) {
     return (
@@ -25,9 +24,9 @@ const TaskTable = ({ tasks = [], isLoading }: TaskTableProps) => {
   }
 
   const filteredTasks = tasks.filter((task: Task) => {
-    if (status === "uncompleted") {
+    if (tasksState === "uncompleted") {
       return !task.completed;
-    } else if (status === "completed") {
+    } else if (tasksState === "completed") {
       return task.completed;
     } else {
       return true;
@@ -36,18 +35,7 @@ const TaskTable = ({ tasks = [], isLoading }: TaskTableProps) => {
 
   return (
     <>
-      <div className="my-4">
-        <select
-          id="status-select"
-          value={status}
-          onChange={handleChange}
-          className="bg-yellow-600 text-white py-2 pl-2 pr-4 rounded-lg cursor-pointer"
-        >
-          <option value="uncompleted">Uncompleted</option>
-          <option value="completed">Completed</option>
-          <option value="all">All</option>
-        </select>
-      </div>
+     <TaskSelect />
 
       <table className="table-auto w-full">
         <thead>
