@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useAtom } from "jotai";
 import { tasksStateAtom } from "../../jotai/atoms";
+import { SelectSwitch } from "../../ts/Task";
 
 const TaskSelect = () => {
   const [tasksState, setTasksState] = useAtom(tasksStateAtom);
@@ -9,6 +10,12 @@ const TaskSelect = () => {
     setTasksState(e.target.value);
   };
 
+  const selectSwitch: SelectSwitch = {
+    uncompleted: "実施中",
+    completed: "タスク完了",
+    all: "全て",
+  };
+    
   return (
     <div className="my-4">
       <select
@@ -17,9 +24,11 @@ const TaskSelect = () => {
         onChange={handleChange}
         className="bg-yellow-600 text-white py-2 pl-2 pr-4 rounded-lg cursor-pointer"
       >
-        <option value="uncompleted">Uncompleted</option>
-        <option value="completed">Completed</option>
-        <option value="all">All</option>
+        {Object.entries(selectSwitch).map(([value, label]) => (
+          <option key={value} value={value}>
+            {label}
+          </option>
+        ))}
       </select>
     </div>
   );
