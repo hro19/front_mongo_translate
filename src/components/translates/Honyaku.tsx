@@ -5,10 +5,12 @@ const API_URL = "https://api-free.deepl.com/v2/translate";
 const API_LIMIT_URL = "https://api-free.deepl.com/v2/usage";
 
 //翻訳ハンドラー
-const handleTranslate = ({
-  inputText,
-  setTranslatedText,
-}: any) => {
+type HandleTranslate = (params: {
+  inputText: string;
+  setTranslatedText: React.Dispatch<React.SetStateAction<string>>;
+}) => void;
+
+const handleTranslate: HandleTranslate = ({ inputText, setTranslatedText }) => {
   let deeplInput = inputText;
   let isJap = false;
 
@@ -40,7 +42,11 @@ const handleTranslate = ({
 };
 
 //一月のご利用文字数を表示
-const getApiLimit = ({ setApiLimit }: any) => {
+type GetApiLimit = (params: {
+  setApiLimit: React.Dispatch<React.SetStateAction<number>>;
+}) => void;
+
+const getApiLimit: GetApiLimit = ({ setApiLimit }) => {
   const content = encodeURI("auth_key=" + API_KEY);
   const url = API_LIMIT_URL + "?" + content;
 
