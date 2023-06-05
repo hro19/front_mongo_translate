@@ -6,15 +6,16 @@ import { SelectSwitch } from "../../ts/Task";
 const TaskSelect = () => {
   const [tasksState, setTasksState] = useAtom(tasksStateAtom);
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setTasksState(e.target.value);
-  };
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value as SelectSwitch;
+    setTasksState(value);
+    };
 
-  const selectSwitch: SelectSwitch = {
-    uncompleted: "実施中",
-    completed: "タスク完了",
-    all: "全て",
-  };
+    const selectSwitch: Record<SelectSwitch, string> = {
+      uncompleted: "実施中",
+      completed: "タスク完了",
+      all: "全て",
+    };
     
   return (
     <div className="my-4">

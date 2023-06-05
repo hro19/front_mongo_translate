@@ -21,6 +21,4 @@ export type FormData = {
   completed: boolean;
 };
 
-export type SelectSwitch = {
-  [key in "uncompleted" | "completed" | "all"]: string;
-};
+export type SelectSwitch = "uncompleted" | "completed" | "all";

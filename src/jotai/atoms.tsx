@@ -1,8 +1,10 @@
 import { atom } from 'jotai';
+import { SelectSwitch } from "../ts/Task";
 
-export const tasksStateAtom = atom("completed");
+//tasks一覧ページ
+export const tasksStateAtom = atom<SelectSwitch>("all");
 
-
+//tasksシングルページ
 export const isSnakeAtom = atom(false);
 export const snakeDurationAtom = atom(2000);
 export const checkEditAtom = atom(false);
