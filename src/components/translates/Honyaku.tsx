@@ -17,10 +17,7 @@ const handleTranslate = ({
 
   for (var i = 0; i < deeplInput.length; i++) {
     //言語判別
-    if (deeplInput.charCodeAt(i) >= 256) {
-      isJap = true;
-      break;
-    }
+    isJap = detectLanguage(deeplInput);
   }
 
   switch (isJap) {
@@ -92,6 +89,20 @@ const formatDate = (dateString: string) => {
   const formattedDate = format(date, "yyyy年MM月dd日 HH時mm分");
   return formattedDate;
 };
+
+//言語判別
+//第一引数　インプットデータ英語か日本語
+//第二引数　インプットデータが英語か日本語をジャッジした結果、初期値はfalse
+function detectLanguage(deeplInput:string, isJap = false) {
+  for (let i = 0; i < deeplInput.length; i++) {
+    if (deeplInput.charCodeAt(i) >= 256) {
+      isJap = true;
+      break;
+    }
+  }
+  return isJap;
+}
+
 
 export {
   handleTranslate,
