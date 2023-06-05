@@ -34,8 +34,9 @@ const Home = () => {
       <div className="container max-w-[1040px] mx-auto">
         <TranslateTitle />
         <p className="mb-3">
-          {!isNaN(apiLimit) && (apiLimit === maxApiNum || `${apiLimit}文字`)}（
-          {maxApiNum}文字まで）
+          {/* {!isNaN(apiLimit) && (apiLimit === maxApiNum || `${apiLimit}文字`)} */}
+          今月使用できる文字数は残り
+          <span className="font-bold text-lg">{maxApiNum - apiLimit}文字</span>まで
         </p>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
@@ -59,7 +60,7 @@ const Home = () => {
           </div>
           <div>
             <textarea
-              id="deepl-input"
+              id="deepl-input2"
               value={translatedText}
               onChange={handleInputChange2}
               className="p-2 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full h-36"

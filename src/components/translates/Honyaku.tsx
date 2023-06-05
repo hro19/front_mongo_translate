@@ -5,6 +5,8 @@ const API_URL = "https://api-free.deepl.com/v2/translate";
 const API_LIMIT_URL = "https://api-free.deepl.com/v2/usage";
 
 //翻訳ハンドラー
+//第一引数　入力した文字（英語でも日本語も可能）
+//第二引数　入力された文字を翻訳したデータのセッター
 type HandleTranslate = (params: {
   inputText: string;
   setTranslatedText: React.Dispatch<React.SetStateAction<string>>;
@@ -41,7 +43,8 @@ const handleTranslate: HandleTranslate = ({ inputText, setTranslatedText }) => {
     });
 };
 
-//一月のご利用文字数を表示
+//一カ月のご利用文字数を表示
+//第一引数　今月利用した文字数を取得し、セッターに入れる
 type GetApiLimit = (params: {
   setApiLimit: React.Dispatch<React.SetStateAction<number>>;
 }) => void;
