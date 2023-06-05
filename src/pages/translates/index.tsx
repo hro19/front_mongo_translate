@@ -18,8 +18,6 @@ const API_LIMIT_URL = "https://api-free.deepl.com/v2/usage";
 const Home = () => {
   const [inputText, setInputText] = useAtom(inputTextAtom); // inputText ステートを宣言する
   const [translatedText, setTranslatedText] = useAtom(translatedTextAtom); // translatedText ステートを宣言する
-  const [jaContent, setJaContent] = useAtom(jaContentAtom);
-  const [enContent, setEnContent] = useAtom(enContentAtom);
   const [apiLimit, setApiLimit] = useState<number>(500000); // apiLimit ステートを宣言する
 
   //インプットした文字をinputTextにセットする
@@ -65,8 +63,6 @@ const Home = () => {
                   setTranslatedText,
                   setApiLimit,
                   apiLimit,
-                  setJaContent,
-                  setEnContent,
                 })
               }
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mt-4"

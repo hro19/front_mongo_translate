@@ -1,26 +1,35 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios";
 import { useAtom } from "jotai";
+import { detectLanguage } from "../../components/translates/Honyaku";
 import {
   inputTextAtom,
   translatedTextAtom,
-  jaContentAtom,
-  enContentAtom,
 } from "../../jotai/translatesAtoms";
 
 const TranslateCreate = () => {
   const [inputText, setInputText] = useAtom(inputTextAtom); // inputText ステートを宣言する
   const [translatedText, setTranslatedText] = useAtom(translatedTextAtom); // translatedText ステートを宣言する
-  const [jaContent, setJaContent] = useAtom(jaContentAtom);
-  const [enContent, setEnContent] = useAtom(enContentAtom);
+  const [jaContent, setJaContent] = useState<string>("");
+  const [enContent, setEnContent] = useState<string>("");
 
   //インプットを初期化
   const handleCreateSuccess = () => {
     setInputText("");
     setTranslatedText("");
-    setJaContent("");
-    setEnContent("");
   };
+
+  useEffect(() => {
+    let isJap = detectLanguage(inputText);
+
+    if (isJap) {
+      setJaContent(inputText);
+      setEnContent(translatedText);
+    } else {
+      setJaContent(translatedText);
+      setEnContent(inputText);
+    }
+  }, [inputText, translatedText]);
 
   const handleCreate = async () => {
     try {

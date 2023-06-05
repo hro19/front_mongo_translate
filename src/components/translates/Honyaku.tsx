@@ -8,8 +8,6 @@ const handleTranslate = ({
   setTranslatedText,
   setApiLimit,
   apiLimit,
-  setJaContent,
-  setEnContent,
 }: any) => {
   let deeplInput = inputText;
   let isJap = false;
@@ -36,14 +34,6 @@ const handleTranslate = ({
     .then((data) => {
       setTranslatedText(data.translations[0].text);
       setApiLimit(apiLimit - data.character_count); // 翻訳に使った文字数を引いて、apiLimit を更新する
-      // 判定とステートの設定
-      if (isJap) {
-        setJaContent(inputText);
-        setEnContent(data.translations[0].text);
-      } else {
-        setJaContent(data.translations[0].text);
-        setEnContent(inputText);
-      }
     })
     .catch((error) => {
       alert("翻訳失敗");
@@ -116,5 +106,7 @@ export {
   handleTranslate,
   getApiLimit,
   formatDate,
+  detectLanguage,
+  getSpeechLang,
   // 他の関数も追加する
 };
