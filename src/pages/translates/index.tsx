@@ -28,9 +28,14 @@ const Home = () => {
   };
 
   //インプットした文字をinputTextにセットする
-const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-  setInputText(event.target.value);
-};
+  const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setInputText(event.target.value);
+  };
+
+  //翻訳された文字をinputTextにセットする
+  const handleInputChange2 = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setTranslatedText(event.target.value);
+  };
 
   //一月のご利用文字数を表示
   useEffect(() => {
@@ -75,12 +80,12 @@ const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
             </button>
           </div>
           <div>
-            <div
-              id="deepl-output"
-              className="p-2 rounded-md border border-gray-300 shadow-sm h-36"
-            >
-              {translatedText}
-            </div>
+            <textarea
+              id="deepl-input"
+              value={translatedText}
+              onChange={handleInputChange2}
+              className="p-2 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full h-36"
+            />
             <button
               onClick={() => speakText({ content: translatedText })}
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md mt-4"
