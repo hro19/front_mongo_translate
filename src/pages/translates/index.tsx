@@ -9,7 +9,8 @@ import { speakText } from "../../components/translates/Onsei";
 const Home = () => {
   const [inputText, setInputText] = useAtom(inputTextAtom); // inputText ステートを宣言する
   const [translatedText, setTranslatedText] = useAtom(translatedTextAtom); // translatedText ステートを宣言する
-  const [apiLimit, setApiLimit] = useState<number>(500000); // apiLimit ステートを宣言する
+  const maxApiNum = 500000;
+  const [apiLimit, setApiLimit] = useState<number>(maxApiNum); // apiLimit ステートを宣言する
 
   //インプットした文字をinputTextにセットする
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -33,7 +34,8 @@ const Home = () => {
       <div className="container max-w-[1040px] mx-auto">
         <TranslateTitle />
         <p className="mb-3">
-          {!isNaN(apiLimit) && `${apiLimit}文字`}（500000文字まで）
+          {!isNaN(apiLimit) && (apiLimit === maxApiNum || `${apiLimit}文字`)}（
+          {maxApiNum}文字まで）
         </p>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
@@ -68,7 +70,7 @@ const Home = () => {
             >
               Speak
             </button>
-            {translatedText && inputText &&(<TranslateCreate />)}
+            {translatedText && inputText && <TranslateCreate />}
           </div>
         </div>
       </div>
