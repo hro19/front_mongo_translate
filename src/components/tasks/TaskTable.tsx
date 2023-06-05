@@ -1,9 +1,10 @@
 // ローディングアニメーションとタスクのフィルター管理
 
-import React, { useState } from "react";
+import React from "react";
 import TaskIterate from "./TaskIterate";
 import BounceLoader from "react-spinners/BounceLoader";
 import TaskSelect from "../../components/tasks/TaskSelect";
+import Loading from "../../components/tasks/Loading";
 import { Task, TaskIterateObj } from "../../ts/Task";
 import { useAtom } from "jotai";
 import { tasksStateAtom } from "../../jotai/atoms";
@@ -16,11 +17,7 @@ const TaskTable = ({ tasks = [], isLoading }: TaskTableProps) => {
   const [tasksState, setTasksState] = useAtom(tasksStateAtom);
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center my-4">
-        <BounceLoader color="#43B916" />
-      </div>
-    );
+    return <Loading />;
   }
 
   const filteredTasks = tasks.filter((task: Task) => {
