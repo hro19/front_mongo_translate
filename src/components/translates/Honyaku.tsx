@@ -13,23 +13,12 @@ const handleTranslate = ({
 }: any) => {
   let deeplInput = inputText;
   let isJap = false;
-  let sourceLang = "";
 
   for (var i = 0; i < deeplInput.length; i++) {
     //言語判別
     isJap = detectLanguage(deeplInput);
   }
-
-  switch (isJap) {
-    case true:
-      sourceLang = "&source_lang=JA&target_lang=EN";
-      break;
-    case false:
-      sourceLang = "&source_lang=EN&target_lang=JA";
-      break;
-    default:
-      alert("言語の判別に失敗しました");
-  }
+  let sourceLang = getSpeechLang(isJap);
 
   let content = encodeURI(
     "auth_key=" + API_KEY + "&text=" + deeplInput + sourceLang
@@ -101,6 +90,25 @@ function detectLanguage(deeplInput:string, isJap = false) {
     }
   }
   return isJap;
+}
+
+//音声データ用のURLフラグメントを取得
+//第一引数　isJap
+function getSpeechLang(isJap:boolean) {
+  let sourceLang;
+
+  switch (isJap) {
+    case true:
+      sourceLang = "&source_lang=JA&target_lang=EN";
+      break;
+    case false:
+      sourceLang = "&source_lang=EN&target_lang=JA";
+      break;
+    default:
+      throw new Error("言語の判別に失敗しました");
+  }
+
+  return sourceLang;
 }
 
 
