@@ -1,12 +1,20 @@
 import React, { useEffect } from "react";
-import { TaskObj } from "../../ts/Task";
+import { FieldErrors } from "react-hook-form";
+import { TaskObj, FormDataName } from "../../ts/Task";
 import { useAtom } from "jotai";
 import {CheckEditDisabled} from "../../components/taskShingle/Atarashiku";
 import { checkEditAtom, nameAtom, completedAtom } from "../../jotai/atoms";
 //formの要素であるinputのhtml構造を書く
 //react-hook-formのバリデーションを書く
 
-const SlugFormInput = ({ task }: TaskObj) => {
+type SlugFormInputProps = TaskObj & {
+  register: any;
+  errors: FieldErrors<FormDataName>;
+  reset: () => void;
+};
+
+const SlugFormInput = ({ task, register, errors, reset }: SlugFormInputProps) => {
+
   const [name, setName] = useAtom(nameAtom);
   const [completed, setCompleted] = useAtom(completedAtom);
 
@@ -29,6 +37,16 @@ const SlugFormInput = ({ task }: TaskObj) => {
           名前
         </label>
         <input
+          {...register("name", {
+            required: {
+              value: true,
+              message: "名前は必須です",
+            },
+            maxLength: {
+              value: 6,
+              message: "名前は6文字以内である必要があります",
+            },
+          })}
           className="appearance-none border rounded w-full py-2 px-3 text-2xl text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="name"
           type="text"
@@ -36,6 +54,9 @@ const SlugFormInput = ({ task }: TaskObj) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
+        {errors.name && (
+          <span className="text-red-500 ml-2">{errors.name.message}</span>
+        )}
       </div>
       <div className="mb-4">
         <span className="block text-gray-700 font-bold mb-2">進捗</span>

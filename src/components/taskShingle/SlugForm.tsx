@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import SlugFormInput from "../../components/taskShingle/SlugFormInput";
 import { createHandler } from "../../components/taskShingle/Atarashiku";
 import { useAtom } from "jotai";
@@ -34,10 +35,10 @@ const SlugForm = () => {
     completed,
   };
 
-  //カリー化を使用してhandleSubmit関数を部分適用することで、必要な引数を渡した新しい関数を作成
-  const createHandlerCurried = (e: React.FormEvent<HTMLFormElement>) => {
+  //カリー化を使用してcreateHandler関数を部分適用することで、必要な引数を渡した新しい関数を作成
+  const createHandlerCurried = (event: any) => {
     createHandler(
-      e,
+      event,
       task._id,
       updatedTask,
       snakeDuration,
@@ -47,14 +48,26 @@ const SlugForm = () => {
     );
   };
 
+const {
+  register,
+  handleSubmit,
+  formState: { errors },
+  reset,
+} = useForm();
+
   return (
     <div className="bg-slate-500">
       <div className="flex h-full w-full justify-center items-center bg-slate-200 p-4">
         <form
           className="w-full sm:w-4/5 lg:w-3/4 max-w-md"
-          onSubmit={createHandlerCurried}
+          onSubmit={handleSubmit(() => createHandlerCurried(event))}
         >
-          <SlugFormInput task={task} />
+          <SlugFormInput
+            task={task}
+            register={register}
+            errors={errors}
+            reset={reset}
+          />
         </form>
       </div>
     </div>
