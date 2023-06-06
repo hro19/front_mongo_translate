@@ -20,7 +20,7 @@ const handleTranslate: HandleTranslate = ({ inputText, setTranslatedText }) => {
     //言語判別
     isJap = detectJapLang(deeplInput);
   }
-  let sourceLang = getSpeechLang(isJap);
+  let sourceLang = getSpeechHash(isJap);
 
   let content = encodeURI(
     "auth_key=" + API_KEY + "&text=" + deeplInput + sourceLang
@@ -94,7 +94,7 @@ function detectJapLang(text:string) {
 
 //音声データ用のURLフラグメントを取得
 //第一引数　isJap
-function getSpeechLang(isJap:boolean) {
+function getSpeechHash(isJap:boolean) {
   let sourceLang;
 
   switch (isJap) {
@@ -117,6 +117,6 @@ export {
   getApiLimit,
   formatDate,
   detectJapLang,
-  getSpeechLang,
+  getSpeechHash,
   // 他の関数も追加する
 };
