@@ -18,7 +18,7 @@ const handleTranslate: HandleTranslate = ({ inputText, setTranslatedText }) => {
 
   for (var i = 0; i < deeplInput.length; i++) {
     //言語判別
-    isJap = detectLanguage(deeplInput);
+    isJap = detectJapLang(deeplInput);
   }
   let sourceLang = getSpeechLang(isJap);
 
@@ -78,7 +78,7 @@ const formatDate = (dateString: string) => {
 
 //言語判別
 //第一引数　インプットデータ英語か日本語
-function detectLanguage(text:string) {
+function detectJapLang(text:string) {
   const japaneseRegex =
     /[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}ーａ-ｚＡ-Ｚ０-９々〆〤]/u;
   const englishRegex = /[a-zA-Z]/;
@@ -116,7 +116,7 @@ export {
   handleTranslate,
   getApiLimit,
   formatDate,
-  detectLanguage,
+  detectJapLang,
   getSpeechLang,
   // 他の関数も追加する
 };

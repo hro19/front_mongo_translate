@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import axios from "axios";
 import { useAtom } from "jotai";
-import { detectLanguage } from "../../components/translates/Honyaku";
+import { detectJapLang } from "../../components/translates/Honyaku";
 import {
   inputTextAtom,
   translatedTextAtom,
@@ -20,7 +20,7 @@ const TranslateCreate = () => {
   };
 
   useEffect(() => {
-    let isJap = detectLanguage(inputText);
+    let isJap = detectJapLang(inputText);
 
     if (isJap) {
       setJaContent(inputText);
