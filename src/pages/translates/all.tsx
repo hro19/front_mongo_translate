@@ -8,13 +8,19 @@ import TranslateInput from "../../components/translates/TranslateInput";
 import RenderPaginationItems from "../../components/translates/RenderPaginationItems";
 import TranslatePagination from "@/components/translates/TranslatePagination";
 import { Translate } from "../../ts/Translate";
+import { useAtom } from "jotai";
+import {
+  showPostsAtom,
+  currentPageAtom,
+  itemsPerPageAtom,
+} from "../../jotai/translatesAtoms";
 
 const All = () => {
-  const [showPosts, setShowPosts] = useState([]);
+  const [showPosts, setShowPosts] = useAtom(showPostsAtom);
 
   //ページング設定
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4;
+  const [currentPage, setCurrentPage] = useAtom(currentPageAtom);
+  const [itemsPerPage, setTtemsPerPage] = useAtom(itemsPerPageAtom);
 
   const fetchTranslates = async () => {
     const response = await axios.get(
@@ -62,12 +68,7 @@ const All = () => {
               currentPage={currentPage}
               itemsPerPage={itemsPerPage}
             />
-            <TranslatePagination
-              showPosts={showPosts}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              itemsPerPage={itemsPerPage}
-            />
+            <TranslatePagination/>
           </>
         )}
       </div>

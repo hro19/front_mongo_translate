@@ -1,10 +1,11 @@
 import { atom } from 'jotai';
-import { TranslateObj } from "../ts/Translate";
+import { Translate,TranslateObj } from "../ts/Translate";
 
 //translate新規ページ
 export const inputTextAtom = atom<string>("");
 export const translatedTextAtom = atom<string>("");
 
 //translate一覧ページ
-export const isSnakeAtom = atom(false);
-
+export const showPostsAtom = atom<Translate[]>([]);
+export const currentPageAtom = atom<number>(1);
+export const itemsPerPageAtom = atom<number>(4);

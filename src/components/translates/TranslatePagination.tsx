@@ -1,12 +1,19 @@
 import React from 'react';
 import { Pagination } from "@mui/material";
+import { useAtom } from "jotai";
+import {
+  showPostsAtom,
+  currentPageAtom,
+  itemsPerPageAtom,
+} from "../../jotai/translatesAtoms";
 
-const TranslatePagination = ({
-  setCurrentPage,
-  showPosts,
-  currentPage,
-  itemsPerPage
-}: any) => {
+const TranslatePagination = () => {
+
+  const [showPosts, setShowPosts] = useAtom(showPostsAtom);
+  //ページング設定
+  const [currentPage, setCurrentPage] = useAtom(currentPageAtom);
+  const [itemsPerPage, setTtemsPerPage] = useAtom(itemsPerPageAtom);
+
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     page: number
