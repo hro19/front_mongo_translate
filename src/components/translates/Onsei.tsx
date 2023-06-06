@@ -1,16 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
+import { detectJapLang } from "./Honyaku";
 
-//入力文字が日本語か英語かを判断
-
-const checkEnglish = (content: string) => {
-  for (var i = 0; i < content.length; i++) {
-    //言語判別
-    if (content.charCodeAt(i) >= 256) {
-      return false; // 日本語が含まれる場合はtrueを返す
-    }
-  }
-  return true; // 日本語が含まれない場合はfalseを返す
-};
 
 //文字テキストを音声出力
 interface SpeakTextArgs {
@@ -20,11 +10,11 @@ interface SpeakTextArgs {
 
 const speakText = ({ content, setIsSpeaking }: SpeakTextArgs) => {
   const utterance = new SpeechSynthesisUtterance(content);
-  const isEng = checkEnglish(content);
-  if (isEng) {
-    utterance.lang = "en-US";
-  } else {
+  const isJap = detectJapLang(content);
+  if (isJap) {
     utterance.lang = "ja-JP";
+  } else {
+    utterance.lang = "en-US";
   }
   speechSynthesis.speak(utterance);
 
@@ -47,4 +37,4 @@ const stopSpeaking = (
   setIsSpeaking(false);
 };
 
-export { checkEnglish, speakText, stopSpeaking };
+export { speakText, stopSpeaking };
