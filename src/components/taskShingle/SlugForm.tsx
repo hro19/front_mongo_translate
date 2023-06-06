@@ -36,9 +36,9 @@ const SlugForm = () => {
   };
 
   //カリー化を使用してcreateHandler関数を部分適用することで、必要な引数を渡した新しい関数を作成
-  const createHandlerCurried = (event: any) => {
+  const createHandlerCurried = (e: any) => {
     createHandler(
-      event,
+      e,
       task._id,
       updatedTask,
       snakeDuration,
@@ -60,7 +60,7 @@ const {
       <div className="flex h-full w-full justify-center items-center bg-slate-200 p-4">
         <form
           className="w-full sm:w-4/5 lg:w-3/4 max-w-md"
-          onSubmit={handleSubmit(() => createHandlerCurried(event))}
+          onSubmit={handleSubmit((e) => createHandlerCurried(e))}
         >
           <SlugFormInput
             task={task}
