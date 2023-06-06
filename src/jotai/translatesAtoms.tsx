@@ -9,3 +9,6 @@ export const translatedTextAtom = atom<string>("");
 export const showPostsAtom = atom<Translate[]>([]);
 export const currentPageAtom = atom<number>(1);
 export const itemsPerPageAtom = atom<number>(4);
+
+//現在音声再生中かを判断
+export const isSpeakingAtom = atom<boolean>(false);

@@ -49,9 +49,7 @@ const All = () => {
     <div className="mx-4 pt-2">
       <div className="container max-w-[1040px] mx-auto">
         <TranslateTitle />
-        <TranslateInput
-          data={data}
-        />
+        <TranslateInput data={data}/>
 
         {isLoading ? (
           <div className="flex justify-center my-36">
@@ -61,11 +59,7 @@ const All = () => {
           <div>Error: {(error as Error).message}</div>
         ) : (
           <>
-            <RenderPaginationItems
-              showPosts={showPosts}
-              currentPage={currentPage}
-              itemsPerPage={itemsPerPage}
-            />
+            <RenderPaginationItems/>
             <TranslatePagination/>
           </>
         )}
