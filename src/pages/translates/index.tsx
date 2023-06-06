@@ -45,7 +45,8 @@ const Home = () => {
         <p className="mb-3">
           {/* {!isNaN(apiLimit) && (apiLimit === maxApiNum || `${apiLimit}文字`)} */}
           今月使用できる文字数は残り
-          <span className="font-bold text-lg">{maxApiNum - apiLimit}文字</span>まで
+          <span className="font-bold text-lg">{maxApiNum - apiLimit}文字</span>
+          まで
         </p>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
@@ -59,6 +60,13 @@ const Home = () => {
               onClick={() =>handleTranslate({inputText,setTranslatedText,})}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mt-4"
             >Translate</button> */}
+            <button
+              onClick={(() => {
+                setInputText("");
+                setTranslatedText("");
+              })}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mt-4"
+            >Clear</button>
           </div>
           <div>
             <textarea
