@@ -1,7 +1,18 @@
 import React, { useState } from "react";
 import { searchFunc } from "../../components/translates/Kensaku";
+import { Translate } from "../../ts/Translate";
+import { useAtom } from "jotai";
+import {
+  showPostsAtom,
+  currentPageAtom
+} from "../../jotai/translatesAtoms";
 
-const TranslateInput = ({ data, setCurrentPage, setShowPosts }: any) => {
+const TranslateInput = ({ data }: any) => {
+
+  const [showPosts, setShowPosts] = useAtom(showPostsAtom);
+  //ページング設定
+  const [currentPage, setCurrentPage] = useAtom(currentPageAtom);
+
   const [inputValue, setInputValue] = useState("");
 
   //検索インプット

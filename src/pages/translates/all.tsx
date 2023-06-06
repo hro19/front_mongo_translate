@@ -51,8 +51,6 @@ const All = () => {
         <TranslateTitle />
         <TranslateInput
           data={data}
-          setCurrentPage={setCurrentPage}
-          setShowPosts={setShowPosts}
         />
 
         {isLoading ? (
