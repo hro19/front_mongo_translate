@@ -8,3 +8,7 @@ export type Translate = {
 export type TranslateObj = {
   translate: Translate;
 };
+
+export type TranslateIterateObj = {
+  data: Translate[];
+};
