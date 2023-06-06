@@ -28,8 +28,6 @@ const RenderPaginationItems = () => {
         <TranslateItelete
           key={translate._id}
           translate={translate}
-          isSpeaking={isSpeaking}
-          setIsSpeaking={setIsSpeaking}
         />
       ))}
     </>

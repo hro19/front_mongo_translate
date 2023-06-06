@@ -2,16 +2,15 @@ import React, { Dispatch, SetStateAction } from "react";
 import TranslateDelete from "../../components/translates/TranslateDelete";
 import { formatDate } from "../../components/translates/Honyaku";
 import { speakText, stopSpeaking } from "../../components/translates/Onsei";
-import { Translate } from "../../ts/Translate";
-import { AiFillPauseCircle,AiOutlineSound } from "react-icons/ai";
+import { Translate, TranslateObj } from "../../ts/Translate";
+import { AiFillPauseCircle, AiOutlineSound } from "react-icons/ai";
+import { useAtom } from "jotai";
+import {isSpeakingAtom} from "../../jotai/translatesAtoms";
 
-type TranslateIteleteProps = {
-  translate: Translate;
-  isSpeaking: boolean;
-  setIsSpeaking: Dispatch<SetStateAction<boolean>>;
-}
+const TranslateItelete = ({ translate }: TranslateObj) => {
+  //現在音声再生中かを判断
+  const [isSpeaking, setIsSpeaking] = useAtom(isSpeakingAtom);
 
-const TranslateItelete = ({translate,isSpeaking,setIsSpeaking,}: TranslateIteleteProps) => {
   return (
     <>
       <div key={translate._id} className="border-b border-bp mb-2 pb-2 b-4">
