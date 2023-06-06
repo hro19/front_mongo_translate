@@ -11,16 +11,10 @@ import { Translate } from "../../ts/Translate";
 import { useAtom } from "jotai";
 import {
   showPostsAtom,
-  currentPageAtom,
-  itemsPerPageAtom,
 } from "../../jotai/translatesAtoms";
 
 const All = () => {
   const [showPosts, setShowPosts] = useAtom(showPostsAtom);
-
-  //ページング設定
-  const [currentPage, setCurrentPage] = useAtom(currentPageAtom);
-  const [itemsPerPage, setTtemsPerPage] = useAtom(itemsPerPageAtom);
 
   const fetchTranslates = async () => {
     const response = await axios.get(
