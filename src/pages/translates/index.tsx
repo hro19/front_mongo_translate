@@ -19,7 +19,7 @@ const Home = () => {
 
   //インプットした文字をinputTextにセットし、数秒後に自動で翻訳
   const [timer, setTimer] = useState<NodeJS.Timeout | undefined>(undefined);
-  const handleInputChange = (event: any) => {
+  const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setInputText(event.target.value);
 
     clearTimeout(timer);
@@ -37,9 +37,6 @@ const Home = () => {
     const pastedText = event.clipboardData.getData("text");
     setInputText(pastedText);
     handleTranslate({ inputText: pastedText, setTranslatedText });
-
-    // onChangeイベントのハンドラーを削除する
-    event.target.removeEventListener("change", handleInputChange);
   };
 
   //翻訳された文字をinputTextにセットする
