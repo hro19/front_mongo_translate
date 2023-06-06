@@ -7,20 +7,19 @@ const speakText = (content:string) => {
   const utterance = new SpeechSynthesisUtterance(content);
   utterance.lang = "en-US";
   speechSynthesis.speak(utterance);
-};
-
-type SpeakTextArgs = {
-  content: string;
-  setIsSpeaking?: Dispatch<SetStateAction<boolean>>;
+  return utterance;
 };
 
 //文字テキストを音声出力と音声再生ボタンのtoggle
 //第一引数　出力させたい文字
 //第二引数　speaking中なのかをジャッジする値のセッター
+type SpeakTextArgs = {
+  content: string;
+  setIsSpeaking?: Dispatch<SetStateAction<boolean>>;
+};
+
 const speakTextAndBtn = ({ content, setIsSpeaking }: SpeakTextArgs) => {
-  const utterance = new SpeechSynthesisUtterance(content);
-  utterance.lang = "en-US";
-  speechSynthesis.speak(utterance);
+  const utterance = speakText(content);
 
   if (setIsSpeaking) {
     setIsSpeaking(true);
