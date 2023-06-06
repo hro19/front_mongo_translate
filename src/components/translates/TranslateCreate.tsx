@@ -5,13 +5,15 @@ import { detectJapLang } from "../../components/translates/Honyaku";
 import {
   inputTextAtom,
   translatedTextAtom,
+  jaContentAtom,
+  enContentAtom,
 } from "../../jotai/translatesAtoms";
 
 const TranslateCreate = () => {
   const [inputText, setInputText] = useAtom(inputTextAtom); // inputText ステートを宣言する
   const [translatedText, setTranslatedText] = useAtom(translatedTextAtom); // translatedText ステートを宣言する
-  const [jaContent, setJaContent] = useState<string>("");
-  const [enContent, setEnContent] = useState<string>("");
+  const [jaContent, setJaContent] = useAtom(jaContentAtom);
+  const [enContent, setEnContent] = useAtom(enContentAtom);
 
   //インプットを初期化
   const handleCreateSuccess = () => {

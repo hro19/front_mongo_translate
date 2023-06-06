@@ -2,22 +2,24 @@ import { Dispatch, SetStateAction } from "react";
 import { detectJapLang } from "./Honyaku";
 
 //文字テキストを音声出力
+
+
+const speakText = (content:string) => {
+  const utterance = new SpeechSynthesisUtterance(content);
+  utterance.lang = "en-US";
+  speechSynthesis.speak(utterance);
+};
+
 type SpeakTextArgs = {
   content: string;
   setIsSpeaking?: Dispatch<SetStateAction<boolean>>;
-}
+};
 
-const speakText = ({ content, setIsSpeaking }: SpeakTextArgs) => {
+const speakTextAndBtn = ({ content, setIsSpeaking }: SpeakTextArgs) => {
   const utterance = new SpeechSynthesisUtterance(content);
-  const isJap = detectJapLang(content);
-  if (isJap) {
-    utterance.lang = "ja-JP";
-  } else {
-    utterance.lang = "en-US";
-  }
+  utterance.lang = "en-US";
   speechSynthesis.speak(utterance);
 
-  // setIsSpeakingが引数としてある場合はfalseを音声終了後にセットする。
   if (setIsSpeaking) {
     setIsSpeaking(true);
     utterance.onend = () => {
@@ -36,4 +38,4 @@ const stopSpeaking = (
   setIsSpeaking(false);
 };
 
-export { speakText, stopSpeaking };
+export { speakText, speakTextAndBtn, stopSpeaking };

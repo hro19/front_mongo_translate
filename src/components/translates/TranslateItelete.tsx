@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import TranslateDelete from "../../components/translates/TranslateDelete";
 import { formatDate } from "../../components/translates/Honyaku";
-import { speakText, stopSpeaking } from "../../components/translates/Onsei";
+import {speakTextAndBtn,stopSpeaking} from "../../components/translates/Onsei";
 import { Translate, TranslateObj } from "../../ts/Translate";
 import { AiFillPauseCircle, AiOutlineSound } from "react-icons/ai";
 import { useAtom } from "jotai";
@@ -42,7 +42,7 @@ const TranslateItelete = ({ translate }: TranslateObj) => {
               <button
                 className="mt-2 bg-cyan-500 text-white py-1 px-2 rounded-md hover:bg-cyan-700 text-sm"
                 onClick={() =>
-                  speakText({ content: translate.enContent, setIsSpeaking })
+                  speakTextAndBtn({ content: translate.enContent, setIsSpeaking })
                 }
               >
                 <AiOutlineSound
