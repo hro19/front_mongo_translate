@@ -19,7 +19,7 @@ const Home = () => {
 
   //インプットした文字をinputTextにセットし、数秒後に自動で翻訳
   const [timer, setTimer] = useState<NodeJS.Timeout | undefined>(undefined);
-  const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleInputChange = (event: any) => {
     setInputText(event.target.value);
 
     clearTimeout(timer);
@@ -30,6 +30,17 @@ const Home = () => {
 
     setTimer(newTimer);
   }
+
+  const handlePaste = (event: React.ClipboardEvent<HTMLTextAreaElement>) => {
+      event.preventDefault();
+    // onPasteイベントの処理
+    const pastedText = event.clipboardData.getData("text");
+    setInputText(pastedText);
+    handleTranslate({ inputText: pastedText, setTranslatedText });
+
+    // onChangeイベントのハンドラーを削除する
+    event.target.removeEventListener("change", handleInputChange);
+  };
 
   //翻訳された文字をinputTextにセットする
   const handleInputChange2 = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -59,6 +70,7 @@ const Home = () => {
               id="deepl-input"
               value={inputText}
               onChange={handleInputChange}
+              onPaste={handlePaste}
               className="p-2 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full h-36"
             />
             {/* <button
