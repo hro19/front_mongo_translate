@@ -12,10 +12,19 @@ const Home = () => {
   const maxApiNum = 500000;
   const [apiLimit, setApiLimit] = useState<number>(maxApiNum); // apiLimit ステートを宣言する
 
-  //インプットした文字をinputTextにセットする
+  //インプットした文字をinputTextにセットし、数秒後に自動で翻訳
+  const [timer, setTimer] = useState<NodeJS.Timeout | undefined>(undefined);
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setInputText(event.target.value);
-  };
+
+    clearTimeout(timer);
+
+    const newTimer = setTimeout(() => {
+        handleTranslate({inputText,setTranslatedText});
+    }, 1000);
+
+    setTimer(newTimer);
+  }
 
   //翻訳された文字をinputTextにセットする
   const handleInputChange2 = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -46,17 +55,10 @@ const Home = () => {
               onChange={handleInputChange}
               className="p-2 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full h-36"
             />
-            <button
-              onClick={() =>
-                handleTranslate({
-                  inputText,
-                  setTranslatedText,
-                })
-              }
+            {/* <button
+              onClick={() =>handleTranslate({inputText,setTranslatedText,})}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mt-4"
-            >
-              Translate
-            </button>
+            >Translate</button> */}
           </div>
           <div>
             <textarea
