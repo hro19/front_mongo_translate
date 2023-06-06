@@ -1,9 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 import { detectJapLang } from "./Honyaku";
 
-
 //文字テキストを音声出力
-interface SpeakTextArgs {
+type SpeakTextArgs = {
   content: string;
   setIsSpeaking?: Dispatch<SetStateAction<boolean>>;
 }
