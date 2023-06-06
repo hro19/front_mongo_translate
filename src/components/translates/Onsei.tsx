@@ -2,8 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { detectJapLang } from "./Honyaku";
 
 //文字テキストを音声出力
-
-
+//第一引数　出力させたい文字
 const speakText = (content:string) => {
   const utterance = new SpeechSynthesisUtterance(content);
   utterance.lang = "en-US";
@@ -15,6 +14,9 @@ type SpeakTextArgs = {
   setIsSpeaking?: Dispatch<SetStateAction<boolean>>;
 };
 
+//文字テキストを音声出力と音声再生ボタンのtoggle
+//第一引数　出力させたい文字
+//第二引数　speaking中なのかをジャッジする値のセッター
 const speakTextAndBtn = ({ content, setIsSpeaking }: SpeakTextArgs) => {
   const utterance = new SpeechSynthesisUtterance(content);
   utterance.lang = "en-US";
