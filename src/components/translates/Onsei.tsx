@@ -10,7 +10,7 @@ const speakText = (content:string) => {
   return utterance;
 };
 
-//文字テキストを音声出力と音声再生ボタンのtoggle
+//文字テキストを音声出力と、音声再生/停止ボタンの表示toggle
 //第一引数　出力させたい文字
 //第二引数　speaking中なのかをジャッジする値のセッター
 type SpeakTextArgs = {

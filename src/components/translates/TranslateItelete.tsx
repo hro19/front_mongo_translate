@@ -33,6 +33,7 @@ const TranslateItelete = ({ translate }: TranslateObj) => {
                 className="mt-2 bg-teal-500 text-white py-1 px-2 rounded-md hover:bg-teal-700 text-sm"
                 onClick={() => stopSpeaking(setIsSpeaking)}
               >
+                {/* 音声停止ボタン */}
                 <AiFillPauseCircle
                   className="icon text-white my-1 mx-2 inline-block"
                   size="1.4rem"
@@ -42,9 +43,13 @@ const TranslateItelete = ({ translate }: TranslateObj) => {
               <button
                 className="mt-2 bg-cyan-500 text-white py-1 px-2 rounded-md hover:bg-cyan-700 text-sm"
                 onClick={() =>
-                  speakTextAndBtn({ content: translate.enContent, setIsSpeaking })
+                  speakTextAndBtn({
+                    content: translate.enContent,
+                    setIsSpeaking,
+                  })
                 }
               >
+                {/* 音声再生ボタン */}
                 <AiOutlineSound
                   className="icon text-white my-1 mx-2 inline-block"
                   size="1.4rem"

@@ -19,9 +19,6 @@ const RenderPaginationItems = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  //現在音声再生中かを判断
-  const [isSpeaking, setIsSpeaking] = useAtom(isSpeakingAtom);
-
   return (
     <>
       {showPosts.slice(startIndex, endIndex).map((translate: Translate) => (
