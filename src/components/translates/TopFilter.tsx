@@ -3,6 +3,8 @@ import { Translate } from "../../ts/Translate";
 
 const TopFilter = ({ data }: any) => {
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+
   const toggleOpenIndex = (index: number) => {
     if (openIndexes.includes(index)) {
       setOpenIndexes(openIndexes.filter((i) => i !== index));
@@ -11,9 +13,34 @@ const TopFilter = ({ data }: any) => {
     }
   };
 
+  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedSortOrder = event.target.value as "asc" | "desc";
+    setSortOrder(selectedSortOrder);
+  };
+
+  const sortedData = data.sort((a: Translate, b: Translate) => {
+    const dateA = new Date(a.created_at).getTime();
+    const dateB = new Date(b.created_at).getTime();
+    return sortOrder === "desc" ? dateB - dateA : dateA - dateB;
+  });
+
   return (
     <>
-      {data.map((post: Translate, index: number) => (
+      <div className="mb-4">
+        <label htmlFor="sortOrder" className="mr-2">
+          Sort Order:
+        </label>
+        <select
+          id="sortOrder"
+          value={sortOrder}
+          onChange={handleSortChange}
+          className="border border-gray-300 px-2 py-1"
+        >
+          <option value="desc">Descending</option>
+          <option value="asc">Ascending</option>
+        </select>
+      </div>
+      {sortedData.map((post: Translate, index: number) => (
         <div key={post._id}>
           <div className="card">
             <div
