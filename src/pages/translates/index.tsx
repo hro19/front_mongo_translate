@@ -1,7 +1,9 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import TranslateCreate from "../../components/translates/TranslateCreate";
 import TranslateTitle from "../../components/translates/TranslateTitle";
-import {handleTranslate,getApiLimit} from "../../components/translates/Honyaku";
+import { handleTranslate, getApiLimit } from "../../components/translates/Honyaku";
+import Tooltips from "../../components/translates/Tooltips";
+
 import { useAtom } from "jotai";
 import {
   inputTextAtom,
@@ -65,6 +67,7 @@ const Home = () => {
           <div>
             <textarea
               id="deepl-input"
+              placeholder="こちらに日本語もしくは英語を入力ください"
               value={inputText}
               onChange={handleInputChange}
               onPaste={handlePaste}
@@ -87,6 +90,7 @@ const Home = () => {
           <div>
             <textarea
               id="deepl-input2"
+              placeholder="こちらに入力しても翻訳はされません"
               value={translatedText}
               onChange={handleInputChange2}
               className="p-2 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full h-36"
@@ -100,6 +104,7 @@ const Home = () => {
             {translatedText && inputText && <TranslateCreate />}
           </div>
         </div>
+        <Tooltips />
       </div>
     </div>
   );
