@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { Inter } from "next/font/google";
+import { Noto_Sans_JP } from "next/font/google";
 import { useAtom } from "jotai";
 import { isSnakeAtom } from "../../jotai/atoms";
 import TaskCreate from "../../components/tasks/TaskCreate";
@@ -9,7 +9,11 @@ import TaskTable from "../../components/tasks/TaskTable";
 import SnakeMessage from "../../components/taskShingle/SnakeMessage";
 import { Task } from "../../ts/Task";
 
-const inter = Inter({ subsets: ["latin"] });
+const notojp = Noto_Sans_JP({
+  weight: ["400", "500"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export default function Home() {
   //popoverメッセージを制御する
@@ -32,7 +36,10 @@ export default function Home() {
   return (
     <main>
       <div className="container mx-auto mt-5">
-        <h1 className="text-2xl font-bold my-5 text-center">Tasks</h1>
+        <div className={notojp.className}>
+          <h1 className="text-2xl font-bold my-5 text-center">Tasks</h1>
+          <p className="text-right">※Noto Sans Japaneseにてタイトルを出力</p>
+        </div>
         <TaskCreate />
         <TaskTable tasks={data} isLoading={isLoading} />
         {isSnake && <SnakeMessage />}
