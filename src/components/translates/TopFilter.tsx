@@ -4,6 +4,7 @@ import { Translate } from "../../ts/Translate";
 const TopFilter = ({ data }: any) => {
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const [pageSize, setPageSize] = useState<number>(10);
 
   const toggleOpenIndex = (index: number) => {
     if (openIndexes.includes(index)) {
@@ -18,11 +19,20 @@ const TopFilter = ({ data }: any) => {
     setSortOrder(selectedSortOrder);
   };
 
+  const handlePageSizeChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const selectedPageSize = Number(event.target.value);
+    setPageSize(selectedPageSize);
+  };
+
   const sortedData = data.sort((a: Translate, b: Translate) => {
     const dateA = new Date(a.created_at).getTime();
     const dateB = new Date(b.created_at).getTime();
     return sortOrder === "desc" ? dateB - dateA : dateA - dateB;
   });
+
+  const slicedData = sortedData.slice(0, pageSize);
 
   return (
     <>
@@ -34,13 +44,26 @@ const TopFilter = ({ data }: any) => {
           id="sortOrder"
           value={sortOrder}
           onChange={handleSortChange}
+          className="border border-gray-300 px-2 py-1 mr-4"
+        >
+          <option value="desc">降順</option>
+          <option value="asc">昇順</option>
+        </select>
+        <label htmlFor="pageSize" className="mr-2">
+          表示件数:
+        </label>
+        <select
+          id="pageSize"
+          value={pageSize}
+          onChange={handlePageSizeChange}
           className="border border-gray-300 px-2 py-1"
         >
-          <option value="desc">Descending</option>
-          <option value="asc">Ascending</option>
+          <option value={10}>10件</option>
+          <option value={20}>20件</option>
+          <option value={30}>30件</option>
         </select>
       </div>
-      {sortedData.map((post: Translate, index: number) => (
+      {slicedData.map((post: Translate, index: number) => (
         <div key={post._id}>
           <div className="card">
             <div
