@@ -3,6 +3,7 @@ import TranslateCreate from "../../components/translates/TranslateCreate";
 import TranslateTitle from "../../components/translates/TranslateTitle";
 import { handleTranslate, getApiLimit } from "../../components/translates/Honyaku";
 import Tooltips from "../../components/translates/Tooltips";
+import TopLatest from "../../components/translates/TopLatest";
 
 import { useAtom } from "jotai";
 import {
@@ -57,6 +58,7 @@ const Home = () => {
     <div className="mx-4 pt-2">
       <div className="container max-w-[1040px] mx-auto">
         <TranslateTitle />
+        <Tooltips />
         <p className="mb-3">
           {/* {!isNaN(apiLimit) && (apiLimit === maxApiNum || `${apiLimit}文字`)} */}
           今月使用できる文字数は残り
@@ -104,7 +106,7 @@ const Home = () => {
             {translatedText && inputText && <TranslateCreate />}
           </div>
         </div>
-        <Tooltips />
+        <TopLatest />
       </div>
     </div>
   );

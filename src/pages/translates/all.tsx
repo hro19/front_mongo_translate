@@ -9,9 +9,7 @@ import RenderPaginationItems from "../../components/translates/RenderPaginationI
 import TranslatePagination from "@/components/translates/TranslatePagination";
 import { Translate } from "../../ts/Translate";
 import { useAtom } from "jotai";
-import {
-  showPostsAtom,
-} from "../../jotai/translatesAtoms";
+import {showPostsAtom} from "../../jotai/translatesAtoms";
 
 const All = () => {
   const [showPosts, setShowPosts] = useAtom(showPostsAtom);
