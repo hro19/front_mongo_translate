@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAtom } from "jotai";
 import { detectJapLang } from "../../components/translates/Honyaku";
@@ -10,12 +10,12 @@ import {
 } from "../../jotai/translatesAtoms";
 
 const TranslateCreate = () => {
-  const [inputText, setInputText] = useAtom(inputTextAtom); // inputText ステートを宣言する
-  const [translatedText, setTranslatedText] = useAtom(translatedTextAtom); // translatedText ステートを宣言する
+  const [inputText, setInputText] = useAtom(inputTextAtom);
+  const [translatedText, setTranslatedText] = useAtom(translatedTextAtom);
   const [jaContent, setJaContent] = useAtom(jaContentAtom);
   const [enContent, setEnContent] = useAtom(enContentAtom);
 
-  //インプットを初期化
+  //テキストエリアを初期化
   const handleCreateSuccess = () => {
     setInputText("");
     setTranslatedText("");
@@ -31,7 +31,7 @@ const TranslateCreate = () => {
       setJaContent(translatedText);
       setEnContent(inputText);
     }
-  }, [inputText, translatedText]);
+  }, [inputText, translatedText, setJaContent, setEnContent]);
 
   const handleCreate = async () => {
     try {
@@ -39,7 +39,6 @@ const TranslateCreate = () => {
         "https://back-mongo-translate.vercel.app/api/v1/translates",
         { jaContent, enContent }
       );
-      //console.log("Data created:", response.data);
       handleCreateSuccess();
     } catch (error) {
       console.error("Error creating data:", error);
