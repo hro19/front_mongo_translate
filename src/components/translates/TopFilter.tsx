@@ -2,26 +2,18 @@ import React, { useState } from "react";
 import { Translate } from "../../ts/Translate";
 import { useAtom } from "jotai";
 import {
-  openIndexesAtom,
   sortOrderAtom,
   pageSizeAtom,
   filterOptionAtom,
 } from "../../jotai/translatesAtoms";
-
+import TopFilterItem from "./TopFilterItem";
 
 const TopFilter = ({ data }: any) => {
-  const [openIndexes, setOpenIndexes] = useAtom(openIndexesAtom);
   const [sortOrder, setSortOrder] = useAtom(sortOrderAtom);
   const [pageSize, setPageSize] = useAtom(pageSizeAtom);
   const [filterOption, setFilterOption] = useAtom(filterOptionAtom);
 
-  const toggleOpenIndex = (index: number) => {
-    if (openIndexes.includes(index)) {
-      setOpenIndexes(openIndexes.filter((i) => i !== index));
-    } else {
-      setOpenIndexes([...openIndexes, index]);
-    }
-  };
+
 
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedSortOrder = event.target.value as "asc" | "desc";
@@ -113,32 +105,11 @@ const TopFilter = ({ data }: any) => {
         </select>
       </div>
       {slicedData.map((post: Translate, index: number) => (
-        <div key={post._id}>
-          <div className="card">
-            <div
-              className="flex items-center justify-between"
-              onClick={() => toggleOpenIndex(index)}
-            >
-              <div
-                className={`w-full bg-gray-200 px-4 py-2 mb-1 font-bold cursor-pointer ${
-                  openIndexes.includes(index) ? "bg-indigo-800 text-white" : ""
-                }`}
-              >
-                {post.enContent}
-              </div>
-              <span
-                className={`transform transition-transform ${
-                  openIndexes.includes(index) ? "rotate-180" : ""
-                }`}
-              >
-                &#9660;
-              </span>
-            </div>
-            {openIndexes.includes(index) && (
-              <p className="px-4 py-2">{post.jaContent}</p>
-            )}
-          </div>
-        </div>
+        <TopFilterItem
+          key={post._id}
+          post={post}
+          index={index}
+        />
       ))}
     </>
   );
