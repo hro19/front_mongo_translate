@@ -19,12 +19,10 @@ const TopFilter = ({ data }: any) => {
     setSortOrder(selectedSortOrder);
   };
 
-  const handlePageSizeChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const selectedPageSize = Number(event.target.value);
-    setPageSize(selectedPageSize);
-  };
+const handlePageSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const selectedPageSize = Number(event.target.value);
+  setPageSize(selectedPageSize);
+};
 
   const sortedData = data.sort((a: Translate, b: Translate) => {
     const dateA = new Date(a.created_at).getTime();
@@ -61,6 +59,7 @@ const TopFilter = ({ data }: any) => {
           <option value={10}>10件</option>
           <option value={20}>20件</option>
           <option value={30}>30件</option>
+          <option value={data.length}>全件</option>
         </select>
       </div>
       {slicedData.map((post: Translate, index: number) => (
