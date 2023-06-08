@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { CreateTranslate } from "../../ts/Translate";
 import { useAtom } from "jotai";
 import { detectJapLang } from "../../components/translates/Honyaku";
+import { useMutation, useQueryClient } from "react-query";
 import {
   inputTextAtom,
   translatedTextAtom,
@@ -14,6 +16,8 @@ const TranslateCreate = () => {
   const [translatedText, setTranslatedText] = useAtom(translatedTextAtom);
   const [jaContent, setJaContent] = useAtom(jaContentAtom);
   const [enContent, setEnContent] = useAtom(enContentAtom);
+
+  const queryClient = useQueryClient();
 
   //テキストエリアを初期化
   const handleCreateSuccess = () => {
@@ -33,16 +37,28 @@ const TranslateCreate = () => {
     }
   }, [inputText, translatedText, setJaContent, setEnContent]);
 
-  const handleCreate = async () => {
+  const CreateData = { jaContent, enContent };
+  const createTranslation = async (CreateData: CreateTranslate) => {
     try {
       const response = await axios.post(
         "https://back-mongo-translate.vercel.app/api/v1/translates",
-        { jaContent, enContent }
+        CreateData
       );
-      handleCreateSuccess();
+      return response.data;
     } catch (error) {
-      console.error("Error creating data:", error);
+      throw new Error(`Error creating data: ${error}`);
     }
+  };
+
+  const mutation = useMutation(createTranslation, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("translates");
+      handleCreateSuccess();
+    },
+  });
+
+  const handleCreate = async () => {
+    mutation.mutate(CreateData);
   };
 
   return (

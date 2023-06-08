@@ -12,3 +12,7 @@ export type TranslateObj = {
 export type TranslateIterateObj = {
   data: Translate[];
 };
+
+export type CreateTranslate = {
+  enContent: string;
+};
