@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { Translate } from "../../ts/Translate";
+import { useAtom } from "jotai";
+import {
+  openIndexesAtom,
+  sortOrderAtom,
+  pageSizeAtom,
+  filterOptionAtom,
+} from "../../jotai/translatesAtoms";
+
 
 const TopFilter = ({ data }: any) => {
-  const [openIndexes, setOpenIndexes] = useState<number[]>([]);
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
-  const [pageSize, setPageSize] = useState<number>(10);
-  const [filterOption, setFilterOption] = useState<
-    "default" | "long" | "medium" | "short"
-  >("default");
+  const [openIndexes, setOpenIndexes] = useAtom(openIndexesAtom);
+  const [sortOrder, setSortOrder] = useAtom(sortOrderAtom);
+  const [pageSize, setPageSize] = useAtom(pageSizeAtom);
+  const [filterOption, setFilterOption] = useAtom(filterOptionAtom);
 
   const toggleOpenIndex = (index: number) => {
     if (openIndexes.includes(index)) {

@@ -8,6 +8,13 @@ export const translatedTextAtom = atom<string>("");
 export const jaContentAtom = atom<string>("");
 export const enContentAtom = atom<string>("");
 
+//translate新規ページのLatest
+export const openIndexesAtom = atom<number[]>([]);
+export const sortOrderAtom = atom<"asc" | "desc">("desc");
+export const pageSizeAtom = atom<number>(10);
+export const filterOptionAtom = atom<"default" | "long" | "medium" | "short">("default");
+
+
 //translate一覧ページ
 export const showPostsAtom = atom<Translate[]>([]);
 export const currentPageAtom = atom<number>(1);
