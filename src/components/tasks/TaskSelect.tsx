@@ -12,8 +12,8 @@ const TaskSelect = () => {
     };
 
     const selectSwitch: Record<SelectSwitch, string> = {
-      uncompleted: "実施中",
-      completed: "タスク完了",
+      uncompleted: "暗記中",
+      completed: "暗記済み",
       all: "全て",
     };
     
