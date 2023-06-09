@@ -7,7 +7,7 @@ import { Task, TaskIterateObj } from "../../ts/Task";
 const TaskIterate = ({ tasks }: TaskIterateObj) => {
 
   if (!tasks) {
-    return <p>タスクデータがありません</p>;
+    return <p>英単語データがありません</p>;
   }
 
   return (
