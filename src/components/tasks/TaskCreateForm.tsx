@@ -12,22 +12,41 @@ const TaskCreateForm = ({ register, errors }: TaskCreateFormProps) => {
   return (
     <>
       <label className="mr-4 flex items-center h-full">
-        <span>Name:</span>
+        <span>英単語</span>
         <input
           {...register("name", {
             required: {
               value: true,
-              message: "名前は必須です",
+              message: "英単語は必須です",
             },
             maxLength: {
               value: 20,
-              message: "名前は20文字以内である必要があります",
+              message: "英単語は20文字以内である必要があります",
             },
           })}
           className="ml-2 border rounded p-2 h-full"
         />
         {errors.name && (
           <span className="text-red-500 ml-2">{errors.name.message}</span>
+        )}
+      </label>
+      <label className="mr-4 flex items-center h-full">
+        <span>日本語訳</span>
+        <input
+          {...register("jaName", {
+            required: {
+              value: true,
+              message: "日本語訳は必須です",
+            },
+            maxLength: {
+              value: 30,
+              message: "日本語訳は30文字以内である必要があります",
+            },
+          })}
+          className="ml-2 border rounded p-2 h-full"
+        />
+        {errors.jaName && (
+          <span className="text-red-500 ml-2">{errors.jaName.message}</span>
         )}
       </label>
       <label className="flex items-center h-full">

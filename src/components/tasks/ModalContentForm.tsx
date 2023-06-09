@@ -13,6 +13,7 @@ type ModalContentFormProps = {
 
 const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps) => {
   const [name, setName] = useState(task.name);
+  const [jaName, setJaName] = useState(task.jaName);
   const [completed, setCompleted] = useState(task.completed);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,15 +25,28 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
       <h3 className="text-lg font-bold text-center mb-4">【ID】{task._id}</h3>
       <div className="mb-4">
         <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
-          名前
+          英単語
         </label>
         <input
           className="appearance-none border rounded w-full py-2 px-3 text-2xl text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="name"
           type="text"
-          placeholder="名前を入力してください"
+          placeholder="英単語を入力してください"
           defaultValue={task.name}
           onChange={(e) => setName(e.target.value)}
+        />
+      </div>
+      <div className="mb-4">
+        <label className="block text-gray-700 font-bold mb-2" htmlFor="jaName">
+          日本語訳
+        </label>
+        <input
+          className="appearance-none border rounded w-full py-2 px-3 text-2xl text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="jaName"
+          type="text"
+          placeholder="日本語訳を入力してください"
+          defaultValue={task.jaName}
+          onChange={(e) => setJaName(e.target.value)}
         />
       </div>
       <div className="mb-4">
@@ -72,7 +86,7 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
       <button
         type="button"
         className="bg-blue-500 text-white py-2 px-4 rounded"
-        onClick={(e) => handleSubmit(e, { name, completed })}
+        onClick={(e) => handleSubmit(e, { name,jaName, completed })}
       >
         更新する
       </button>

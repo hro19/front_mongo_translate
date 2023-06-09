@@ -21,11 +21,10 @@ const TaskIterate = ({ tasks }: TaskIterateObj) => {
                 {task.name}
               </Link>
             </td>
+            <td className="border px-4 py-2">{task.jaName}</td>
             <td className="border px-4 py-2">{task.completed ? "✅" : "❌"}</td>
             <td className="border px-4 py-2">
-              <Modalpop
-                task={task}
-              />
+              <Modalpop task={task} />
             </td>
             <td className="border px-4 py-2">
               <TaskDelete task={task} />

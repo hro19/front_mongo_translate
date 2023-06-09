@@ -8,6 +8,7 @@ import {
   snakeDurationAtom,
   checkEditAtom,
   nameAtom,
+  jaNameAtom,
   completedAtom,
   taskAtom
 } from "../../jotai/atoms";
@@ -19,10 +20,12 @@ const SlugForm = () => {
   const [snakeDuration, setSnakeDuration] = useAtom(snakeDurationAtom);
 
   const [name, setName] = useAtom(nameAtom);
+  const [jaName, setJaName] = useAtom(jaNameAtom);
   const [completed, setCompleted] = useAtom(completedAtom);
 
   useEffect(() => {
     setName(task.name);
+    setJaName(task.jaName);
     setCompleted(task.completed);
   }, [task]);
 
@@ -32,6 +35,7 @@ const SlugForm = () => {
   const updatedTask = {
     _id: task._id,
     name,
+    jaName,
     completed,
   };
 

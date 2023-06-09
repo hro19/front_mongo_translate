@@ -1,5 +1,6 @@
 export type Task = {
   _id: string;
+  jaName: string;
   name: string;
   completed: boolean;
 };
@@ -18,11 +19,13 @@ export type TaskIterateObj = {
 
 export type FormData = {
   name: string;
+  jaName: string;
   completed: boolean;
 };
 
 export type FormDataName = {
   name: string;
+  jaName: string;
 };
 
 

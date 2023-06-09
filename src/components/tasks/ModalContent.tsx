@@ -43,12 +43,13 @@ const ModalContent = ({
   ) => {
     e.preventDefault();
 
-    const { name, completed } = values;
+    const { name,jaName, completed } = values;
 
     try {
       const updatedTask: Task = {
         ...task,
         name,
+        jaName,
         completed,
       };
 

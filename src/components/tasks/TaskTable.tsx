@@ -35,11 +35,12 @@ const TaskTable = ({ tasks = [], isLoading }: TaskTableProps) => {
       <table className="table-auto w-full">
         <thead>
           <tr className="bg-blue-900 text-white leading-8">
-            <th></th>
-            <th>Name</th>
-            <th>Completed</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>ナンバー</th>
+            <th>英単語</th>
+            <th>日本語訳</th>
+            <th>暗記</th>
+            <th>編集</th>
+            <th>削除</th>
           </tr>
         </thead>
         <TaskIterate tasks={filteredTasks} />

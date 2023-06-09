@@ -48,8 +48,9 @@ const SingleTaskPage = ({ currentTask }: CurrentTaskObj) => {
   return (
     <>
       <div>
-        <h1>{task.name}</h1>
-        <p>{task._id}</p>
+        <h1>{task._id}</h1>
+        <p>{task.name}</p>
+        <p>{task.jaName}</p>
         <p>{task.completed ? "完了" : "進行中"}</p>
       </div>
       <SlugForm />

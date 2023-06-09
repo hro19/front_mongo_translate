@@ -3,7 +3,7 @@ import { FieldErrors } from "react-hook-form";
 import { TaskObj, FormDataName } from "../../ts/Task";
 import { useAtom } from "jotai";
 import {CheckEditDisabled} from "../../components/taskShingle/Atarashiku";
-import { checkEditAtom, nameAtom, completedAtom } from "../../jotai/atoms";
+import { checkEditAtom, nameAtom,jaNameAtom, completedAtom } from "../../jotai/atoms";
 //formの要素であるinputのhtml構造を書く
 //react-hook-formのバリデーションを書く
 
@@ -16,6 +16,7 @@ type SlugFormInputProps = TaskObj & {
 const SlugFormInput = ({ task, register, errors, reset }: SlugFormInputProps) => {
 
   const [name, setName] = useAtom(nameAtom);
+  const [jaName, setJaName] = useAtom(jaNameAtom);
   const [completed, setCompleted] = useAtom(completedAtom);
 
   const [checkEdit, setCheckEdit] = useAtom(checkEditAtom);
@@ -26,7 +27,7 @@ const SlugFormInput = ({ task, register, errors, reset }: SlugFormInputProps) =>
 
   //checkEdit関数　元データと現データが同じならば送信ボタンがDisableになる
   useEffect(() => {
-    CheckEditDisabled(name, completed, task, setCheckEdit);
+    CheckEditDisabled(name,jaName,completed, task, setCheckEdit);
   }, [name, completed]);
 
   return (
@@ -34,7 +35,7 @@ const SlugFormInput = ({ task, register, errors, reset }: SlugFormInputProps) =>
       <h3 className="text-lg font-bold text-center mb-4">【ID】{task._id}</h3>
       <div className="mb-4">
         <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
-          名前
+          英単語
         </label>
         <input
           {...register("name", {
@@ -43,8 +44,8 @@ const SlugFormInput = ({ task, register, errors, reset }: SlugFormInputProps) =>
               message: "名前は必須です",
             },
             maxLength: {
-              value: 6,
-              message: "名前は6文字以内である必要があります",
+              value: 20,
+              message: "名前は20文字以内である必要があります",
             },
           })}
           className="appearance-none border rounded w-full py-2 px-3 text-2xl text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -56,6 +57,32 @@ const SlugFormInput = ({ task, register, errors, reset }: SlugFormInputProps) =>
         />
         {errors.name && (
           <span className="text-red-500 ml-2">{errors.name.message}</span>
+        )}
+      </div>
+      <div className="mb-4">
+        <label className="block text-gray-700 font-bold mb-2" htmlFor="jaName">
+          日本語訳
+        </label>
+        <input
+          {...register("jaName", {
+            required: {
+              value: true,
+              message: "日本語訳は必須です",
+            },
+            maxLength: {
+              value: 30,
+              message: "日本語訳は30文字以内である必要があります",
+            },
+          })}
+          className="appearance-none border rounded w-full py-2 px-3 text-2xl text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="jaName"
+          type="text"
+          placeholder="日本語訳を入力してください"
+          value={jaName}
+          onChange={(e) => setJaName(e.target.value)}
+        />
+        {errors.jaName && (
+          <span className="text-red-500 ml-2">{errors.jaName.message}</span>
         )}
       </div>
       <div className="mb-4">
