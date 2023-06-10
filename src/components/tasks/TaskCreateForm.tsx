@@ -55,7 +55,7 @@ const TaskCreateForm = ({ register, errors }: TaskCreateFormProps) => {
           type="checkbox"
           className="ml-4 h-5 w-5"
         />
-        <span className="ml-2">Completed</span>
+        <span className="ml-2">暗記済</span>
       </label>
       <button
         type="submit"
