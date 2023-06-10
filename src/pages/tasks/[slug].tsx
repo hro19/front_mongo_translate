@@ -48,10 +48,10 @@ const SingleTaskPage = ({ currentTask }: CurrentTaskObj) => {
   return (
     <>
       <div>
-        <h1>{task._id}</h1>
-        <p>{task.name}</p>
-        <p>{task.jaName}</p>
-        <p>{task.completed ? "完了" : "進行中"}</p>
+        <h1>【ID】{task._id}</h1>
+        <p>【英単語】{task.name}</p>
+        <p>【日本語訳】{task.jaName}</p>
+        <p>【進行具合】{task.completed ? "暗記済" : "暗記中"}</p>
       </div>
       <SlugForm />
       {isSnake && <SnakeMessage />}
