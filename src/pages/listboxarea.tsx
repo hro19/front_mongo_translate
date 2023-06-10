@@ -10,7 +10,7 @@ const people = [
   { id: 5, name: "Katelyn Rohan" },
 ];
 
-const listboxarea = () => {
+const Listb = () => {
   const [selectedPeople, setSelectedPeople] = useState([]);
 
   return (
@@ -73,4 +73,4 @@ const listboxarea = () => {
   );
 };
 
-export default listboxarea;
+export default Listb;
