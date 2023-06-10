@@ -51,45 +51,49 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
       </div>
       <div className="mb-4">
         <span className="block text-gray-700 font-bold mb-2">進捗</span>
-        <div className="flex items-center">
-          <input
-            className="mr-2"
-            type="radio"
-            id="inprogress"
-            name="progress"
-            value="inprogress"
-            defaultChecked={!task.completed}
-            onChange={handleChange}
-          />
-          <label htmlFor="inprogress">進行中</label>
-        </div>
-        <div className="flex items-center">
-          <input
-            className="mr-2"
-            type="radio"
-            id="completed"
-            name="progress"
-            value="completed"
-            defaultChecked={task.completed}
-            onChange={handleChange}
-          />
-          <label htmlFor="completed">完了</label>
+        <div className="flex">
+          <div className="flex items-center mr-4">
+            <input
+              className="mr-1"
+              type="radio"
+              id="inprogress"
+              name="progress"
+              value="inprogress"
+              defaultChecked={!task.completed}
+              onChange={handleChange}
+            />
+            <label htmlFor="inprogress">暗記中</label>
+          </div>
+          <div className="flex items-center">
+            <input
+              className="mr-1"
+              type="radio"
+              id="completed"
+              name="progress"
+              value="completed"
+              defaultChecked={task.completed}
+              onChange={handleChange}
+            />
+            <label htmlFor="completed">暗記済</label>
+          </div>
         </div>
       </div>
-      <button
-        type="button"
-        className="bg-gray-500 text-white py-2 px-4 rounded mr-3"
-        onClick={() => closeModal()}
-      >
-        キャンセル
-      </button>
-      <button
-        type="button"
-        className="bg-blue-500 text-white py-2 px-4 rounded"
-        onClick={(e) => handleSubmit(e, { name,jaName, completed })}
-      >
-        更新する
-      </button>
+      <div className="flex justify-center">
+        <button
+          type="button"
+          className="bg-gray-500 text-white py-2 px-4 rounded mr-3"
+          onClick={() => closeModal()}
+        >
+          キャンセル
+        </button>
+        <button
+          type="button"
+          className="bg-blue-500 text-white py-2 px-4 rounded"
+          onClick={(e) => handleSubmit(e, { name, jaName, completed })}
+        >
+          更新する
+        </button>
+      </div>
     </>
   );
 };
