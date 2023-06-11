@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Skeleton } from "@mui/material";
 import { useQuery } from "react-query";
 import TopFilter from "./TopFilter";
 
@@ -23,7 +24,16 @@ const TopLatest = () => {
   );
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Skeleton
+          variant="text"
+          animation="wave"
+          sx={{ fontSize: "1rem" }}
+          height={120}
+        />
+      </div>
+    );
   }
 
   if (isError) {
