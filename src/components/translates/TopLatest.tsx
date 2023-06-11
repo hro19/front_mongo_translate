@@ -23,17 +23,15 @@ const TopLatest = () => {
     }
   );
 
+  //ローディング時にスケルトンにて対応
   if (isLoading) {
-    return (
-      <div>
-        <Skeleton
-          variant="text"
-          animation="wave"
-          sx={{ fontSize: "1rem" }}
-          height={120}
-        />
-      </div>
-    );
+    const skeletonItems = [];
+
+    for (let i = 0; i < 16; i++) {
+      skeletonItems.push(<Skeleton key={i} animation="wave" height={40} />);
+    }
+
+    return <div>{skeletonItems}</div>;
   }
 
   if (isError) {
