@@ -16,10 +16,12 @@ const Rcon = () => {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = (data:any) => {
     console.log(data);
+    reset();
   };
 
   return (
