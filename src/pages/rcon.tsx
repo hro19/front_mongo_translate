@@ -1,9 +1,9 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import Select from "react-select";
+import Select, { GroupBase } from "react-select";
 
 // Define the options array outside of the component
-const options = [
+const options: readonly (any)[] = [
   { value: "red", label: "Red" },
   { value: "blue", label: "Blue" },
   { value: "green", label: "Green" },
@@ -17,9 +17,14 @@ const Rcon = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      text: "",
+      color: "",
+    },
+  });
 
-  const onSubmit = (data:any) => {
+  const onSubmit = (data: any) => {
     console.log(data);
     reset();
   };
@@ -62,12 +67,11 @@ const Rcon = () => {
         <Controller
           name="color"
           control={control}
-          defaultValue=""
           rules={{ required: "Please select at least one color" }}
           render={({ field }) => (
             <Select
               {...field}
-              options={options} // Use the options array
+              options={options}
               isMulti={true}
               className="w-full"
               classNamePrefix="react-select"
