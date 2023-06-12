@@ -1,30 +1,31 @@
-import React from 'react';
+import React from "react";
 import { FormData } from "../../ts/Task";
-import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import { FieldErrors, Control, Controller } from "react-hook-form";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 
 type TaskCreateFormProps = {
-  register: UseFormRegister<FormData>;
+  control: Control<FormData>;
   errors: FieldErrors<FormData>;
 };
 
-const TaskCreateForm = ({ register, errors }: TaskCreateFormProps) => {
+const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
   return (
     <>
       <label className="mr-4 flex items-center h-full">
         <span>英単語</span>
-        <input
-          {...register("name", {
-            required: {
-              value: true,
-              message: "英単語は必須です",
-            },
+        <Controller
+          name="name"
+          control={control}
+          rules={{
+            required: "英単語は必須です",
             maxLength: {
               value: 20,
               message: "英単語は20文字以内である必要があります",
             },
-          })}
-          className="ml-2 border rounded p-2 h-full"
+          }}
+          render={({ field }) => (
+            <input {...field} className="ml-2 border rounded p-2 h-full" />
+          )}
         />
         {errors.name && (
           <span className="text-red-500 ml-2">{errors.name.message}</span>
@@ -32,28 +33,37 @@ const TaskCreateForm = ({ register, errors }: TaskCreateFormProps) => {
       </label>
       <label className="mr-4 flex items-center h-full">
         <span>日本語訳</span>
-        <input
-          {...register("jaName", {
-            required: {
-              value: true,
-              message: "日本語訳は必須です",
-            },
+        <Controller
+          name="jaName"
+          control={control}
+          rules={{
+            required: "日本語訳は必須です",
             maxLength: {
               value: 30,
               message: "日本語訳は30文字以内である必要があります",
             },
-          })}
-          className="ml-2 border rounded p-2 h-full"
+          }}
+          render={({ field }) => (
+            <input {...field} className="ml-2 border rounded p-2 h-full" />
+          )}
         />
         {errors.jaName && (
           <span className="text-red-500 ml-2">{errors.jaName.message}</span>
         )}
       </label>
       <label className="flex items-center h-full">
-        <input
-          {...register("completed")}
-          type="checkbox"
-          className="ml-4 h-5 w-5"
+        <Controller
+          name="completed"
+          control={control}
+          render={({ field }) => (
+            <input
+              {...field}
+              type="checkbox"
+              className="ml-4 h-5 w-5"
+              value={field.value ? "true" : "false"}
+              onChange={(e) => field.onChange(e.target.checked)}
+            />
+          )}
         />
         <span className="ml-2">暗記済</span>
       </label>
@@ -71,5 +81,4 @@ const TaskCreateForm = ({ register, errors }: TaskCreateFormProps) => {
   );
 };
 
-export default TaskCreateForm
-
+export default TaskCreateForm;

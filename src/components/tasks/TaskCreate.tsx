@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import TaskCreateForm from "../../components/tasks/TaskCreateForm";
@@ -7,11 +7,17 @@ import { FormData } from "../../ts/Task";
 
 const TaskCreate = () => {
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<FormData>();
+  } = useForm({
+    defaultValues: {
+      name: "",
+      jaName: "",
+      completed: false,
+    },
+  });
 
   const queryClient = useQueryClient();
 
@@ -43,7 +49,7 @@ const TaskCreate = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="mx-8 bg-blue-50 border border-gray-300 rounded-lg p-4 flex flex-row items-center"
       >
-        <TaskCreateForm register={register} errors={errors} />
+        <TaskCreateForm control={control} errors={errors}  />
       </form>
     </div>
   );
