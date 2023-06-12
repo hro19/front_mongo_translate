@@ -20,7 +20,7 @@ const Rcon = () => {
   } = useForm({
     defaultValues: {
       text: "",
-      color: "",
+      color: [""],
     },
   });
 
