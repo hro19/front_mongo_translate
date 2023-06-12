@@ -46,9 +46,10 @@ const Rcon2 = () => {
             <Select
               {...field}
               options={speechOptions}
+              placeholder="品詞を選択してください"
               isMulti
               classNamePrefix="react-select"
-              value={field.value || []}
+              value={field.value || null}
               onChange={(selectedOptions) => field.onChange(selectedOptions)}
             />
           )}
