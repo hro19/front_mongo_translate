@@ -97,7 +97,7 @@ const SlugFormInput = ({ task, register, errors, reset }: SlugFormInputProps) =>
             checked={!completed}
             onChange={handleChange}
           />
-          <label htmlFor="inprogress">進行中</label>
+          <label htmlFor="inprogress">勉強中</label>
         </div>
         <div className="flex items-center">
           <input
@@ -109,7 +109,7 @@ const SlugFormInput = ({ task, register, errors, reset }: SlugFormInputProps) =>
             checked={completed}
             onChange={handleChange}
           />
-          <label htmlFor="completed">完了</label>
+          <label htmlFor="completed">暗記済み</label>
         </div>
         <button
           type="submit"
