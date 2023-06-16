@@ -28,7 +28,7 @@ const SlugFormInput = ({ task, register, errors, reset }: SlugFormInputProps) =>
   //checkEdit関数　元データと現データが同じならば送信ボタンがDisableになる
   useEffect(() => {
     CheckEditDisabled(name,jaName,completed, task, setCheckEdit);
-  }, [name, completed]);
+  }, [name,jaName,completed]);
 
   return (
     <>

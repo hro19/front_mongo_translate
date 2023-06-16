@@ -27,6 +27,9 @@ const SlugForm = () => {
     setName(task.name);
     setJaName(task.jaName);
     setCompleted(task.completed);
+    setValue("name", task.name);
+    setValue("jaName", task.jaName);
+    setValue("completed", task.completed);
   }, [task]);
 
   //checkEdit関数　元データと現データが同じならば送信ボタンがDisableになる
@@ -57,6 +60,7 @@ const {
   handleSubmit,
   formState: { errors },
   reset,
+  setValue,
 } = useForm();
 
   return (
