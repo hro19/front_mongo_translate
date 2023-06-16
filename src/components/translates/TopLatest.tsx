@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Skeleton } from "@mui/material";
 import { useQuery } from "react-query";
 import TopFilter from "./TopFilter";
+import TopSkeleton from "./TopSkeleton";
 
 const TopLatest = () => {
 
@@ -25,13 +25,9 @@ const TopLatest = () => {
 
   //ローディング時にスケルトンにて対応
   if (isLoading) {
-    const skeletonItems = [];
-
-    for (let i = 0; i < 16; i++) {
-      skeletonItems.push(<Skeleton key={i} animation="wave" height={40} />);
-    }
-
-    return <div>{skeletonItems}</div>;
+    return (
+      <TopSkeleton />
+    );
   }
 
   if (isError) {
