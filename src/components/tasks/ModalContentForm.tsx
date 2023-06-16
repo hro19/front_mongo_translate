@@ -1,5 +1,9 @@
-import React,{useState} from "react";
+import React, { useState, useEffect } from "react";
 import { Task } from "../../ts/Task";
+import { useAtom } from "jotai";
+import { checkEditAtom } from "../../jotai/atoms";
+import { CheckEditDisabled } from "../../components/taskShingle/Atarashiku";
+
 
 //inputデータを取得し、送信用データを作る
 //バリデード管理をする
@@ -16,9 +20,16 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
   const [jaName, setJaName] = useState(task.jaName);
   const [completed, setCompleted] = useState(task.completed);
 
+  const [checkEdit, setCheckEdit] = useAtom(checkEditAtom);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCompleted(e.target.value === "completed");
   };
+
+  //checkEdit関数　元データと現データが同じならば送信ボタンがDisableになる
+  useEffect(() => {
+    CheckEditDisabled(name, jaName, completed, task, setCheckEdit);
+  }, [name, jaName, completed]);
 
   return (
     <>
@@ -86,10 +97,14 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
         >
           キャンセル
         </button>
+
         <button
           type="button"
-          className="bg-blue-500 text-white py-2 px-4 rounded"
           onClick={(e) => handleSubmit(e, { name, jaName, completed })}
+          className={`bg-blue-500 text-white py-2 px-4 rounded ${
+            checkEdit ? "" : "disabled bg-gray-300"
+          }`}
+          disabled={!checkEdit}
         >
           更新する
         </button>

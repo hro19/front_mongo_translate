@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { FieldErrors } from "react-hook-form";
 import { TaskObj, FormDataName } from "../../ts/Task";
 import { useAtom } from "jotai";
-import {CheckEditDisabled} from "../../components/taskShingle/Atarashiku";
 import { checkEditAtom, nameAtom,jaNameAtom, completedAtom } from "../../jotai/atoms";
+import { CheckEditDisabled } from "../../components/taskShingle/Atarashiku";
+
 //formの要素であるinputのhtml構造を書く
 //react-hook-formのバリデーションを書く
 
