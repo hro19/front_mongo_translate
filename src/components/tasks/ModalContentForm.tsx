@@ -29,7 +29,7 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
   //checkEdit関数　元データと現データが同じならば送信ボタンがDisableになる
   useEffect(() => {
     CheckEditDisabled(name, jaName, completed, task, setCheckEdit);
-  }, [name, jaName, completed]);
+  }, [{ name, jaName, completed }]);
 
   return (
     <>
@@ -73,7 +73,7 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
               defaultChecked={!task.completed}
               onChange={handleChange}
             />
-            <label htmlFor="inprogress">暗記中</label>
+            <label htmlFor="inprogress">勉強中</label>
           </div>
           <div className="flex items-center">
             <input
@@ -85,7 +85,7 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
               defaultChecked={task.completed}
               onChange={handleChange}
             />
-            <label htmlFor="completed">暗記済</label>
+            <label htmlFor="completed">暗記済み</label>
           </div>
         </div>
       </div>
