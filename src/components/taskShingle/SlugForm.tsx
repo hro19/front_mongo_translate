@@ -1,83 +1,133 @@
-import React, { Dispatch, SetStateAction, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import SlugFormInput from "../../components/taskShingle/SlugFormInput";
-import { createHandler } from "../../components/taskShingle/Atarashiku";
+import React, { useEffect } from "react";
+import { useForm, Controller } from "react-hook-form";
+import axios from "axios";
 import { useAtom } from "jotai";
-import {
-  isSnakeAtom,
-  snakeDurationAtom,
-  checkEditAtom,
-  nameAtom,
-  jaNameAtom,
-  completedAtom,
-  taskAtom
-} from "../../jotai/atoms";
+import { isSnakeAtom } from "../../jotai/atoms";
+import { useMutation, useQueryClient } from "react-query";
 
-const SlugForm = () => {
-  const [task, setTask] = useAtom(taskAtom);
+const SlugForm = ({ task,slug }: any) => {
+  const queryClient = useQueryClient();
 
-  const [isSnake, setIsSnake] = useAtom(isSnakeAtom);
-  const [snakeDuration, setSnakeDuration] = useAtom(snakeDurationAtom);
-
-  const [name, setName] = useAtom(nameAtom);
-  const [jaName, setJaName] = useAtom(jaNameAtom);
-  const [completed, setCompleted] = useAtom(completedAtom);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm();
 
   useEffect(() => {
-    setName(task.name);
-    setJaName(task.jaName);
-    setCompleted(task.completed);
     setValue("name", task.name);
     setValue("jaName", task.jaName);
     setValue("completed", task.completed);
   }, [task]);
 
-  //checkEdit関数　元データと現データが同じならば送信ボタンがDisableになる
-  const [checkEdit, setCheckEdit] = useAtom(checkEditAtom);
+  const mutation = useMutation(
+    (data) =>
+      axios.patch(
+        `https://back-mongo-task2.vercel.app/api/v1/tasks/${task._id}`,
+        data
+      ),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["task", slug]);
+      },
+    }
+  );
 
-  const updatedTask = {
-    _id: task._id,
-    name,
-    jaName,
-    completed,
+  const onSubmit = async (data: any) => {
+    try {
+      await mutation.mutateAsync(data);
+      // Handle successful form submission
+      console.log("Form submitted successfully");
+      // 更新されたデータを再フェッチ
+      queryClient.invalidateQueries("tasks");
+    } catch (error) {
+      // Handle error
+      console.error("Form submission error:", error);
+    }
   };
-
-  //カリー化を使用してcreateHandler関数を部分適用することで、必要な引数を渡した新しい関数を作成
-  const createHandlerCurried = (event: any) => {
-    createHandler(
-      event,
-      task._id,
-      updatedTask,
-      snakeDuration,
-      setIsSnake,
-      setTask,
-      setCheckEdit
-    );
-  };
-
-const {
-  register,
-  handleSubmit,
-  formState: { errors },
-  reset,
-  setValue,
-} = useForm();
 
   return (
-    <div className="bg-slate-500">
-      <div className="flex h-full w-full justify-center items-center bg-slate-200 p-4">
-        <form
-          className="w-full sm:w-4/5 lg:w-3/4 max-w-md"
-          onSubmit={handleSubmit(() => createHandlerCurried(event))}
-        >
-          <SlugFormInput
-            task={task}
-            register={register}
-            errors={errors}
-            reset={reset}
+    <div className="bg-slate-300">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <label htmlFor="name">名前</label>
+          <Controller
+            control={control}
+            name="name"
+            defaultValue={task.name}
+            rules={{
+              required: "名前は必須です",
+              maxLength: {
+                value: 10,
+                message: "名前は10文字以下で入力してください",
+              },
+            }}
+            render={({ field }) => (
+              <input
+                {...field}
+                id="name"
+                type="text"
+                placeholder="名前を入力してください"
+                className={`form-control ${errors.name ? "is-invalid" : ""}`}
+              />
+            )}
           />
-        </form>
-      </div>
+          {errors.name && (
+            <span className="text-danger">
+              {errors.name.message as React.ReactNode}
+            </span>
+          )}
+        </div>
+        <div>
+          <label htmlFor="jaName">日本語訳</label>
+          <Controller
+            control={control}
+            name="jaName"
+            defaultValue={task.jaName}
+            rules={{
+              required: "日本語訳は必須です",
+              maxLength: {
+                value: 20,
+                message: "日本語訳は20文字以下で入力してください",
+              },
+            }}
+            render={({ field }) => (
+              <input
+                {...field}
+                id="jaName"
+                type="text"
+                placeholder="日本語訳を入力してください"
+                className={`form-control ${errors.jaName ? "is-invalid" : ""}`}
+              />
+            )}
+          />
+          {errors.jaName && (
+            <span className="text-danger">
+              {errors.jaName.message as React.ReactNode}
+            </span>
+          )}
+        </div>
+        <div>
+          <label htmlFor="completed">
+            <Controller
+              control={control}
+              name="completed"
+              defaultValue={task.completed}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  id="completed"
+                  type="checkbox"
+                  className="mr-1"
+                />
+              )}
+            />
+            暗記済み
+          </label>
+        </div>
+        <button type="submit">送信</button>
+      </form>
     </div>
   );
 };
