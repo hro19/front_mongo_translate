@@ -5,8 +5,14 @@ import { useAtom } from "jotai";
 import { isSnakeAtom } from "../../jotai/atoms";
 import { useMutation, useQueryClient } from "react-query";
 import SlugFormInput from "./SlugFormInput";
+import { SecCount } from "../../components/taskShingle/Atarashiku";
+import SnakeMessage from "../../components/taskShingle/SnakeMessage";
 
-const SlugForm = ({ task,slug }: any) => {
+const SlugForm = ({ task, slug }: any) => {
+  //popoverメッセージを制御する
+  const [isSnake, setIsSnake] = useAtom(isSnakeAtom);
+  const snakeDuration:number = 2000;
+
   const queryClient = useQueryClient();
 
   const {
@@ -31,6 +37,9 @@ const SlugForm = ({ task,slug }: any) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["task", slug]);
+        // 更新成功の場合は、ポップオーバーで知らせる
+        setIsSnake(true);
+        SecCount(snakeDuration, setIsSnake);
       },
     }
   );
@@ -53,6 +62,7 @@ const SlugForm = ({ task,slug }: any) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <SlugFormInput task={task} control={control} errors={errors} />
       </form>
+      {isSnake && <SnakeMessage />}
     </div>
   );
 };
