@@ -47,10 +47,11 @@ const SingleTask = () => {
 
   return (
     <div>
-      <h1>{task.name}</h1>
-      <p>{task._id}</p>
-      <p>{task.completed ? "Completed" : "Not Completed"}</p>
-      <SlugForm />
+      <h1>【ID】{task._id}</h1>
+      <p>【英単語】{task.name}</p>
+      <p>【日本語訳】{task.jaName}</p>
+      <p>【進捗】{task.completed ? "暗記済み" : "勉強中"}</p>
+      <SlugForm task={task} />
       <p className="text-2xl mt-2 text-orange-700">
         <Link href="/tasks">単語一覧へ戻る</Link>
       </p>
