@@ -9,7 +9,7 @@ const MyForm = () => {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data:any) => {
     // フォームの送信処理
     console.log(data);
 
