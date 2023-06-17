@@ -2,16 +2,19 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 
 const MyForm = () => {
-  const { control, formState, handleSubmit } = useForm({
+  const { control, formState, handleSubmit, reset } = useForm({
     defaultValues: {
       name: "",
       email: "",
     },
   });
 
-    const onSubmit = (data:any) => {
+  const onSubmit = (data) => {
     // フォームの送信処理
     console.log(data);
+
+    // 送信後に送信データをデフォルト値としてセットする
+    reset(data);
   };
 
   const isFormDirty = formState.isDirty;
