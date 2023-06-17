@@ -120,6 +120,8 @@ const SlugForm = ({ task,slug }: any) => {
                   id="completed"
                   type="checkbox"
                   className="mr-1"
+                  checked={field.value} // フォームの値に応じてチェックを設定
+                  onChange={(e) => field.onChange(e.target.checked)} // チェックボックスの状態をフォームの値に反映
                 />
               )}
             />
