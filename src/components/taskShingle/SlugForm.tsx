@@ -49,7 +49,7 @@ const SlugForm = ({ task,slug }: any) => {
   };
 
   return (
-    <div className="bg-slate-300">
+    <div className="bg-slate-300 flex justify-center py-8">
       <form onSubmit={handleSubmit(onSubmit)}>
         <SlugFormInput task={task} control={control} errors={errors} />
       </form>

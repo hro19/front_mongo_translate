@@ -1,11 +1,16 @@
-import React from 'react';
+import React from "react";
 import { Controller } from "react-hook-form";
 
-const SlugFormInput = ({task,control,errors}:any) => {
+const SlugFormInput = ({ task, control, errors }: any) => {
   return (
     <>
-      <div>
-        <label htmlFor="name">名前</label>
+      <div className="mb-4">
+        <label
+          htmlFor="name"
+          className="block text-base font-medium text-gray-700"
+        >
+          名前
+        </label>
         <Controller
           control={control}
           name="name"
@@ -23,18 +28,23 @@ const SlugFormInput = ({task,control,errors}:any) => {
               id="name"
               type="text"
               placeholder="名前を入力してください"
-              className={`form-control ${errors.name ? "is-invalid" : ""}`}
+              className={`form-input py-2 px-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent ${
+                errors.name ? "border-red-500" : ""
+              }`}
             />
           )}
         />
         {errors.name && (
-          <span className="text-danger">
-            {errors.name.message as React.ReactNode}
-          </span>
+          <span className="text-red-500 text-sm">{errors.name.message}</span>
         )}
       </div>
-      <div>
-        <label htmlFor="jaName">日本語訳</label>
+      <div className="mb-4">
+        <label
+          htmlFor="jaName"
+          className="block text-base font-medium text-gray-700"
+        >
+          日本語訳
+        </label>
         <Controller
           control={control}
           name="jaName"
@@ -52,18 +62,18 @@ const SlugFormInput = ({task,control,errors}:any) => {
               id="jaName"
               type="text"
               placeholder="日本語訳を入力してください"
-              className={`form-control ${errors.jaName ? "is-invalid" : ""}`}
+              className={`form-input py-2 px-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent ${
+                errors.jaName ? "border-red-500" : ""
+              }`}
             />
           )}
         />
         {errors.jaName && (
-          <span className="text-danger">
-            {errors.jaName.message as React.ReactNode}
-          </span>
+          <span className="text-red-500 text-sm">{errors.jaName.message}</span>
         )}
       </div>
-      <div>
-        <label htmlFor="completed">
+      <div className="mb-4">
+        <label htmlFor="completed" className="flex items-center">
           <Controller
             control={control}
             name="completed"
@@ -73,20 +83,25 @@ const SlugFormInput = ({task,control,errors}:any) => {
                 {...field}
                 id="completed"
                 type="checkbox"
-                className="mr-1"
-                checked={field.value} // フォームの値に応じてチェックを設定
+                className="mr-2"
+                checked={field.value}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   field.onChange(e.target.checked)
-                } // チェックボックスの状態をフォームの値に反映
+                }
               />
             )}
           />
-          暗記済み
+          <span className="text-base text-gray-700">暗記済み</span>
         </label>
       </div>
-      <button type="submit">送信</button>
+      <button
+        type="submit"
+        className="px-4 py-2 text-base font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-500"
+      >
+        送信
+      </button>
     </>
   );
-}
+};
 
-export default SlugFormInput
+export default SlugFormInput;
