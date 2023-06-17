@@ -7,11 +7,17 @@ import { useMutation, useQueryClient } from "react-query";
 import SlugFormInput from "./SlugFormInput";
 import { SecCount } from "../../components/taskShingle/Atarashiku";
 import SnakeMessage from "../../components/taskShingle/SnakeMessage";
+import { Task } from "../../ts/Task";
 
-const SlugForm = ({ task, slug }: any) => {
+type SlugForm = {
+  task: Task;
+  slug: string;
+}
+
+const SlugForm = ({ task, slug }: SlugForm) => {
   //popoverメッセージを制御する
   const [isSnake, setIsSnake] = useAtom(isSnakeAtom);
-  const snakeDuration:number = 2000;
+  const snakeDuration: number = 2000;
 
   const queryClient = useQueryClient();
 

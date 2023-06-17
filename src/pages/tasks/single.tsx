@@ -14,9 +14,9 @@ const fetchTask = async (slug: string) => {
 };
 
 const SingleTask = () => {
-  const router = useRouter();
-  const { query } = router;
-  const slug = query._id; // クエリパラメータ "_id" の値を取得
+const router = useRouter();
+const { query } = router;
+const slug: string = Array.isArray(query._id) ? query._id[0] : query._id ?? "";
 
   const {
     data: task,
