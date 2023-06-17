@@ -17,7 +17,7 @@ const TaskIterate = ({ tasks }: TaskIterateObj) => {
           <tr key={task._id} id={task._id}>
             <td className="border px-4 py-2">{index + 1}</td>
             <td className="border px-4 py-2">
-              <Link href={`/tasks/${task._id}`} className="underline">
+              <Link href={`/tasks/single?_id=${task._id}`} className="underline">
                 {task.name}
               </Link>
             </td>

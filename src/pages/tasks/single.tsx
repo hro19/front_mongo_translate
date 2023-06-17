@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
+import Link from "next/link";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
+import SlugForm from "@/components/taskShingle/SlugForm";
 
 const fetchTask = async (slug: string) => {
   const response = await axios.get(
@@ -12,7 +14,8 @@ const fetchTask = async (slug: string) => {
 
 const SingleTask = () => {
   const router = useRouter();
-  const { slug } = router.query;
+  const { query } = router;
+  const slug = query._id; // クエリパラメータ "_id" の値を取得
 
   const {
     data: task,
@@ -47,6 +50,10 @@ const SingleTask = () => {
       <h1>{task.name}</h1>
       <p>{task._id}</p>
       <p>{task.completed ? "Completed" : "Not Completed"}</p>
+      <SlugForm />
+      <p className="text-2xl mt-2 text-orange-700">
+        <Link href="/tasks">単語一覧へ戻る</Link>
+      </p>
     </div>
   );
 };
