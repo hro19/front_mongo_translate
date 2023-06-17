@@ -18,8 +18,10 @@ const SlugForm = ({ task, slug }: any) => {
   const {
     control,
     handleSubmit,
+    formState,
     formState: { errors },
     setValue,
+    reset,
   } = useForm();
 
   useEffect(() => {
@@ -40,6 +42,7 @@ const SlugForm = ({ task, slug }: any) => {
         // 更新成功の場合は、ポップオーバーで知らせる
         setIsSnake(true);
         SecCount(snakeDuration, setIsSnake);
+        reset(task);
       },
     }
   );
@@ -60,7 +63,12 @@ const SlugForm = ({ task, slug }: any) => {
   return (
     <div className="bg-slate-300 flex justify-center py-8">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <SlugFormInput task={task} control={control} errors={errors} />
+        <SlugFormInput
+          task={task}
+          control={control}
+          formState={formState}
+          errors={errors}
+        />
       </form>
       {isSnake && <SnakeMessage />}
     </div>

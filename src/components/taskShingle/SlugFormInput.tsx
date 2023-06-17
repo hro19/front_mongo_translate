@@ -1,7 +1,7 @@
 import React from "react";
 import { Controller } from "react-hook-form";
 
-const SlugFormInput = ({ task, control, errors }: any) => {
+const SlugFormInput = ({ task, control,formState, errors }: any) => {
   return (
     <>
       <div className="mb-4">
@@ -96,7 +96,12 @@ const SlugFormInput = ({ task, control, errors }: any) => {
       </div>
       <button
         type="submit"
-        className="px-4 py-2 text-base font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-500"
+        disabled={!formState.isDirty}
+        className={`py-2 px-4 rounded font-bold text-white ${
+          formState.isDirty
+            ? "bg-green-500 hover:bg-green-600"
+            : "bg-gray-400 cursor-not-allowed"
+        }`}
       >
         送信
       </button>
