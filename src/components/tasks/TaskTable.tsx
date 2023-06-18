@@ -38,6 +38,7 @@ const TaskTable = ({ tasks = [], isLoading }: TaskTableProps) => {
             <th>ナンバー</th>
             <th>英単語</th>
             <th>日本語訳</th>
+            <th>品詞</th>
             <th>暗記</th>
             <th>編集</th>
             <th>削除</th>

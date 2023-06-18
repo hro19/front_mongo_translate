@@ -1,9 +1,7 @@
 export type Task = {
   _id: string;
-  jaName: string;
-  name: string;
   completed: boolean;
-};
+} & Record<string, string>;
 
 export type TaskObj = {
   task: Task;
@@ -16,17 +14,10 @@ export type CurrentTaskObj = {
 export type TaskIterateObj = {
   tasks?: Task[];
 };
-
 export type FormData = {
-  name: string;
-  jaName: string;
   completed: boolean;
-};
+} & Record<string, string>;
 
-export type FormDataName = {
-  name: string;
-  jaName: string;
-};
-
+export type FormDataName = Record<string, string>;
 
 export type SelectSwitch = "uncompleted" | "completed" | "all";
