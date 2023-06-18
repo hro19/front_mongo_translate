@@ -89,7 +89,6 @@ const SlugFormInput = ({ task, control,formState, errors }: any) => {
               <select
                 className="select border border-gray-300 w-full max-w-xs"
                 id="speech"
-                defaultValue={task.speech ? task.speech : ""}
                 {...field}
               >
                 <option disabled value="">
