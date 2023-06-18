@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { atom, useAtomValue } from "jotai";
 import { SelectSwitch, Task } from "../ts/Task";
 
 // tasks一覧ページ
@@ -27,8 +27,12 @@ const initialSpeechOptions = {
   adjective: "形容詞",
   adverb: "副詞",
   noun: "名詞",
-  "auxiliary verb": "助動詞",
+  auxiliaryVerb: "助動詞",
   gerund: "動名詞",
-};
+} as const;
 
-export const speechOptionsAtom = atom(initialSpeechOptions);
+export const initialSpeechOptionsAtom = atom(initialSpeechOptions);
+
+export const getSpeechLabel = (speech: keyof typeof initialSpeechOptions) => {
+  return initialSpeechOptions[speech];
+};

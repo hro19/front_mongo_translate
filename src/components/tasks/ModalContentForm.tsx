@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Task } from "../../ts/Task";
 import { useAtom } from "jotai";
-import { checkEditAtom } from "../../jotai/atoms";
+import { checkEditAtom, initialSpeechOptionsAtom } from "../../jotai/atoms";
 import { CheckEditDisabled } from "../../components/taskShingle/Atarashiku";
 
 
@@ -16,6 +16,8 @@ type ModalContentFormProps = {
 };
 
 const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps) => {
+  const [speechOptions, setSpeechOptions] = useAtom(initialSpeechOptionsAtom);
+
   const [name, setName] = useState(task.name);
   const [jaName, setJaName] = useState(task.jaName);
   const [speech, setSpeech] = useState(task.speech);
@@ -74,12 +76,11 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
           <option disabled value="">
             品詞を選択してください
           </option>
-          <option>verb</option>
-          <option>adjective</option>
-          <option>adverb</option>
-          <option>noun</option>
-          <option>auxiliary verb</option>
-          <option>gerund</option>
+          {Object.entries(speechOptions).map(([key, value]) => (
+            <option key={key} value={key}>
+              {value}
+            </option>
+          ))}
         </select>
       </div>
       <div className="mb-4">

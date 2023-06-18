@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { useAtom } from "jotai";
-import { checkEditAtom, speechOptionsAtom } from "../../jotai/atoms";
+import {checkEditAtom,initialSpeechOptionsAtom} from "../../jotai/atoms";
 import { CheckEditDisabled } from "../../components/taskShingle/Atarashiku";
 
 
 const SlugFormInput = ({ task, control, formState, watch, errors }: any) => {
-  const [speechOptions, setSpeechOptions] = useAtom(speechOptionsAtom);
+  const [speechOptions, setSpeechOptions] = useAtom(initialSpeechOptionsAtom);
 
   const [checkEdit, setCheckEdit] = useAtom(checkEditAtom);
   const nameVal = watch("name");

@@ -2,6 +2,8 @@ import React from "react";
 import { FormData } from "../../ts/Task";
 import { FieldErrors, Control, Controller } from "react-hook-form";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
+import { useAtom } from "jotai";
+import { initialSpeechOptionsAtom } from "../../jotai/atoms";
 
 type TaskCreateFormProps = {
   control: Control<FormData>;
@@ -9,6 +11,8 @@ type TaskCreateFormProps = {
 };
 
 const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
+  const [speechOptions, setSpeechOptions] = useAtom(initialSpeechOptionsAtom);
+
   return (
     <div className="flex justify-center">
       <div className="grid gap-2 md:gap-4 grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap">
@@ -73,12 +77,11 @@ const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
                   <option disabled value="">
                     品詞を選択
                   </option>
-                  <option value="verb">verb</option>
-                  <option value="adjective">adjective</option>
-                  <option value="adverb">adverb</option>
-                  <option value="noun">noun</option>
-                  <option value="auxiliary verb">auxiliary verb</option>
-                  <option value="gerund">gerund</option>
+                  {Object.entries(speechOptions).map(([key, value]) => (
+                    <option key={key} value={key}>
+                      {value}
+                    </option>
+                  ))}
                 </select>
                 {errors.speech && (
                   <span className="text-red-500">{errors.speech.message}</span>
