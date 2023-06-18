@@ -3,6 +3,8 @@ import Link from "next/link";
 import Modalpop from "./Modalpop";
 import TaskDelete from "./TaskDelete";
 import { Task, TaskIterateObj } from "../../ts/Task";
+import { useAtom } from "jotai";
+import { getSpeechLabel } from "../../jotai/atoms";
 
 const TaskIterate = ({ tasks }: TaskIterateObj) => {
 
@@ -25,7 +27,7 @@ const TaskIterate = ({ tasks }: TaskIterateObj) => {
               </Link>
             </td>
             <td className="border px-4 py-2">{task.jaName}</td>
-            <td className="border px-4 py-2">{task.speech}</td>
+            <td className="border px-4 py-2">{getSpeechLabel(task.speech)}</td>
             <td className="border px-4 py-2">{task.completed ? "✅" : "❌"}</td>
             <td className="border px-4 py-2">
               <Modalpop task={task} />
