@@ -82,6 +82,7 @@ const SlugFormInput = ({ task, control,formState, errors }: any) => {
         <Controller
           control={control}
           name="speech"
+          defaultValue={task.speech ? task.speech : ""}
           rules={{ required: "品詞を選択してください" }}
           render={({ field }) => (
             <div>
