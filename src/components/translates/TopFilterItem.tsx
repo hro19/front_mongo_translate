@@ -1,47 +1,25 @@
 import React from "react";
-import { useAtom } from "jotai";
-import {openIndexesAtom} from "../../jotai/translatesAtoms";
 import { AiOutlineDownCircle } from "react-icons/ai";
 
-const TopFilterItem = ({ post, index }: any) => {
-    const [openIndexes, setOpenIndexes] = useAtom(openIndexesAtom);
-    
-    const toggleOpenIndex = (index: number) => {
-        if (openIndexes.includes(index)) {
-            setOpenIndexes(openIndexes.filter((i) => i !== index));
-        } else {
-            setOpenIndexes([...openIndexes, index]);
-        }
-    };
-
+const TopFilterItem = ({ post}: any) => {
   return (
     <div key={post._id}>
       <div className="card">
-        <div
-          className="relative flex items-center justify-between"
-          onClick={() => toggleOpenIndex(index)}
-        >
-          <div
-            className={`w-full bg-green-300 border border-gray-200 rounded-xl px-4 py-2 mt-1 font-bold cursor-pointer`}
-          >
+        <div className="collapse bg-base-200 mb-2 text-white">
+          <input type="checkbox" className="peer" />
+          <div className="collapse-title text-2xl text-gray-950 rounded-2xl border border-lime-500 [input:checked~&]:bg-lime-500 [input:checked~&]:text-white [input:checked~&]:border-gray-100 [input:checked~&]:border-b-0 [input:checked~&]:rounded-none">
             {post.enContent}
+            <span className="absolute right-4 transform transition-transform">
+              <AiOutlineDownCircle
+                className="icon inline-block"
+                size="1.7rem"
+              />
+            </span>
           </div>
-          <span
-            className={`absolute right-4 transform transition-transform ${
-              openIndexes.includes(index) ? "-rotate-90" : ""
-            }`}
-          >
-            <AiOutlineDownCircle
-              className="icon text-white inline-block"
-              size="1.7rem"
-            />
-          </span>
+          <div className="collapse-content bg-orange-500 border border-gray-300 border-t-0">
+            <p className="pt-2">{post.jaContent}</p>
+          </div>
         </div>
-        {openIndexes.includes(index) && (
-          <p className="px-4 py-2 mb-1  border border-gray-200 bg-gray-200 rounded-xl">
-            {post.jaContent}
-          </p>
-        )}
       </div>
     </div>
   );

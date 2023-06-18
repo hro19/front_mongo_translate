@@ -104,11 +104,10 @@ const TopFilter = ({ data }: any) => {
           <option value="short">短文</option>
         </select>
       </div>
-      {slicedData.map((post: Translate, index: number) => (
+      {slicedData.map((post: Translate) => (
         <TopFilterItem
           key={post._id}
           post={post}
-          index={index}
         />
       ))}
     </>
