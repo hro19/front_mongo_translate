@@ -77,6 +77,7 @@ const createHandler = async (
 const CheckEditDisabled = (
   name: string,
   jaName: string,
+  speech:string,
   completed: boolean,
   task: Task,
   setCheckEdit: React.Dispatch<React.SetStateAction<boolean>>
@@ -84,6 +85,7 @@ const CheckEditDisabled = (
   if (
     name !== task.name ||
     jaName !== task.jaName ||
+    speech !== task.speech ||
     completed !== task.completed
   ) {
     setCheckEdit(true);

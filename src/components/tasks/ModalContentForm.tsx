@@ -18,6 +18,7 @@ type ModalContentFormProps = {
 const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps) => {
   const [name, setName] = useState(task.name);
   const [jaName, setJaName] = useState(task.jaName);
+  const [speech, setSpeech] = useState(task.speech);
   const [completed, setCompleted] = useState(task.completed);
 
   const [checkEdit, setCheckEdit] = useAtom(checkEditAtom);
@@ -28,8 +29,8 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
 
   //checkEdit関数　元データと現データが同じならば送信ボタンがDisableになる
   useEffect(() => {
-    CheckEditDisabled(name, jaName, completed, task, setCheckEdit);
-  }, [{ name, jaName, completed }]);
+    CheckEditDisabled(name, jaName, speech, completed, task, setCheckEdit);
+  }, [{ name, jaName,speech, completed }]);
 
   return (
     <>
@@ -59,6 +60,26 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
           defaultValue={task.jaName}
           onChange={(e) => setJaName(e.target.value)}
         />
+      </div>
+      <div className="mb-4">
+        <label className="block text-gray-700 font-bold mb-2" htmlFor="speech">
+          品詞
+        </label>
+        <select
+          className="select border border-gray-300 w-full max-w-xs"
+          id="speech"
+          defaultValue={task.speech}
+          onChange={(e) => setSpeech(e.target.value)}
+        >
+          <option disabled selected>
+            品詞を選択してください
+          </option>
+          <option>verb</option>
+          <option>adjective</option>
+          <option>adverb</option>
+          <option>auxiliary verb</option>
+          <option>gerund</option>
+        </select>
       </div>
       <div className="mb-4">
         <span className="block text-gray-700 font-bold mb-2">進捗</span>
@@ -100,7 +121,7 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
 
         <button
           type="button"
-          onClick={(e) => handleSubmit(e, { name, jaName, completed })}
+          onClick={(e) => handleSubmit(e, { name, jaName, speech, completed })}
           className={`bg-blue-500 text-white py-2 px-4 rounded ${
             checkEdit ? "" : "disabled bg-gray-300"
           }`}
