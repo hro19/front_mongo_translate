@@ -64,13 +64,13 @@ const TopFilter = ({ data }: any) => {
     <>
       <div className="mb-4">
         <label htmlFor="sortOrder" className="mr-2">
-          Sort Order:
+          ソート:
         </label>
         <select
           id="sortOrder"
           value={sortOrder}
           onChange={handleSortChange}
-          className="border border-gray-300 px-2 py-1 mr-4"
+          className="select select-accent mr-2"
         >
           <option value="desc">降順</option>
           <option value="asc">昇順</option>
@@ -82,7 +82,7 @@ const TopFilter = ({ data }: any) => {
           id="pageSize"
           value={pageSize}
           onChange={handlePageSizeChange}
-          className="border border-gray-300 px-2 py-1 mr-4"
+          className="select select-accent mr-2"
         >
           <option value={10}>10件</option>
           <option value={20}>20件</option>
@@ -96,7 +96,7 @@ const TopFilter = ({ data }: any) => {
           id="filterOption"
           value={filterOption}
           onChange={handleFilterChange}
-          className="border border-gray-300 px-2 py-1"
+          className="select select-accent mr-2"
         >
           <option value="default">全て</option>
           <option value="long">長文</option>
@@ -105,10 +105,7 @@ const TopFilter = ({ data }: any) => {
         </select>
       </div>
       {slicedData.map((post: Translate) => (
-        <TopFilterItem
-          key={post._id}
-          post={post}
-        />
+        <TopFilterItem key={post._id} post={post} />
       ))}
     </>
   );
