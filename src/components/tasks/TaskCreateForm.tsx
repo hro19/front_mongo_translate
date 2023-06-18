@@ -70,6 +70,7 @@ const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
                 <option value="verb">verb</option>
                 <option value="adjective">adjective</option>
                 <option value="adverb">adverb</option>
+                <option value="noun">noun</option>
                 <option value="auxiliary verb">auxiliary verb</option>
                 <option value="gerund">gerund</option>
               </select>

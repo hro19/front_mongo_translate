@@ -52,6 +52,7 @@ const slug: string = Array.isArray(query._id) ? query._id[0] : query._id ?? "";
       <h1>【ID】{task._id}</h1>
       <p>【英単語】{task.name}</p>
       <p>【日本語訳】{task.jaName}</p>
+      <p>【品詞】{task.speech}</p>
       <p>【進捗】{task.completed ? "暗記済み" : "勉強中"}</p>
       <SlugForm task={task} slug={slug} />
       <p className="text-2xl mt-2 text-orange-700">

@@ -77,6 +77,7 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
           <option>verb</option>
           <option>adjective</option>
           <option>adverb</option>
+          <option>noun</option>
           <option>auxiliary verb</option>
           <option>gerund</option>
         </select>

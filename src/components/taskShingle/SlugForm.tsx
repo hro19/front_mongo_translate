@@ -33,6 +33,7 @@ const SlugForm = ({ task, slug }: SlugForm) => {
   useEffect(() => {
     setValue("name", task.name);
     setValue("jaName", task.jaName);
+    setValue("speech", task.speech);
     setValue("completed", task.completed);
   }, [task]);
 

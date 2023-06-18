@@ -73,6 +73,42 @@ const SlugFormInput = ({ task, control,formState, errors }: any) => {
         )}
       </div>
       <div className="mb-4">
+        <label
+          htmlFor="speech"
+          className="block text-base font-medium text-gray-700"
+        >
+          品詞
+        </label>
+        <Controller
+          control={control}
+          name="speech"
+          rules={{ required: "品詞を選択してください" }}
+          render={({ field }) => (
+            <div>
+              <select
+                className="select border border-gray-300 w-full max-w-xs"
+                id="speech"
+                defaultValue={task.speech ? task.speech : ""}
+                {...field}
+              >
+                <option disabled value="">
+                  品詞を選択してください
+                </option>
+                <option value="verb">verb</option>
+                <option value="adjective">adjective</option>
+                <option value="adverb">adverb</option>
+                <option value="noun">noun</option>
+                <option value="auxiliary verb">auxiliary verb</option>
+                <option value="gerund">gerund</option>
+              </select>
+              {errors.speech && (
+                <span className="text-red-500">{errors.speech.message}</span>
+              )}
+            </div>
+          )}
+        />
+      </div>
+      <div className="mb-4">
         <label htmlFor="completed" className="flex items-center">
           <Controller
             control={control}
