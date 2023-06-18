@@ -25,7 +25,7 @@ const Modalpop = ({ task }: TaskObj) => {
           className="icon text-white mb-1 mr-1 inline-block"
           size="1.2rem"
         />
-        Edit
+        <span className="hidden md:inline-block">Edit</span>
       </button>
       <Modal
         isOpen={modalIsOpen}
@@ -33,10 +33,7 @@ const Modalpop = ({ task }: TaskObj) => {
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[92%] md:w-3/5"
         overlayClassName="fixed inset-0 bg-gray-700 bg-opacity-50"
       >
-        <ModalContent
-          task={task}
-          closeModal={closeModal}
-        />
+        <ModalContent task={task} closeModal={closeModal} />
       </Modal>
     </div>
   );

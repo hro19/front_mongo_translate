@@ -34,7 +34,7 @@ const TaskDelete = ({ task }: TaskObj) => {
           className="icon text-white mb-1 mr-1 inline-block"
           size="1.2rem"
         />
-        Delete
+        <span className="hidden md:inline-block">Delete</span>
       </button>
     </>
   );

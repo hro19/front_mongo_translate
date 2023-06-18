@@ -35,7 +35,7 @@ const TaskTable = ({ tasks = [], isLoading }: TaskTableProps) => {
       <table className="table-auto w-full">
         <thead>
           <tr className="bg-blue-900 text-white leading-8">
-            <th>ナンバー</th>
+            <th>No</th>
             <th>英単語</th>
             <th>日本語訳</th>
             <th>品詞</th>
