@@ -89,9 +89,9 @@ const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
             <input
               {...field}
               type="checkbox"
+              id="completed"
               className="ml-4 h-5 w-5"
-              value={field.value ? "true" : "false"}
-              onChange={(e) => field.onChange(e.target.checked)}
+              value=""
             />
           )}
         />

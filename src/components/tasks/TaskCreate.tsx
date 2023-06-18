@@ -4,6 +4,7 @@ import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import TaskCreateForm from "../../components/tasks/TaskCreateForm";
 import { FormData } from "../../ts/Task";
+import { resetCheckboxValue } from "../../components/tasks/FormMethods.tsx";
 
 const TaskCreate = () => {
   const {
@@ -20,6 +21,7 @@ const TaskCreate = () => {
     },
   });
 
+
   const queryClient = useQueryClient();
 
   const createTaskMutation = useMutation(
@@ -35,6 +37,7 @@ const TaskCreate = () => {
         queryClient.invalidateQueries("tasks");
         //react-hook-formの関数で、フォームの値を初期化
         reset();
+        resetCheckboxValue("completed");
       },
     }
   );
