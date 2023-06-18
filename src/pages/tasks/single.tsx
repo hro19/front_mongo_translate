@@ -16,7 +16,9 @@ const fetchTask = async (slug: string) => {
 };
 
 const SingleTask = () => {
-  const [speechOptions, setSpeechOptions] = useAtom(initialSpeechOptionsAtom);
+  const [initialSpeechOptions, setInitialSpeechOptions] = useAtom(
+    initialSpeechOptionsAtom
+  );
   
   const router = useRouter();
   const { query } = router;

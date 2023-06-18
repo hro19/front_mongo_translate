@@ -16,7 +16,9 @@ type ModalContentFormProps = {
 };
 
 const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps) => {
-  const [speechOptions, setSpeechOptions] = useAtom(initialSpeechOptionsAtom);
+  const [initialSpeechOptions, setInitialSpeechOptions] = useAtom(
+    initialSpeechOptionsAtom
+  );
 
   const [name, setName] = useState(task.name);
   const [jaName, setJaName] = useState(task.jaName);
@@ -76,7 +78,7 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
           <option disabled value="">
             品詞を選択してください
           </option>
-          {Object.entries(speechOptions).map(([key, value]) => (
+          {Object.entries(initialSpeechOptions).map(([key, value]) => (
             <option key={key} value={key}>
               {value}
             </option>

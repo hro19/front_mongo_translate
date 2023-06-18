@@ -34,5 +34,5 @@ const initialSpeechOptions = {
 export const initialSpeechOptionsAtom = atom(initialSpeechOptions);
 
 export const getSpeechLabel = (speech: keyof typeof initialSpeechOptions) => {
-  return initialSpeechOptions[speech];
+  return initialSpeechOptions[speech] || "";
 };

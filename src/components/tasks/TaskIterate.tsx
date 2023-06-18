@@ -4,9 +4,12 @@ import Modalpop from "./Modalpop";
 import TaskDelete from "./TaskDelete";
 import { Task, TaskIterateObj } from "../../ts/Task";
 import { useAtom } from "jotai";
-import { getSpeechLabel } from "../../jotai/atoms";
-
+import { initialSpeechOptionsAtom, getSpeechLabel } from "../../jotai/atoms";
 const TaskIterate = ({ tasks }: TaskIterateObj) => {
+
+  const [initialSpeechOptions, setInitialSpeechOptions] = useAtom(
+    initialSpeechOptionsAtom
+  );
 
   if (!tasks) {
     return <p>英単語データがありません</p>;
@@ -27,7 +30,9 @@ const TaskIterate = ({ tasks }: TaskIterateObj) => {
               </Link>
             </td>
             <td className="border px-4 py-2">{task.jaName}</td>
-            <td className="border px-4 py-2">{getSpeechLabel(task.speech)}</td>
+            <td className="border px-4 py-2">
+              {getSpeechLabel(task.speech as keyof typeof initialSpeechOptions)}
+            </td>
             <td className="border px-4 py-2">{task.completed ? "✅" : "❌"}</td>
             <td className="border px-4 py-2">
               <Modalpop task={task} />

@@ -11,7 +11,9 @@ type TaskCreateFormProps = {
 };
 
 const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
-  const [speechOptions, setSpeechOptions] = useAtom(initialSpeechOptionsAtom);
+  const [initialSpeechOptions, setInitialSpeechOptions] = useAtom(
+    initialSpeechOptionsAtom
+  );
 
   return (
     <div className="flex justify-center">
@@ -77,7 +79,7 @@ const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
                   <option disabled value="">
                     品詞を選択
                   </option>
-                  {Object.entries(speechOptions).map(([key, value]) => (
+                  {Object.entries(initialSpeechOptions).map(([key, value]) => (
                     <option key={key} value={key}>
                       {value}
                     </option>
