@@ -98,7 +98,7 @@ const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
               <input
                 {...field}
                 type="checkbox"
-                id="completed"
+                id="completed_create"
                 className="ml-4 h-5 w-5"
                 value=""
               />
