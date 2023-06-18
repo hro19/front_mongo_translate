@@ -51,7 +51,7 @@ const TaskCreate = () => {
     <div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="mx-8 bg-blue-50 border border-gray-300 rounded-lg p-4 flex flex-row items-center"
+        className="mx-8 bg-blue-50 border border-gray-300 rounded-lg p-4"
       >
         <TaskCreateForm control={control} errors={errors}  />
       </form>

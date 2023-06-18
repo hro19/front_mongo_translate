@@ -36,7 +36,7 @@ export default function Home() {
   return (
     <main>
       <div className="container mx-auto mt-5">
-        <div className={notojp.className}>
+        <div className={`${notojp.className} mb-1`}>
           <h1 className="text-2xl font-bold my-5 text-center">英単語帳</h1>
           <p className="text-right">※Noto Sans Japaneseにてタイトルを出力</p>
         </div>
