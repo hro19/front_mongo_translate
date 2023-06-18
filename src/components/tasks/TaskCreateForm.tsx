@@ -66,7 +66,7 @@ const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
             render={({ field }) => (
               <div>
                 <select
-                  className="select border border-gray-300 w-full max-w-[130px] ml-2"
+                  className="select border border-gray-300 w-full ml-2"
                   id="speech"
                   {...field}
                 >

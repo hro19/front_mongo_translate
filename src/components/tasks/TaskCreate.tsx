@@ -48,12 +48,12 @@ const TaskCreate = () => {
   };
 
   return (
-    <div>
+    <div className="md:mx-8">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="mx-8 bg-blue-50 border border-gray-300 rounded-lg p-4"
+        className="mx-auto max-w-screen-xl bg-blue-50 border border-gray-300 rounded-lg p-4"
       >
-        <TaskCreateForm control={control} errors={errors}  />
+        <TaskCreateForm control={control} errors={errors} />
       </form>
     </div>
   );
