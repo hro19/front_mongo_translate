@@ -15,6 +15,7 @@ const TaskCreate = () => {
     defaultValues: {
       name: "",
       jaName: "",
+      speech: "",
       completed: false,
     },
   });

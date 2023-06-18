@@ -51,6 +51,35 @@ const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
           <span className="text-red-500 ml-2">{errors.jaName.message}</span>
         )}
       </label>
+      <label className="mr-4 flex items-center h-full">
+        品詞
+        <Controller
+          control={control}
+          name="speech"
+          rules={{ required: "品詞を選択してください" }}
+          render={({ field }) => (
+            <div>
+              <select
+                className="select border border-gray-300 w-full max-w-xs"
+                id="speech"
+                {...field}
+              >
+                <option disabled value="">
+                  品詞を選択してください
+                </option>
+                <option value="verb">verb</option>
+                <option value="adjective">adjective</option>
+                <option value="adverb">adverb</option>
+                <option value="auxiliary verb">auxiliary verb</option>
+                <option value="gerund">gerund</option>
+              </select>
+              {errors.speech && (
+                <span className="text-red-500">{errors.speech.message}</span>
+              )}
+            </div>
+          )}
+        />
+      </label>
       <label className="flex items-center h-full">
         <Controller
           name="completed"
