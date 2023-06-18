@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
+import { useAtom } from "jotai";
+import { checkEditAtom } from "../../jotai/atoms";
+import { CheckEditDisabled } from "../../components/taskShingle/Atarashiku";
 
-const SlugFormInput = ({ task, control,formState, errors }: any) => {
+const SlugFormInput = ({ task, control, formState, watch, errors }: any) => {
+  const [checkEdit, setCheckEdit] = useAtom(checkEditAtom);
+  const nameVal = watch("name");
+  const jaNameVal = watch("jaName");
+  const speechVal = watch("speech");
+  const completedVal = watch("completed");
+
+
+  //checkEdit関数　元データと現データが同じならば送信ボタンがDisableになる
+  useEffect(() => {
+    CheckEditDisabled(nameVal,jaNameVal,speechVal,completedVal,task,setCheckEdit);
+  }, [{ nameVal, jaNameVal, speechVal, completedVal }]);
+
   return (
     <>
       <div className="mb-4">
@@ -132,11 +147,9 @@ const SlugFormInput = ({ task, control,formState, errors }: any) => {
       </div>
       <button
         type="submit"
-        disabled={!formState.isDirty}
+        disabled={!checkEdit}
         className={`py-2 px-4 rounded font-bold text-white ${
-          formState.isDirty
-            ? "bg-green-500 hover:bg-green-600"
-            : "bg-gray-400 cursor-not-allowed"
+          checkEdit ? "bg-green-500 hover:bg-green-600" : "bg-gray-400"
         }`}
       >
         送信

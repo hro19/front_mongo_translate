@@ -26,16 +26,8 @@ const SlugForm = ({ task, slug }: SlugForm) => {
     handleSubmit,
     formState,
     formState: { errors },
-    setValue,
-    reset,
+    watch,
   } = useForm();
-
-  useEffect(() => {
-    // setValue("name", task.name);
-    // setValue("jaName", task.jaName);
-    // setValue("speech", task.speech);
-    // setValue("completed", task.completed);
-  }, [task]);
 
   const mutation = useMutation(
     (data) =>
@@ -49,7 +41,6 @@ const SlugForm = ({ task, slug }: SlugForm) => {
         // 更新成功の場合は、ポップオーバーで知らせる
         setIsSnake(true);
         SecCount(snakeDuration, setIsSnake);
-        // reset(task);
       },
     }
   );
@@ -74,6 +65,7 @@ const SlugForm = ({ task, slug }: SlugForm) => {
           task={task}
           control={control}
           formState={formState}
+          watch={watch}
           errors={errors}
         />
       </form>

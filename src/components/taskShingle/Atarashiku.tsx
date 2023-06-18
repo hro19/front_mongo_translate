@@ -70,9 +70,11 @@ const createHandler = async (
 
 // 値に変化があれば「更新するボタン」が有効になる
 //第一引数 入力されているname
-//第二引数 入力されているcompleted
-//第三引数 更新するためのデータ{_id,name,completed}
-//第四引数 真偽するためのsetter
+//第二引数 入力されているjaName
+//第三引数 入力されているspeech
+//第四引数 入力されているcompleted
+//第五引数 更新するためのデータ{_id,name,completed}
+//第六引数 真偽するためのsetter
 
 const CheckEditDisabled = (
   name: string,
