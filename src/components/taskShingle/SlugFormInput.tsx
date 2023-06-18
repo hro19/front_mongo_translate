@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { useAtom } from "jotai";
-import { checkEditAtom } from "../../jotai/atoms";
+import { checkEditAtom, speechOptionsAtom } from "../../jotai/atoms";
 import { CheckEditDisabled } from "../../components/taskShingle/Atarashiku";
 
+
 const SlugFormInput = ({ task, control, formState, watch, errors }: any) => {
+  const [speechOptions, setSpeechOptions] = useAtom(speechOptionsAtom);
+
   const [checkEdit, setCheckEdit] = useAtom(checkEditAtom);
   const nameVal = watch("name");
   const jaNameVal = watch("jaName");
@@ -109,12 +112,11 @@ const SlugFormInput = ({ task, control, formState, watch, errors }: any) => {
                 <option disabled value="">
                   品詞を選択してください
                 </option>
-                <option value="verb">verb</option>
-                <option value="adjective">adjective</option>
-                <option value="adverb">adverb</option>
-                <option value="noun">noun</option>
-                <option value="auxiliary verb">auxiliary verb</option>
-                <option value="gerund">gerund</option>
+                {Object.entries(speechOptions).map(([key, value]) => (
+                  <option key={key} value={key}>
+                    {value}
+                  </option>
+                ))}
               </select>
               {errors.speech && (
                 <span className="text-red-500">{errors.speech.message}</span>

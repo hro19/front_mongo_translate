@@ -21,3 +21,14 @@ export const taskAtom = atom<Task>({
   jaName: "",
   speech: "",
 });
+
+const initialSpeechOptions = {
+  verb: "動詞",
+  adjective: "形容詞",
+  adverb: "副詞",
+  noun: "名詞",
+  "auxiliary verb": "助動詞",
+  gerund: "動名詞",
+};
+
+export const speechOptionsAtom = atom(initialSpeechOptions);

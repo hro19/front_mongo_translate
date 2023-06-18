@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useAtom } from "jotai";
+import { speechOptionsAtom } from "../../jotai/atoms";
 import SlugForm from "@/components/taskShingle/SlugForm";
 
 const fetchTask = async (slug: string) => {
@@ -14,9 +16,11 @@ const fetchTask = async (slug: string) => {
 };
 
 const SingleTask = () => {
-const router = useRouter();
-const { query } = router;
-const slug: string = Array.isArray(query._id) ? query._id[0] : query._id ?? "";
+  const [speechOptions, setSpeechOptions] = useAtom(speechOptionsAtom);
+  
+  const router = useRouter();
+  const { query } = router;
+  const slug: string = Array.isArray(query._id) ? query._id[0] : query._id ?? "";
 
   const {
     data: task,
