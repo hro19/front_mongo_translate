@@ -71,7 +71,7 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
           defaultValue={task.speech}
           onChange={(e) => setSpeech(e.target.value)}
         >
-          <option disabled selected>
+          <option disabled value="">
             品詞を選択してください
           </option>
           <option>verb</option>
