@@ -1,11 +1,7 @@
 import React from 'react';
 import { Pagination } from "@mui/material";
 import { useAtom } from "jotai";
-import {
-  showPostsAtom,
-  currentPageAtom,
-  itemsPerPageAtom,
-} from "../../jotai/translatesAtoms";
+import {showPostsAtom,currentPageAtom,itemsPerPageAtom} from "../../jotai/translatesAtoms";
 
 const TranslatePagination = () => {
 
