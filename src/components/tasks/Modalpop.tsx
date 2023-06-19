@@ -18,13 +18,10 @@ const Modalpop = ({ task }: TaskObj) => {
   return (
     <div>
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-1 lg:px-4 rounded"
         onClick={openModal}
       >
-        <AiOutlineEdit
-          className="icon text-white mb-1 mr-1 inline-block"
-          size="1.2rem"
-        />
+        <AiOutlineEdit className="icon text-white mb-1 mr-1 inline-block" size="1.2rem" />
         <span className="hidden md:inline-block">Edit</span>
       </button>
       <Modal

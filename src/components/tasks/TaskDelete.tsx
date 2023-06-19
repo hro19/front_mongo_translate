@@ -27,7 +27,7 @@ const TaskDelete = ({ task }: TaskObj) => {
   return (
     <>
       <button
-        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded"
+        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 lg:px-4 rounded"
         onClick={() => handleDelete(task._id)}
       >
         <AiOutlineUserDelete
