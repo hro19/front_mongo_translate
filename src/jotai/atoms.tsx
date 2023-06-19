@@ -25,6 +25,7 @@ export const taskAtom = atom<Task>({
 // 品詞の設定
 const initialSpeechOptions: Record<string, string> = {
   verb: "動詞",
+  phrasalVerb: "句動詞",
   adjective: "形容詞",
   adverb: "副詞",
   noun: "名詞",
