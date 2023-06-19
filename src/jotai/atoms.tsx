@@ -22,14 +22,15 @@ export const taskAtom = atom<Task>({
   speech: "",
 });
 
-const initialSpeechOptions = {
+// 品詞の設定
+const initialSpeechOptions: Record<string, string> = {
   verb: "動詞",
   adjective: "形容詞",
   adverb: "副詞",
   noun: "名詞",
   auxiliaryVerb: "助動詞",
   gerund: "動名詞",
-} as const;
+};
 
 export const initialSpeechOptionsAtom = atom(initialSpeechOptions);
 
