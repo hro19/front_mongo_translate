@@ -1,14 +1,9 @@
-import { useAtom } from "jotai";
-import { initialSpeechOptionsAtom } from "../jotai/atoms";
-
-const [initialSpeechOptions, setInitialSpeechOptions] = useAtom(initialSpeechOptionsAtom);
-
 export type Task = {
   _id: string;
   completed: boolean;
   name: string;
   jaName: string;
-  speech: keyof typeof initialSpeechOptions;
+  speech: string;
 };
 
 export type TaskObj = {
@@ -22,7 +17,7 @@ export type TaskIterateObj = {
 export type FormData = {
   name: string;
   jaName: string;
-  speech: keyof typeof initialSpeechOptions;
+  speech: string;
   completed: boolean;
 };
 
