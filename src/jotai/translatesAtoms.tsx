@@ -17,7 +17,7 @@ export const filterOptionAtom = atom<"default" | "long" | "medium" | "short">("d
 //translate一覧ページ
 export const showPostsAtom = atom<Translate[]>([]);
 export const currentPageAtom = atom<number>(1);
-export const itemsPerPageAtom = atom<number>(4);
+export const itemsPerPageAtom = atom<number>(6);
 
 //現在音声再生中かを判断
 export const isSpeakingAtom = atom<boolean>(false);
