@@ -1,9 +1,12 @@
-export type Task = {
+export type Task = FormData & {
   _id: string;
-  completed: boolean;
+};
+
+export type FormData = {
   name: string;
   jaName: string;
   speech: string;
+  completed: boolean;
 };
 
 export type TaskObj = {
@@ -12,10 +15,6 @@ export type TaskObj = {
 
 export type TaskIterateObj = {
   tasks?: Task[];
-};
-
-type FormData = Task & {
-  _id: never;
 };
 
 export type SelectSwitch = "uncompleted" | "completed" | "all";
