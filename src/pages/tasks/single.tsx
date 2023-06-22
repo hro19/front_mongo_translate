@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
-import { initialSpeechOptionsAtom, getSpeechLabel } from "../../jotai/atoms";
+import { getSpeechLabel } from "../../jotai/atoms";
 import SlugForm from "@/components/taskShingle/SlugForm";
 
 const fetchTask = async (slug: string) => {
@@ -16,9 +16,6 @@ const fetchTask = async (slug: string) => {
 };
 
 const SingleTask = () => {
-  const [initialSpeechOptions, setInitialSpeechOptions] = useAtom(
-    initialSpeechOptionsAtom
-  );
   
   const router = useRouter();
   const { query } = router;
