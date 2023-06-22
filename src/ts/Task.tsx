@@ -14,11 +14,8 @@ export type TaskIterateObj = {
   tasks?: Task[];
 };
 
-export type FormData = {
-  name: string;
-  jaName: string;
-  speech: string;
-  completed: boolean;
+type FormData = Task & {
+  _id: never;
 };
 
 export type SelectSwitch = "uncompleted" | "completed" | "all";
