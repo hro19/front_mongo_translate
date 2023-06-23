@@ -4,16 +4,17 @@ import React from "react";
 import TaskIterate from "./TaskIterate";
 import TaskSelect from "../../components/tasks/TaskSelect";
 import Loading from "../../components/tasks/Loading";
-import { Task, TaskIterateObj } from "../../ts/Task";
+import { Task } from "../../ts/Task";
 import { useAtom } from "jotai";
 import { tasksStateAtom } from "../../jotai/atoms";
 
-type TaskTableProps = TaskIterateObj & {
+type TaskTableProps = {
+  tasks: Task[];
   isLoading: boolean;
 };
 
 const TaskTable = ({ tasks = [], isLoading }: TaskTableProps) => {
-  const [tasksState, setTasksState] = useAtom(tasksStateAtom);
+  const [tasksState] = useAtom(tasksStateAtom);
 
   if (isLoading) {
     return <Loading />;
