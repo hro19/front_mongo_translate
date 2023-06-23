@@ -1,19 +1,17 @@
 import React from "react";
-import { FormData } from "../../ts/Task";
+import { Task } from "../../ts/Task";
 import { FieldErrors, Control, Controller } from "react-hook-form";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { useAtom } from "jotai";
 import { initialSpeechOptionsAtom } from "../../jotai/atoms";
 
 type TaskCreateFormProps = {
-  control: Control<FormData>;
-  errors: FieldErrors<FormData>;
+  control: Control<Omit<Task, "_id">>;
+  errors: FieldErrors<Omit<Task, "_id">>;
 };
 
 const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
-  const [initialSpeechOptions, setInitialSpeechOptions] = useAtom(
-    initialSpeechOptionsAtom
-  );
+  const [initialSpeechOptions] = useAtom(initialSpeechOptionsAtom);
 
   return (
     <div className="flex justify-center">

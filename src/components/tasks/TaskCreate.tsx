@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import TaskCreateForm from "../../components/tasks/TaskCreateForm";
-import { FormData } from "../../ts/Task";
+import { Task } from "../../ts/Task";
 import { resetCheckboxValue } from "../../components/tasks/FormMethods.tsx";
 
 const TaskCreate = () => {
@@ -25,11 +25,8 @@ const TaskCreate = () => {
   const queryClient = useQueryClient();
 
   const createTaskMutation = useMutation(
-    async (data: FormData) => {
-      await axios.post(
-        "https://back-mongo-task2.vercel.app/api/v1/tasks",
-        data
-      );
+    async (data: Omit<Task, "_id">) => {
+      await axios.post("https://back-mongo-task2.vercel.app/api/v1/tasks", data);
     },
     {
       onSuccess: () => {
@@ -43,7 +40,7 @@ const TaskCreate = () => {
   );
 
   //タスク作成リクエストが発行されます;
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const onSubmit: SubmitHandler<Omit<Task, "_id">> = (data) => {
     createTaskMutation.mutate(data);
   };
 

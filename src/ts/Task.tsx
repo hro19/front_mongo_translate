@@ -9,8 +9,3 @@ export type Task = {
 export type TaskObj = {
   task: Task;
 };
-
-export type FormData = Omit<Task, "_id">;
-
-
-export type SelectSwitch = "uncompleted" | "completed" | "all";
