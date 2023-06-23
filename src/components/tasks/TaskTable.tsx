@@ -9,7 +9,7 @@ import { useAtom } from "jotai";
 import { tasksStateAtom } from "../../jotai/atoms";
 
 type TaskTableProps = {
-  tasks: Task[];
+  tasks: Task[] | undefined;
   isLoading: boolean;
 };
 
