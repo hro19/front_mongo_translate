@@ -1,11 +1,11 @@
 import { atom, useAtomValue } from "jotai";
-import { SelectSwitch, Task } from "../ts/Task";
+import { Task } from "../ts/Task";
 
 // tasks一覧ページ
-export const tasksStateAtom = atom<SelectSwitch>("all");
+export const tasksStateAtom = atom<keyof typeof taskTab>("all");
 
 //タブの切り替えのselect要素
-const taskTab: Record<SelectSwitch, string> = {
+const taskTab: Record<string, string> = {
   uncompleted: "勉強中",
   completed: "暗記済み",
   all: "全て",
