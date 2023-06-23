@@ -1,14 +1,13 @@
 import React from "react";
 import { useAtom } from "jotai";
 import { tasksStateAtom, taskTabAtom } from "../../jotai/atoms";
-import { SelectSwitch } from "../../ts/Task";
 
 const TaskSelect = () => {
   const [taskTab] = useAtom(taskTabAtom);
   const [tasksState, setTasksState] = useAtom(tasksStateAtom);
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      const value = e.target.value as SelectSwitch;
+      const value = e.target.value as keyof typeof taskTab;
       setTasksState(value);
     };
     
