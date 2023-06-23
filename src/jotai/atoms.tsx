@@ -5,7 +5,7 @@ import { Task } from "../ts/Task";
 export const tasksStateAtom = atom<keyof typeof taskTab>("all");
 
 //タブの切り替えのselect要素
-const taskTab: Record<string, string> = {
+const taskTab: Readonly<Record<string, string>> = {
   uncompleted: "勉強中",
   completed: "暗記済み",
   all: "全て",
@@ -32,7 +32,7 @@ export const taskAtom = atom<Task>({
 });
 
 // 品詞の設定
-const initialSpeechOptions: Record<string, string> = {
+const initialSpeechOptions: Readonly<Record<string, string>> = {
   verb: "動詞",
   idiom: "熟語",
   adjective: "形容詞",
