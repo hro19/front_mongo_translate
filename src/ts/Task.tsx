@@ -5,7 +5,3 @@ export type Task = {
   speech: string;
   completed: boolean;
 };
-
-export type TaskObj = {
-  task: Task;
-};

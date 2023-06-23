@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Task, TaskObj,FormData } from "../../ts/Task";
+import { Task } from "../../ts/Task";
 import { useMutation, useQueryClient } from "react-query";
 import ModalContentForm from "./ModalContentForm";
 import { SecCount } from "../../components/taskShingle/Atarashiku";
@@ -10,7 +10,8 @@ import { isSnakeAtom,snakeDurationAtom } from "../../jotai/atoms";
 //バックエンドのエンドポイントにアクセスして、アップデートの仕組みを定義する
 //更新データをreact-queryを使って管理する
 
-type ModalContentProps = TaskObj & {
+type ModalContentProps = {
+  task: Task;
   closeModal: () => void;
 };
 
@@ -39,11 +40,11 @@ const ModalContent = ({
 
   const handleUpdate = async (
     e: React.FormEvent<HTMLFormElement>,
-    values: FormData
+    values: Omit<Task, "_id">
   ) => {
     e.preventDefault();
 
-    const { name,jaName,speech, completed } = values;
+    const { name, jaName, speech, completed } = values;
 
     try {
       const updatedTask: Task = {
@@ -80,7 +81,7 @@ const ModalContent = ({
             closeModal={closeModal}
             handleSubmit={(
               e: React.FormEvent<HTMLFormElement>,
-              values: FormData
+              values: Omit<Task, "_id">
             ) => handleUpdate(e, values)}
           />
         </form>

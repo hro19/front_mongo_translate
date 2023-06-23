@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import ModalContent from "./ModalContent";
-import { TaskObj } from "../../ts/Task";
+import { Task } from "../../ts/Task";
 import { AiOutlineEdit } from "react-icons/ai";
 
-const Modalpop = ({ task }: TaskObj) => {
+const Modalpop = ({ task }: { task: Task }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {

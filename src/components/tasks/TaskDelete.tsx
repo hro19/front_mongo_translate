@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
-import { TaskObj } from "../../ts/Task";
+import { Task } from "../../ts/Task";
 import { AiOutlineUserDelete } from "react-icons/ai";
 
-const TaskDelete = ({ task }: TaskObj) => {
+const TaskDelete = ({ task }: { task: Task }) => {
   const queryClient = useQueryClient();
 
   const deleteTaskMutation = useMutation(
