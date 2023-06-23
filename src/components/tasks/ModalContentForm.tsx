@@ -20,10 +20,10 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
     initialSpeechOptionsAtom
   );
 
-  const [name, setName] = useState(task.name);
-  const [jaName, setJaName] = useState(task.jaName);
-  const [speech, setSpeech] = useState(task.speech);
-  const [completed, setCompleted] = useState(task.completed);
+  const [name, setName] = useState<string>(task.name);
+  const [jaName, setJaName] = useState<string>(task.jaName);
+  const [speech, setSpeech] = useState<string>(task.speech);
+  const [completed, setCompleted] = useState<boolean>(task.completed);
 
   const [checkEdit, setCheckEdit] = useAtom(checkEditAtom);
 
