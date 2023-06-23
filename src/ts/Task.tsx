@@ -16,9 +16,5 @@ export type TaskIterateObj = {
 
 export type FormData = Omit<Task, "_id">;
 
-export type FormDataName = {
-  name: string;
-  jaName: string;
-};
 
 export type SelectSwitch = "uncompleted" | "completed" | "all";
