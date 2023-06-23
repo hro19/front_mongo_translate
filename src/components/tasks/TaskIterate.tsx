@@ -2,43 +2,39 @@ import React from "react";
 import Link from "next/link";
 import Modalpop from "./Modalpop";
 import TaskDelete from "./TaskDelete";
-import { Task, TaskIterateObj } from "../../ts/Task";
+import { Task } from "../../ts/Task";
 import { useAtom } from "jotai";
 import { initialSpeechOptionsAtom, getSpeechLabel } from "../../jotai/atoms";
-const TaskIterate = ({ tasks }: TaskIterateObj) => {
-
-  const [initialSpeechOptions, setInitialSpeechOptions] = useAtom(
+const TaskIterate = ({ tasks }: { tasks : Task[]}) => {
+  const [initialSpeechOptions] = useAtom(
     initialSpeechOptionsAtom
   );
-
-  if (!tasks) {
-    return <p>英単語データがありません</p>;
-  }
 
   return (
     <>
       <tbody>
-        {tasks.map((task: Task, index: number) => (
-          <tr key={task._id} id={task._id}>
-            <td className="border px-1 md:px-4 py-2">{index + 1}</td>
-            <td className="border px-1 md:px-4 py-2">
-              <Link href={`/tasks/single?_id=${task._id}`} className="underline">
-                {task.name}
-              </Link>
-            </td>
-            <td className="border px-1 md:px-4 py-2">{task.jaName}</td>
-            <td className="border px-1 md:px-4 py-2">
-              {getSpeechLabel(task.speech as keyof typeof initialSpeechOptions)}
-            </td>
-            <td className="border px-1 md:px-4 py-2">{task.completed ? "✅" : "❌"}</td>
-            <td className="border px-1 md:px-4 py-2">
-              <Modalpop task={task} />
-            </td>
-            <td className="border px-1 md:px-4 py-2">
-              <TaskDelete task={task} />
-            </td>
-          </tr>
-        ))}
+        {tasks &&
+          tasks.map((task: Task, index: number) => (
+            <tr key={task._id} id={task._id}>
+              <td className="border px-1 md:px-4 py-2">{index + 1}</td>
+              <td className="border px-1 md:px-4 py-2">
+                <Link href={`/tasks/single?_id=${task._id}`} className="underline">
+                  {task.name}
+                </Link>
+              </td>
+              <td className="border px-1 md:px-4 py-2">{task.jaName}</td>
+              <td className="border px-1 md:px-4 py-2">
+                {getSpeechLabel(task.speech as keyof typeof initialSpeechOptions)}
+              </td>
+              <td className="border px-1 md:px-4 py-2">{task.completed ? "✅" : "❌"}</td>
+              <td className="border px-1 md:px-4 py-2">
+                <Modalpop task={task} />
+              </td>
+              <td className="border px-1 md:px-4 py-2">
+                <TaskDelete task={task} />
+              </td>
+            </tr>
+          ))}
       </tbody>
     </>
   );

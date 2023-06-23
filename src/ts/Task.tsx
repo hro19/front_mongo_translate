@@ -10,10 +10,6 @@ export type TaskObj = {
   task: Task;
 };
 
-export type TaskIterateObj = {
-  tasks?: Task[];
-};
-
 export type FormData = Omit<Task, "_id">;
 
 
