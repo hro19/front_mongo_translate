@@ -6,24 +6,29 @@ import QuizButton from "@/components/exam/QuizButton";
 import { selectRandomQuiz, shuffleArray } from "@/components/exam/quizUtils";
 
 const Exam = () => {
-  const [answers, setAnswers] = useState<string[]>([]);
+  const [failures, setFailures] = useState<string[]>([]);
   type Gamen = "default" | "question" | "answer" | "finish";
   const [gamen, setGamen] = useState<Gamen>("default");
     const [quizList, setQuizList] = useAtom(quizListAtom);
     const [quizListCount, setQuizListCount] = useState<number>(0);
-//  const [isJadge, setIsJadge] = useState<boolean | null>(null);
+    const [isJadge, setIsJadge] = useState<boolean | null>(null);
 
-    
+
   const [allTasks, setAllTasks] = useAtom(allTasksAtom);
 
     const handleButtonClick = () => {
       setQuizListCount((prevCount) => prevCount + 1);
     };
     
-  const changeHandle = (value: string) => {
-    setAnswers((prevAnswers) => [...prevAnswers, value]);
+    const changeHandle = (name: string) => {
+    if (quizList && name === quizList[quizListCount].name) {
+      setIsJadge(true);
+    } else {
+      setIsJadge(false);
+      setFailures((prevFailures) => [...prevFailures, name]);
+    }
     setGamen("answer");
-  };
+    };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,6 +66,7 @@ const Exam = () => {
                         key={index}
                         onClick={() => changeHandle(candidate.name)}
                         candidate={candidate}
+                        isJadge={isJadge}
                       />
                     )
                   )}
@@ -68,9 +74,10 @@ const Exam = () => {
               </div>
             )}
           </div>
+          <p className="mt-3">【正解判定】{isJadge !== null && isJadge.toString()}</p>
         </div>
-        {answers.map((answer, index) => (
-          <p key={index}>{answer}</p>
+        {failures.map((failure, index) => (
+          <p key={index}>{failure}</p>
         ))}
         <hr />
         {gamen}
