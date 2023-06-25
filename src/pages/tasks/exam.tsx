@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Task } from "@/ts/Task";
 import { useAtom } from "jotai";
-import { allTasksAtom } from "../../jotai/atoms";
+import { allTasksAtom, quizListAtom } from "../../jotai/atoms";
 import QuizButton from "@/components/exam/QuizButton";
 import { selectRandomQuiz } from "@/components/exam/quizUtils";
 
@@ -9,7 +9,7 @@ const Exam = () => {
   const [answers, setAnswers] = useState<string[]>([]);
   type Gamen = "default" | "question" | "answer" | "finish";
   const [gamen, setGamen] = useState<Gamen>("default");
-  const [quizList, setQuizList] = useState<any | null>(null);
+  const [quizList, setQuizList] = useAtom(quizListAtom);
   const [isJadge, setIsJadge] = useState<boolean | null>(null);
 
   const [allTasks, setAllTasks] = useAtom(allTasksAtom);
