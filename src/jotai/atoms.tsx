@@ -5,6 +5,9 @@ import { Task } from "../ts/Task";
 export const tasksStateAtom = atom<keyof typeof taskTab>("all");
 export const allTasksAtom = atom<Task[] | null>([]);
 
+export const setQuizListAtom = atom<any | null>(null);
+
+
 //タブの切り替えのselect要素
 const taskTab: Readonly<Record<string, string>> = {
   uncompleted: "勉強中",
