@@ -3,6 +3,7 @@ import { Task } from "../ts/Task";
 
 // tasks一覧ページ
 export const tasksStateAtom = atom<keyof typeof taskTab>("all");
+export const allTasksAtom = atom<Task[] | null>([]);
 
 //タブの切り替えのselect要素
 const taskTab: Readonly<Record<string, string>> = {
