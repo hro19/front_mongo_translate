@@ -3,7 +3,7 @@ import { Task } from "@/ts/Task";
 import { useAtom } from "jotai";
 import { allTasksAtom, quizListAtom } from "../../jotai/atoms";
 import QuizButton from "@/components/exam/QuizButton";
-import { selectRandomQuiz } from "@/components/exam/quizUtils";
+import { selectRandomQuiz, shuffleArray } from "@/components/exam/quizUtils";
 
 const Exam = () => {
   const [answers, setAnswers] = useState<string[]>([]);
@@ -49,10 +49,13 @@ const Exam = () => {
             {quizList !== null && quizList.length > 0 && (
               <div>
                 <h2>
-                  <span className="text-6xl font-bold text-emerald-800">{quizList[quizListCount].name}</span>の意味は
+                  <span className="text-6xl font-bold text-emerald-800">
+                    {quizList[quizListCount].name}
+                  </span>
+                  の意味は
                 </h2>
                 <ul className="flex flex-col justify-center">
-                  {quizList[quizListCount].candidates.map(
+                  {shuffleArray(quizList[quizListCount].candidates).map(
                     (candidate: Task, index: number) => (
                       <QuizButton
                         key={index}

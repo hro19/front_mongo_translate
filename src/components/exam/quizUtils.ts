@@ -1,3 +1,5 @@
+import { Task } from "@/ts/Task";
+
 export const selectRandomQuiz = (filteredData: any, count: number) => {
   const selectedQuizzes: any = [];
 
@@ -41,4 +43,13 @@ const getRandomUniqueIndices = (
   }
 
   return randomIndices;
+};
+
+export const shuffleArray = (array: Task[]) => {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
 };
