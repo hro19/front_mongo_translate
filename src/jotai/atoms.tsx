@@ -3,6 +3,8 @@ import { Task } from "../ts/Task";
 
 // tasks一覧ページ
 export const tasksStateAtom = atom<keyof typeof taskTab>("all");
+
+// 単語テストページ
 export const allTasksAtom = atom<Task[] | null>([]);
 
 export const quizListAtom = atom<(Task & {candidates: Task[];})[]| null>(null);

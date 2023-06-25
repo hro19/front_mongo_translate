@@ -9,11 +9,17 @@ const Exam = () => {
   const [answers, setAnswers] = useState<string[]>([]);
   type Gamen = "default" | "question" | "answer" | "finish";
   const [gamen, setGamen] = useState<Gamen>("default");
-  const [quizList, setQuizList] = useAtom(quizListAtom);
-  const [isJadge, setIsJadge] = useState<boolean | null>(null);
+    const [quizList, setQuizList] = useAtom(quizListAtom);
+    const [quizListCount, setQuizListCount] = useState<number>(0);
+//  const [isJadge, setIsJadge] = useState<boolean | null>(null);
 
+    
   const [allTasks, setAllTasks] = useAtom(allTasksAtom);
 
+    const handleButtonClick = () => {
+      setQuizListCount((prevCount) => prevCount + 1);
+    };
+    
   const changeHandle = (value: string) => {
     setAnswers((prevAnswers) => [...prevAnswers, value]);
     setGamen("answer");
@@ -38,33 +44,37 @@ const Exam = () => {
 
     return (
       <>
-          <div className="mx-auto max-w-[640px]">
+        <div className="mx-auto max-w-[640px]">
+          <div>
+            {quizList !== null && quizList.length > 0 && (
               <div>
-                {quizList !== null && quizList.map(
-                  (quiz: Task & { candidates: Task[] }, quizIndex: number) => (
-                    <div key={quizIndex}>
-                      <h2>{quiz.name}の意味は</h2>
-                      <ul className="flex flex-col justify-center">
-                        {quiz.candidates.map(
-                          (candidate: Task, candidateIndex: number) => (
-                            <QuizButton
-                              key={candidateIndex}
-                              onClick={() => changeHandle(candidate.name)}
-                              candidate={candidate}
-                            />
-                          )
-                        )}
-                      </ul>
-                    </div>
-                  )
-                )}
+                <h2>{quizList[quizListCount].name}の意味は</h2>
+                <ul className="flex flex-col justify-center">
+                  {quizList[quizListCount].candidates.map(
+                    (candidate: Task, index: number) => (
+                      <QuizButton
+                        key={index}
+                        onClick={() => changeHandle(candidate.name)}
+                        candidate={candidate}
+                      />
+                    )
+                  )}
+                </ul>
               </div>
+            )}
           </div>
+        </div>
         {answers.map((answer, index) => (
           <p key={index}>{answer}</p>
         ))}
         <hr />
         {gamen}
+        <div>
+          <button onClick={handleButtonClick} className="btn bg-orange-600">
+            増やす
+          </button>
+          <p>quizListCount: {quizListCount}</p>
+        </div>
       </>
     );
 };
