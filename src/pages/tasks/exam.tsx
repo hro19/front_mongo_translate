@@ -48,7 +48,9 @@ const Exam = () => {
           <div>
             {quizList !== null && quizList.length > 0 && (
               <div>
-                <h2>{quizList[quizListCount].name}の意味は</h2>
+                <h2>
+                  <span className="text-6xl font-bold text-emerald-800">{quizList[quizListCount].name}</span>の意味は
+                </h2>
                 <ul className="flex flex-col justify-center">
                   {quizList[quizListCount].candidates.map(
                     (candidate: Task, index: number) => (
