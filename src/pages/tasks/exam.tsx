@@ -36,29 +36,37 @@ const Exam = () => {
     fetchData();
   }, []);
 
-  return (
-    <div>
-      {allTasks !== null && allTasks.length > 0 && (
-        <div className="mx-auto max-w-[640px]">
-          <h2>{quizList && quizList[0].name}の意味は</h2>
-          <ul className="flex flex-col justify-center">
-            {quizList[0].candidates.map((candidate: Task, index: number) => (
-              <QuizButton
-                key={index}
-                onClick={() => changeHandle(candidate.name)}
-                candidate={candidate}
-              />
-            ))}
-          </ul>
-          {answers.map((answer, index) => (
-            <p key={index}>{answer}</p>
-          ))}
-          <hr />
-          {gamen}
-        </div>
-      )}
-    </div>
-  );
+    return (
+      <>
+          <div className="mx-auto max-w-[640px]">
+              <div>
+                {quizList !== null && quizList.map(
+                  (quiz: Task & { candidates: Task[] }, quizIndex: number) => (
+                    <div key={quizIndex}>
+                      <h2>{quiz.name}の意味は</h2>
+                      <ul className="flex flex-col justify-center">
+                        {quiz.candidates.map(
+                          (candidate: Task, candidateIndex: number) => (
+                            <QuizButton
+                              key={candidateIndex}
+                              onClick={() => changeHandle(candidate.name)}
+                              candidate={candidate}
+                            />
+                          )
+                        )}
+                      </ul>
+                    </div>
+                  )
+                )}
+              </div>
+          </div>
+        {answers.map((answer, index) => (
+          <p key={index}>{answer}</p>
+        ))}
+        <hr />
+        {gamen}
+      </>
+    );
 };
 
 export default Exam;
