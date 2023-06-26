@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react";
 import { Task, CandidatesTask,JadgeTask } from "@/ts/Task";
 import { useAtom } from "jotai";
-import { allTasksAtom } from "../../jotai/atoms";
+import {  } from "../../jotai/atoms";
 import QuizButton from "../../components/exam/QuizButton";
 import { selectRandomQuiz } from "../../components/exam/quizUtils";
 
@@ -14,7 +14,6 @@ const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   const [gamen, setGamen] = useState<Gamen>("default");
   const [quizListCount, setQuizListCount] = useState<number>(0);
   const [isJadge, setIsJadge] = useState<boolean | null>(null);
-  const [allTasks, setAllTasks] = useAtom(allTasksAtom);
 
   const handleButtonClick = () => {
     setQuizListCount((prevCount) => prevCount + 1);

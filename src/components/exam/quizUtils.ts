@@ -2,12 +2,12 @@ import { Task, JadgeTask, CandidatesTask } from "@/ts/Task";
 
 export const selectRandomQuiz = (
   filteredData: CandidatesTask[],
-  count: number,
-  HowManySelect: number
+  HOWManyLesson: number,
+  HOWManySelect: number
 ) => {
   const selectedQuizzes: CandidatesTask[] = [];
 
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < HOWManyLesson; i++) {
     if (filteredData.length > 0) {
       const randomIndex = Math.floor(Math.random() * filteredData.length);
       const randomQuiz = filteredData[randomIndex];
@@ -21,7 +21,11 @@ export const selectRandomQuiz = (
       candidates.push(correctQuiz);
 
       // 他の候補をランダムに選ぶ（correct: false）
-      const otherIndices = getRandomUniqueIndices(filteredData.length, randomIndex, (HowManySelect - 1));
+      const otherIndices = getRandomUniqueIndices(
+        filteredData.length,
+        randomIndex,
+        HOWManySelect - 1
+      );
       for (const index of otherIndices) {
         const otherQuiz: JadgeTask = {
           ...filteredData[index],
