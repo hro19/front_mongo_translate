@@ -1,15 +1,14 @@
 import { useState,useEffect } from "react";
 import { Task, CandidatesTask,JadgeTask } from "@/ts/Task";
 import { useAtom } from "jotai";
-import { allTasksAtom, quizListAtom } from "../../jotai/atoms";
+import { allTasksAtom } from "../../jotai/atoms";
 import QuizButton from "../../components/exam/QuizButton";
-import { selectRandomQuiz, shuffleArray } from "../../components/exam/quizUtils";
+import { selectRandomQuiz } from "../../components/exam/quizUtils";
 
 const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   const [failures, setFailures] = useState<string[]>([]);
   type Gamen = "default" | "question" | "answer" | "finish";
   const [gamen, setGamen] = useState<Gamen>("default");
-  const [quizList, setQuizList] = useAtom(quizListAtom);
   const [quizListCount, setQuizListCount] = useState<number>(0);
   const [isJadge, setIsJadge] = useState<boolean | null>(null);
   const [allTasks, setAllTasks] = useAtom(allTasksAtom);
@@ -21,7 +20,7 @@ const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   };
 
   const changeHandle = (name: string) => {
-    if (quizList && name === quizList[quizListCount].name) {
+    if (name === quizListData[quizListCount].name) {
       setIsJadge(true);
     } else {
       setIsJadge(false);
@@ -29,10 +28,6 @@ const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
     }
     setGamen("answer");
   };
-
-  useEffect(() => {
-    setQuizList(quizListData);
-  }, [quizListData]);
 
   return (
     <>

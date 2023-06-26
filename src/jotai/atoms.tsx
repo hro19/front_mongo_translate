@@ -7,7 +7,6 @@ export const tasksStateAtom = atom<keyof typeof taskTab>("all");
 // 単語テストページ
 export const allTasksAtom = atom<Task[] | null>([]);
 
-export const quizListAtom = atom<CandidatesTask[]| null>(null);
 
 
 //タブの切り替えのselect要素
