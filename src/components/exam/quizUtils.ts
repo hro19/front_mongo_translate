@@ -1,6 +1,10 @@
 import { Task, JadgeTask, CandidatesTask } from "@/ts/Task";
 
-export const selectRandomQuiz = (filteredData: CandidatesTask[], count: number) => {
+export const selectRandomQuiz = (
+  filteredData: CandidatesTask[],
+  count: number,
+  HowManySelect: number
+) => {
   const selectedQuizzes: CandidatesTask[] = [];
 
   for (let i = 0; i < count; i++) {
@@ -17,7 +21,7 @@ export const selectRandomQuiz = (filteredData: CandidatesTask[], count: number) 
       candidates.push(correctQuiz);
 
       // 他の候補をランダムに選ぶ（correct: false）
-      const otherIndices = getRandomUniqueIndices(filteredData.length, randomIndex, 2);
+      const otherIndices = getRandomUniqueIndices(filteredData.length, randomIndex, (HowManySelect - 1));
       for (const index of otherIndices) {
         const otherQuiz: JadgeTask = {
           ...filteredData[index],

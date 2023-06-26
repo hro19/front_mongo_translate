@@ -5,6 +5,9 @@ import { allTasksAtom } from "../../jotai/atoms";
 import QuizButton from "../../components/exam/QuizButton";
 import { selectRandomQuiz } from "../../components/exam/quizUtils";
 
+const HOWManyLesson: number = 5; 
+const HOWManySelect: number = 4; 
+
 const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   const [failures, setFailures] = useState<string[]>([]);
   type Gamen = "default" | "question" | "answer" | "finish";
@@ -78,7 +81,7 @@ export async function getStaticProps() {
     const response = await fetch("https://back-mongo-task2.vercel.app/api/v1/tasks");
     const data = await response.json();
     const filteredData = data.filter((task: Task) => task.speech === "verb");
-    const quizListData = selectRandomQuiz(filteredData, 3);
+    const quizListData = selectRandomQuiz(filteredData, HOWManyLesson, HOWManySelect);
     return {
       props: {
         quizListData,
