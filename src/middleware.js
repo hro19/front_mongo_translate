@@ -4,9 +4,8 @@ import { NextRequest, NextResponse } from 'next/server'
 matcher : middleware.jsを適用する（呼び出す）パスを指定する
 */
 export const config = {
-  //matcher: ['/:path*', '/tasks/:path*'],
-  matcher: ['/tasks/:path*'],
-};
+    matcher: ['/:path*', '/tasks/:path*'],
+}
 
 export function middleware(req) {
     const basicAuth = req.headers.get('authorization')
