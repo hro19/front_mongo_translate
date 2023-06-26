@@ -1,11 +1,11 @@
 import { useState,useEffect } from "react";
-import { Task, JadgeTask } from "@/ts/Task";
+import { Task, CandidatesTask,JadgeTask } from "@/ts/Task";
 import { useAtom } from "jotai";
 import { allTasksAtom, quizListAtom } from "../../jotai/atoms";
 import QuizButton from "../../components/exam/QuizButton";
 import { selectRandomQuiz, shuffleArray } from "../../components/exam/quizUtils";
 
-const Exam = ({ quizListData }:any) => {
+const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   const [failures, setFailures] = useState<string[]>([]);
   type Gamen = "default" | "question" | "answer" | "finish";
   const [gamen, setGamen] = useState<Gamen>("default");
@@ -38,16 +38,16 @@ const Exam = ({ quizListData }:any) => {
     <>
       <div className="mx-auto max-w-[640px]">
         <div>
-          {quizList !== null && quizList.length > 0 && (
+          {quizListData.length > 0 && (
             <div>
               <h2>
                 <span className="text-6xl font-bold text-emerald-800">
-                  {quizList[quizListCount].name}
+                  {quizListData[quizListCount].name}
                 </span>
                 の意味は
               </h2>
               <ul className="flex flex-col justify-center">
-                {quizList[quizListCount].candidates.map(
+                {quizListData[quizListCount].candidates.map(
                   (candidate: JadgeTask, index: number) => (
                     <QuizButton
                       key={index}
