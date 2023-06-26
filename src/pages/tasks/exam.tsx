@@ -1,5 +1,5 @@
-import { useState,useEffect } from "react";
-import { Task, CandidatesTask,JadgeTask } from "@/ts/Task";
+import { useState, useEffect } from "react";
+import { Task, CandidatesTask, JadgeTask } from "@/ts/Task";
 import { useAtom } from "jotai";
 import {
   failuresAtom,
@@ -11,8 +11,8 @@ import { selectRandomQuiz } from "../../components/exam/quizUtils";
 import SwitchQanda from "../../components/exam/SwitchQanda";
 import SwitchFinish from "../../components/exam/SwitchFinish";
 
-const HOWManyLesson: number = 5; 
-const HOWManySelect: number = 4; 
+const HOWManyLesson: number = 5;
+const HOWManySelect: number = 4;
 
 const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   const [failures, setFailures] = useAtom(failuresAtom);
@@ -20,18 +20,14 @@ const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
   const [isJadge, setIsJadge] = useAtom(isJadgeAtom);
 
-  const handleButtonClick = () => {
-    setQuizListCount((prevCount) => prevCount + 1);
-    setIsJadge(null);
-    setGamen("question");
-  };
-
   return (
     <>
       <div className="mx-auto max-w-[640px]">
-        <SwitchQanda quizListData={quizListData} />
-        <SwitchFinish />
-        <p className="mt-3">【正解判定】{isJadge !== null && isJadge.toString()}</p>
+        {quizListCount < HOWManyLesson ? (
+          <SwitchQanda quizListData={quizListData} />
+        ) : (
+          <SwitchFinish />
+        )}
       </div>
       {failures.map((failure, index) => (
         <p key={index}>{failure}</p>
@@ -39,9 +35,6 @@ const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
       <hr />
       {gamen}
       <div>
-        <button onClick={handleButtonClick} className="btn bg-orange-600">
-          増やす
-        </button>
         <p>quizListCount: {quizListCount}</p>
       </div>
     </>

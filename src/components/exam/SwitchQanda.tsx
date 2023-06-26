@@ -26,6 +26,12 @@ const SwitchQanda = ({ quizListData }: any) => {
     setGamen("answer");
   };
 
+  const handleButtonClick = () => {
+    setQuizListCount((prevCount) => prevCount + 1);
+    setIsJadge(null);
+    setGamen("question");
+  };
+
   return (
     <div>
       {quizListData.length > 0 && (
@@ -50,6 +56,11 @@ const SwitchQanda = ({ quizListData }: any) => {
           </ul>
         </div>
       )}
+      <p className="mt-3">【正解判定】{isJadge !== null && isJadge.toString()}</p>
+
+      <button onClick={handleButtonClick} className="btn bg-orange-600 mt-4 mb-4">
+        増やす
+      </button>
     </div>
   );
 };
