@@ -1,19 +1,24 @@
 import { useState,useEffect } from "react";
 import { Task, CandidatesTask,JadgeTask } from "@/ts/Task";
 import { useAtom } from "jotai";
-import {  } from "../../jotai/atoms";
-import QuizButton from "../../components/exam/QuizButton";
+import {
+  failuresAtom,
+  gamenAtom,
+  quizListCountAtom,
+  isJadgeAtom,
+} from "../../jotai/atoms";
 import { selectRandomQuiz } from "../../components/exam/quizUtils";
+import SwitchQanda from "../../components/exam/SwitchQanda";
+import SwitchFinish from "../../components/exam/SwitchFinish";
 
 const HOWManyLesson: number = 5; 
 const HOWManySelect: number = 4; 
 
 const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
-  const [failures, setFailures] = useState<string[]>([]);
-  type Gamen = "default" | "question" | "answer" | "finish";
-  const [gamen, setGamen] = useState<Gamen>("default");
-  const [quizListCount, setQuizListCount] = useState<number>(0);
-  const [isJadge, setIsJadge] = useState<boolean | null>(null);
+  const [failures, setFailures] = useAtom(failuresAtom);
+  const [gamen, setGamen] = useAtom(gamenAtom);
+  const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
+  const [isJadge, setIsJadge] = useAtom(isJadgeAtom);
 
   const handleButtonClick = () => {
     setQuizListCount((prevCount) => prevCount + 1);
@@ -21,43 +26,11 @@ const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
     setGamen("question");
   };
 
-  const changeHandle = (name: string) => {
-    if (name === quizListData[quizListCount].name) {
-      setIsJadge(true);
-    } else {
-      setIsJadge(false);
-      setFailures((prevFailures) => [...prevFailures, name]);
-    }
-    setGamen("answer");
-  };
-
   return (
     <>
       <div className="mx-auto max-w-[640px]">
-        <div>
-          {quizListData.length > 0 && (
-            <div>
-              <h2>
-                <span className="text-6xl font-bold text-emerald-800">
-                  {quizListData[quizListCount].name}
-                </span>
-                の意味は
-              </h2>
-              <ul className="flex flex-col justify-center">
-                {quizListData[quizListCount].candidates.map(
-                  (candidate: JadgeTask, index: number) => (
-                    <QuizButton
-                      key={index}
-                      onClick={() => changeHandle(candidate.name)}
-                      candidate={candidate}
-                      isJadge={isJadge}
-                    />
-                  )
-                )}
-              </ul>
-            </div>
-          )}
-        </div>
+        <SwitchQanda quizListData={quizListData} />
+        <SwitchFinish />
         <p className="mt-3">【正解判定】{isJadge !== null && isJadge.toString()}</p>
       </div>
       {failures.map((failure, index) => (

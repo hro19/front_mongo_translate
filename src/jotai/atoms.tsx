@@ -1,11 +1,14 @@
 import { atom, useAtomValue } from "jotai";
-import { Task, CandidatesTask, JadgeTask } from "../ts/Task";
+import { Task, CandidatesTask, JadgeTask, Gamen } from "../ts/Task";
 
 // tasks一覧ページ
 export const tasksStateAtom = atom<keyof typeof taskTab>("all");
 
 // 単語テストページ
-
+export const failuresAtom = atom<string[]>([]);
+export const gamenAtom = atom<Gamen>("default");
+export const quizListCountAtom = atom<number>(0);
+export const isJadgeAtom = atom<boolean | null>(null);
 
 
 //タブの切り替えのselect要素
