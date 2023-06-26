@@ -19,6 +19,7 @@ const Exam = () => {
     const handleButtonClick = () => {
         setQuizListCount((prevCount) => prevCount + 1);
         setIsJadge(null);
+        setGamen("question");
     };
     
     const changeHandle = (name: string) => {
@@ -27,7 +28,7 @@ const Exam = () => {
     } else {
       setIsJadge(false);
       setFailures((prevFailures) => [...prevFailures, name]);
-    }
+        }
     setGamen("answer");
     };
 
