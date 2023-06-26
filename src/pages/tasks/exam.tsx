@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Task } from "@/ts/Task";
+import { Task, JadgeTask } from "@/ts/Task";
 import { useAtom } from "jotai";
 import { allTasksAtom, quizListAtom } from "../../jotai/atoms";
-import QuizButton from "@/components/exam/QuizButton";
-import { selectRandomQuiz, shuffleArray } from "@/components/exam/quizUtils";
+import QuizButton from "../../components/exam/QuizButton";
+import { selectRandomQuiz, shuffleArray } from "../../components/exam/quizUtils";
 
 const Exam = () => {
   const [failures, setFailures] = useState<string[]>([]);
@@ -17,7 +17,8 @@ const Exam = () => {
   const [allTasks, setAllTasks] = useAtom(allTasksAtom);
 
     const handleButtonClick = () => {
-      setQuizListCount((prevCount) => prevCount + 1);
+        setQuizListCount((prevCount) => prevCount + 1);
+        setIsJadge(null);
     };
     
     const changeHandle = (name: string) => {
@@ -60,8 +61,8 @@ const Exam = () => {
                   の意味は
                 </h2>
                 <ul className="flex flex-col justify-center">
-                  {shuffleArray(quizList[quizListCount].candidates).map(
-                    (candidate: Task, index: number) => (
+                  {quizList[quizListCount].candidates.map(
+                    (candidate: JadgeTask, index: number) => (
                       <QuizButton
                         key={index}
                         onClick={() => changeHandle(candidate.name)}

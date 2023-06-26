@@ -1,10 +1,10 @@
 import React from "react";
-import { Task } from "@/ts/Task";
+import { JadgeTask } from "@/ts/Task";
 
 type QuizButtonProps = {
   onClick: () => void;
-  candidate: Task;
-  isJadge:boolean | null;
+  candidate: JadgeTask;
+  isJadge: boolean | null;
 };
 
 const QuizButton = ({ onClick, candidate,isJadge }: QuizButtonProps) => {
@@ -12,9 +12,11 @@ const QuizButton = ({ onClick, candidate,isJadge }: QuizButtonProps) => {
     <li>
       <button
         className={`btn mt-9 mb-2 w-full text-white py-2 px-4 text-lg bg-primary ${
-          isJadge
+          isJadge !== null && candidate.correct
             ? "disabled:bg-accent disabled:text-white"
-            : "disabled:bg-error disabled:text-white"
+            : isJadge !== null && !candidate.correct
+            ? "disabled:bg-error disabled:text-white"
+            : ""
         }`}
         onClick={onClick}
         disabled={isJadge !== null}
