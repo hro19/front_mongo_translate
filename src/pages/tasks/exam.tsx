@@ -35,14 +35,14 @@ const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
           }
         })()}
       </div>
-      {failures.map((failure, index) => (
-        <p key={index}>{failure}</p>
-      ))}
       <hr />
-      {gamen}
-      <div>
-        <p>quizListCount: {quizListCount}</p>
-      </div>
+      {failures.map((failure, index) => (
+        <p key={index}>
+          【英語】{failure.name}、【日本語】{failure.jaName}
+        </p>
+      ))}
+      {/* {gamen} */}
+      {/* <div><p>quizListCount: {quizListCount}</p></div> */}
     </>
   );
 };

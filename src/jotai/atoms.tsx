@@ -8,7 +8,8 @@ export const tasksStateAtom = atom<keyof typeof taskTab>("all");
 export const HOWManyLesson: number = 5;
 export const HOWManySelect: number = 4;
 
-export const failuresAtom = atom<string[]>([]);
+export const failuresAtom = atom<CandidatesTask[]>([]);
+
 export const gamenAtom = atom<Gamen>("default");
 export const quizListCountAtom = atom<number>(0);
 export const isJadgeAtom = atom<boolean | null>(null);

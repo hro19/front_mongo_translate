@@ -17,12 +17,12 @@ const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
   const [isJadge, setIsJadge] = useAtom(isJadgeAtom);
 
-  const changeHandle = (name: string) => {
+  const changeHandle = (name: string, currentQuizData: CandidatesTask) => {
     if (name === quizListData[quizListCount].name) {
       setIsJadge(true);
     } else {
       setIsJadge(false);
-      setFailures((prevFailures) => [...prevFailures, name]);
+      setFailures((prevFailures) => [...prevFailures, currentQuizData]);
     }
     setGamen("answer");
   };
@@ -49,7 +49,9 @@ const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
               (candidate: JadgeTask, index: number) => (
                 <QuizButton
                   key={index}
-                  onClick={() => changeHandle(candidate.name)}
+                  onClick={() =>
+                    changeHandle(candidate.name, quizListData[quizListCount])
+                  }
                   candidate={candidate}
                   isJadge={isJadge}
                 />
@@ -60,9 +62,14 @@ const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
       )}
       <p className="mt-3">【正解判定】{isJadge !== null && isJadge.toString()}</p>
 
-      <button onClick={handleButtonClick} className="btn bg-orange-600 mt-4 mb-4">
-        次の問題へ
-      </button>
+      <div className="flex justify-end">
+        <button
+          onClick={handleButtonClick}
+          className="btn bg-amber-500 text-white mt-4 mb-4 justify-end"
+        >
+          次の問題へ
+        </button>
+      </div>
     </div>
   );
 };
