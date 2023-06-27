@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Task, CandidatesTask, JadgeTask } from "@/ts/Task";
+import { Task, CandidatesTask, JadgeTask} from "@/ts/Task";
 import { useAtom } from "jotai";
 import {
     HOWManyLesson,
@@ -7,7 +7,6 @@ import {
   failuresAtom,
   gamenAtom,
   quizListCountAtom,
-  isJadgeAtom,
 } from "../../jotai/atoms";
 import { selectRandomQuiz } from "../../components/exam/quizUtils";
 import SwitchDefault from "../../components/exam/SwitchDefault";
@@ -16,9 +15,8 @@ import SwitchFinish from "../../components/exam/SwitchFinish";
 
 const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   const [failures, setFailures] = useAtom(failuresAtom);
-  const [gamen, setGamen] = useAtom(gamenAtom);
+  const [gamen] = useAtom(gamenAtom);
   const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
-  const [isJadge, setIsJadge] = useAtom(isJadgeAtom);
 
   return (
     <>
@@ -26,7 +24,7 @@ const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
         {(() => {
           switch (gamen) {
             case "default":
-              return <SwitchDefault />;
+            //   return <SwitchDefault />;
             case "answer":
             case "question":
               return <SwitchQanda quizListData={quizListData} />;
