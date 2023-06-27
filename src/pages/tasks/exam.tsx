@@ -2,17 +2,17 @@ import { useState, useEffect } from "react";
 import { Task, CandidatesTask, JadgeTask } from "@/ts/Task";
 import { useAtom } from "jotai";
 import {
+    HOWManyLesson,
+    HOWManySelect,
   failuresAtom,
   gamenAtom,
   quizListCountAtom,
   isJadgeAtom,
 } from "../../jotai/atoms";
 import { selectRandomQuiz } from "../../components/exam/quizUtils";
+import SwitchDefault from "../../components/exam/SwitchDefault";
 import SwitchQanda from "../../components/exam/SwitchQanda";
 import SwitchFinish from "../../components/exam/SwitchFinish";
-
-const HOWManyLesson: number = 5;
-const HOWManySelect: number = 4;
 
 const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   const [failures, setFailures] = useAtom(failuresAtom);
@@ -23,11 +23,19 @@ const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   return (
     <>
       <div className="mx-auto max-w-[640px]">
-        {quizListCount < HOWManyLesson ? (
-          <SwitchQanda quizListData={quizListData} />
-        ) : (
-          <SwitchFinish />
-        )}
+        {(() => {
+          switch (gamen) {
+            case "default":
+              return <SwitchDefault />;
+            case "answer":
+            case "question":
+              return <SwitchQanda quizListData={quizListData} />;
+            case "finish":
+              return <SwitchFinish />;
+            default:
+              return null;
+          }
+        })()}
       </div>
       {failures.map((failure, index) => (
         <p key={index}>{failure}</p>

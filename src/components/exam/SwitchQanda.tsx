@@ -2,6 +2,8 @@ import React from 'react';
 import { Task, CandidatesTask, JadgeTask } from "@/ts/Task";
 import { useAtom } from "jotai";
 import {
+    HOWManyLesson,
+    HOWManySelect,
   failuresAtom,
   gamenAtom,
   quizListCountAtom,
@@ -9,8 +11,7 @@ import {
 } from "../../jotai/atoms";
 import QuizButton from "../../components/exam/QuizButton";
 
-const SwitchQanda = ({ quizListData }: any) => {
-  
+const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   const [failures, setFailures] = useAtom(failuresAtom);
   const [gamen, setGamen] = useAtom(gamenAtom);
   const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
@@ -29,12 +30,13 @@ const SwitchQanda = ({ quizListData }: any) => {
   const handleButtonClick = () => {
     setQuizListCount((prevCount) => prevCount + 1);
     setIsJadge(null);
-    setGamen("question");
+    //setQuizListCountを使うと非同期で計算が遅れるためにquizListCountを利用して計算する。
+    quizListCount + 1 == HOWManyLesson ? setGamen("finish") : setGamen("question");
   };
 
   return (
     <div>
-      {quizListData.length > 0 && (
+      {quizListData && (
         <div>
           <h2>
             <span className="text-6xl font-bold text-emerald-800">
@@ -59,7 +61,7 @@ const SwitchQanda = ({ quizListData }: any) => {
       <p className="mt-3">【正解判定】{isJadge !== null && isJadge.toString()}</p>
 
       <button onClick={handleButtonClick} className="btn bg-orange-600 mt-4 mb-4">
-        増やす
+        次の問題へ
       </button>
     </div>
   );

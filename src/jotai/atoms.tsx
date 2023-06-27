@@ -5,6 +5,9 @@ import { Task, CandidatesTask, JadgeTask, Gamen } from "../ts/Task";
 export const tasksStateAtom = atom<keyof typeof taskTab>("all");
 
 // 単語テストページ
+export const HOWManyLesson: number = 5;
+export const HOWManySelect: number = 4;
+
 export const failuresAtom = atom<string[]>([]);
 export const gamenAtom = atom<Gamen>("default");
 export const quizListCountAtom = atom<number>(0);
