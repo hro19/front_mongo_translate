@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import Head from "next/head";
 
-const Home = () => {
+const MaruBatsu = ({ isJadge }: { isJadge: boolean | null }) => {
   const circleRef = useRef(null);
   const crossRef = useRef(null);
 
@@ -43,7 +43,7 @@ const Home = () => {
         .cross:before,
         .cross:after {
           content: "";
-          width: 100px;
+          width: 160px;
           height: 10px;
           background-color: red;
           position: absolute;
@@ -60,13 +60,18 @@ const Home = () => {
           transform: translate(-50%, -50%) rotate(-45deg);
         }
       `}</style>
-      <div
-        ref={circleRef}
-        className="w-24 h-24 border-8 border-emerald-600 rounded-full relative"
-      ></div>
-      <div ref={crossRef} className="cross w-24 h-24 bg-blue-500 relative"></div>
+      <div className="flex justify-center my-8">
+        {isJadge ? (
+          <div
+            ref={circleRef}
+            className="w-36 h-36 border-8 border-emerald-600 rounded-full relative"
+          ></div>
+        ) : (
+          <div ref={crossRef} className="cross w-24 h-24 bg-blue-500 relative"></div>
+        )}
+      </div>
     </div>
   );
 };
 
-export default Home;
+export default MaruBatsu;

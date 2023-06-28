@@ -10,6 +10,8 @@ import {
   isJadgeAtom,
 } from "../../jotai/atoms";
 import QuizButton from "../../components/exam/QuizButton";
+import MaruBatsu from "../../components/exam/MaruBatsu";
+
 
 const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   const [failures, setFailures] = useAtom(failuresAtom);
@@ -60,7 +62,7 @@ const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
           </ul>
         </div>
       )}
-      <p className="mt-3">【正解判定】{isJadge !== null && isJadge.toString()}</p>
+      <p>{isJadge !== null && <MaruBatsu isJadge={isJadge} />}</p>
 
       <div className="flex justify-end">
         <button
