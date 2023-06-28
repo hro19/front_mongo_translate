@@ -65,12 +65,14 @@ const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
       <p>{isJadge !== null && <MaruBatsu isJadge={isJadge} />}</p>
 
       <div className="flex justify-end">
-        <button
-          onClick={handleButtonClick}
-          className="btn bg-amber-500 text-white mt-4 mb-4 justify-end"
-        >
-          次の問題へ
-        </button>
+        {gamen === "answer" && (
+          <button
+            onClick={handleButtonClick}
+            className="btn bg-amber-500 text-white mt-4 mb-4 justify-end"
+          >
+            次の問題へ
+          </button>
+        )}
       </div>
     </div>
   );
