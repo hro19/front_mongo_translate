@@ -37,10 +37,7 @@ const SwitchFinish = () => {
             </dl>
           ))
         : null}
-      <button
-        onClick={handleRetry}
-        className="btn bg-amber-500 text-white mt-4 mb-4 justify-end"
-      >
+      <button onClick={handleRetry} className="btn btn-outline btn-primary mt-4 mb-4 justify-end">
         再チャレンジ
       </button>
     </>

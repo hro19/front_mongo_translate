@@ -68,7 +68,7 @@ const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
         {gamen === "answer" && (
           <button
             onClick={handleButtonClick}
-            className="btn bg-amber-500 text-white mt-4 mb-4 justify-end"
+            className="btn btn-outline btn-primary mt-4 mb-4 justify-end"
           >
             次の問題へ
           </button>
