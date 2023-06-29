@@ -6,6 +6,7 @@ import {
   isJadgeAtom,
 } from "../../jotai/atoms";
 import { useRouter } from "next/router";
+import { speakText } from "../translates/Onsei";
 
 const SwitchFinish = () => {
   const [failures, setFailures] = useAtom(failuresAtom);
@@ -32,12 +33,23 @@ const SwitchFinish = () => {
       {hasFailures
         ? failures.map((failure, index) => (
             <dl key={index} className="mb-2">
-              <dt className="text-lg font-bold">【英語】{failure.name}</dt>
+              <dt className="text-lg font-bold">
+                【英語】{failure.name}
+                <button
+                  onClick={() => speakText(failure.name)}
+                  className="btn btn-secondary h-8 ml-3"
+                >
+                  音声
+                </button>
+              </dt>
               <dd>【日本語】{failure.jaName}</dd>
             </dl>
           ))
         : null}
-      <button onClick={handleRetry} className="btn btn-outline btn-primary mt-4 mb-4 justify-end">
+      <button
+        onClick={handleRetry}
+        className="btn btn-outline btn-primary mt-4 mb-4 justify-end"
+      >
         再チャレンジ
       </button>
     </>
