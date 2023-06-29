@@ -10,7 +10,7 @@ const SwitchDefault = () => {
   };
 
   return (
-    <div>
+    <div className="my-8">
       <button onClick={handleButtonClick} className="btn btn-info">英単語テストをスタート</button>
       <div>デフォルト画面</div>
     </div>
