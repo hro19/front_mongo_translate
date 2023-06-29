@@ -29,7 +29,7 @@ const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
     setGamen("answer");
   };
 
-  const handleButtonClick = () => {
+  const nextQuizHandle = () => {
     setQuizListCount((prevCount) => prevCount + 1);
     setIsJadge(null);
     //setQuizListCountを使うと非同期で計算が遅れるためにquizListCountを利用して計算する。
@@ -67,7 +67,7 @@ const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
       <div className="flex justify-end">
         {gamen === "answer" && (
           <button
-            onClick={handleButtonClick}
+            onClick={nextQuizHandle}
             className="btn btn-outline btn-primary mt-4 mb-4 justify-end"
           >
             次の問題へ
