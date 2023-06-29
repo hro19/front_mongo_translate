@@ -19,7 +19,7 @@ const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
   const [isJadge, setIsJadge] = useAtom(isJadgeAtom);
 
-  const changeHandle = (name: string, currentQuizData: CandidatesTask) => {
+  const answeringHandle = (name: string, currentQuizData: CandidatesTask) => {
     if (name === quizListData[quizListCount].name) {
       setIsJadge(true);
     } else {
@@ -52,7 +52,7 @@ const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
                 <QuizButton
                   key={index}
                   onClick={() =>
-                    changeHandle(candidate.name, quizListData[quizListCount])
+                    answeringHandle(candidate.name, quizListData[quizListCount])
                   }
                   candidate={candidate}
                   isJadge={isJadge}
