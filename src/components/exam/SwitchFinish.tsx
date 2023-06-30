@@ -7,6 +7,7 @@ import {
 } from "../../jotai/atoms";
 import { useRouter } from "next/router";
 import { speakText } from "../translates/Onsei";
+import Fubuki from "../../components/exam/fubuki"
 
 const SwitchFinish = () => {
   const [failures, setFailures] = useAtom(failuresAtom);
@@ -52,6 +53,7 @@ const SwitchFinish = () => {
       >
         再チャレンジ
       </button>
+      {!hasFailures && <Fubuki />}
     </>
   );
 };
