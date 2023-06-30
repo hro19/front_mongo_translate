@@ -36,15 +36,6 @@ const MaruBatsu = ({ isJadge }: { isJadge: boolean | null }) => {
     <div>
       <Head>{/* gsapのCDNリンクは不要 */}</Head>
       <style jsx>{`
-        .double-circle {
-          position: relative;
-          width: 140px;
-          height: 140px;
-          border: 8px solid #10b981;
-          border-radius: 50%;
-          overflow: hidden;
-        }
-
         .double-circle:before {
           content: "";
           position: absolute;
@@ -83,7 +74,10 @@ const MaruBatsu = ({ isJadge }: { isJadge: boolean | null }) => {
       `}</style>
       <div className="flex justify-center my-8">
         {isJadge ? (
-          <div ref={circleRef} className="double-circle w-36 h-36 relative"></div>
+          <div
+            ref={circleRef}
+            className="double-circle relative w-36 h-36 border-8 border-emerald-600 rounded-full overflow-hidden"
+          ></div>
         ) : (
           <div ref={crossRef} className="cross w-24 h-24 bg-blue-500 relative"></div>
         )}
