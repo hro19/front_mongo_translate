@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import { Task, CandidatesTask, JadgeTask } from "@/ts/Task";
 import { useAtom } from "jotai";
 import {
@@ -36,9 +36,23 @@ const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
     quizListCount + 1 == HOWManyLesson ? setGamen("finish") : setGamen("question");
   };
 
+    useEffect(() => {
+      const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === "Enter") {
+          nextQuizHandle();
+        }
+      };
+
+      document.addEventListener("keydown", handleKeyDown);
+
+      return () => {
+        document.removeEventListener("keydown", handleKeyDown);
+      };
+    }, []);
+
   return (
     <div>
-      {quizListData && (
+      {quizListData && quizListData[quizListCount] && (
         <div>
           <h2>
             <span className="text-6xl font-bold text-emerald-800">
