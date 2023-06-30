@@ -48,7 +48,7 @@ const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
       return () => {
         document.removeEventListener("keydown", handleKeyDown);
       };
-    }, []);
+    }, [quizListCount]);
 
   return (
     <div>
