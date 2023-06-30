@@ -7,7 +7,7 @@ import {
 } from "../../jotai/atoms";
 import { useRouter } from "next/router";
 import { speakText } from "../translates/Onsei";
-import Fubuki from "../../components/exam/fubuki"
+import Fubuki from "../../components/exam/Fubuki";
 
 const SwitchFinish = () => {
   const [failures, setFailures] = useAtom(failuresAtom);
