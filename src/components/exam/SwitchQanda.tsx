@@ -62,6 +62,7 @@ const nextQuizHandle = (currentQuizData: CandidatesTask) => {
       {quizListData && quizListData[quizListCount] && (
         <div>
           <h2>
+            【{quizListCount + 1}問目】
             <span className="text-6xl font-bold text-emerald-800">
               {quizListData[quizListCount].name}
             </span>
