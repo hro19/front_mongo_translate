@@ -29,17 +29,24 @@ const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
     setGamen("answer");
   };
 
-  const nextQuizHandle = () => {
-    setQuizListCount((prevCount) => prevCount + 1);
+const nextQuizHandle = (currentQuizData: CandidatesTask) => {
+  setQuizListCount((prevCount) => prevCount + 1);
+
+  if (isJadge === null) {
+    setFailures((prevFailures) => [...prevFailures, currentQuizData]);
     setIsJadge(null);
-    //setQuizListCountを使うと非同期で計算が遅れるためにquizListCountを利用して計算する。
-    quizListCount + 1 == HOWManyLesson ? setGamen("finish") : setGamen("question");
-  };
+  } else {
+    setIsJadge(null);
+  }
+
+  // setQuizListCountを使うと非同期で計算が遅れるためにquizListCountを利用して計算する。
+  quizListCount + 1 === HOWManyLesson ? setGamen("finish") : setGamen("question");
+};
 
     useEffect(() => {
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === "Enter") {
-          nextQuizHandle();
+          nextQuizHandle(quizListData[quizListCount]);
         }
       };
 
@@ -48,7 +55,7 @@ const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
       return () => {
         document.removeEventListener("keydown", handleKeyDown);
       };
-    }, [quizListCount]);
+    }, [quizListCount, isJadge]);
 
   return (
     <div>
@@ -81,7 +88,7 @@ const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
       <div className="flex justify-end">
         {gamen === "answer" && (
           <button
-            onClick={nextQuizHandle}
+            onClick={() => nextQuizHandle(quizListData[quizListCount])}
             className="btn btn-outline btn-primary mt-4 mb-4 justify-end"
           >
             次の問題へ
