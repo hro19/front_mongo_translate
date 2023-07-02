@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, UseFormReturn } from "react-hook-form";
 import axios from "axios";
 import { useAtom } from "jotai";
 import { isSnakeAtom } from "../../jotai/atoms";
@@ -27,14 +27,11 @@ const SlugForm = ({ task, slug }: SlugForm) => {
     formState,
     formState: { errors },
     watch,
-  } = useForm();
+  }: UseFormReturn<FormData> = useForm<FormData>();
 
   const mutation = useMutation(
-    (data) =>
-      axios.patch(
-        `https://back-mongo-task2.vercel.app/api/v1/tasks/${task._id}`,
-        data
-      ),
+    (data: FormData) =>
+      axios.patch(`https://back-mongo-task2.vercel.app/api/v1/tasks/${task._id}`, data),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["task", slug]);
@@ -45,7 +42,7 @@ const SlugForm = ({ task, slug }: SlugForm) => {
     }
   );
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: FormData) => {
     try {
       await mutation.mutateAsync(data);
       // Handle successful form submission
