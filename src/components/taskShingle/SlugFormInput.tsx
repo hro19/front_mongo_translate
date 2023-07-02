@@ -23,10 +23,7 @@ const SlugFormInput = ({ task, control, formState, watch, errors }: any) => {
   return (
     <>
       <div className="mb-4">
-        <label
-          htmlFor="name"
-          className="block text-base font-medium text-gray-700"
-        >
+        <label htmlFor="name" className="block text-base font-medium text-gray-700">
           名前
         </label>
         <Controller
@@ -46,7 +43,7 @@ const SlugFormInput = ({ task, control, formState, watch, errors }: any) => {
               id="name"
               type="text"
               placeholder="名前を入力してください"
-              className={`form-input py-2 px-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent ${
+              className={`w-64 form-input py-2 px-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent ${
                 errors.name ? "border-red-500" : ""
               }`}
             />
@@ -57,10 +54,7 @@ const SlugFormInput = ({ task, control, formState, watch, errors }: any) => {
         )}
       </div>
       <div className="mb-4">
-        <label
-          htmlFor="jaName"
-          className="block text-base font-medium text-gray-700"
-        >
+        <label htmlFor="jaName" className="block text-base font-medium text-gray-700">
           日本語訳
         </label>
         <Controller
@@ -80,7 +74,7 @@ const SlugFormInput = ({ task, control, formState, watch, errors }: any) => {
               id="jaName"
               type="text"
               placeholder="日本語訳を入力してください"
-              className={`form-input py-2 px-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent ${
+              className={`w-64 form-input py-2 px-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent ${
                 errors.jaName ? "border-red-500" : ""
               }`}
             />
@@ -91,10 +85,7 @@ const SlugFormInput = ({ task, control, formState, watch, errors }: any) => {
         )}
       </div>
       <div className="mb-4">
-        <label
-          htmlFor="speech"
-          className="block text-base font-medium text-gray-700"
-        >
+        <label htmlFor="speech" className="block text-base font-medium text-gray-700">
           品詞
         </label>
         <Controller
