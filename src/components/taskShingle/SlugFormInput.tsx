@@ -36,8 +36,8 @@ const SlugFormInput = ({ task, control, formState, watch, errors }: any) => {
           rules={{
             required: "名前は必須です",
             maxLength: {
-              value: 10,
-              message: "名前は10文字以下で入力してください",
+              value: 40,
+              message: "名前は40文字以下で入力してください",
             },
           }}
           render={({ field }) => (
@@ -70,8 +70,8 @@ const SlugFormInput = ({ task, control, formState, watch, errors }: any) => {
           rules={{
             required: "日本語訳は必須です",
             maxLength: {
-              value: 20,
-              message: "日本語訳は20文字以下で入力してください",
+              value: 40,
+              message: "日本語訳は40文字以下で入力してください",
             },
           }}
           render={({ field }) => (

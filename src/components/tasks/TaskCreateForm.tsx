@@ -23,8 +23,8 @@ const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
             rules={{
               required: "英単語は必須です",
               maxLength: {
-                value: 20,
-                message: "英単語は20文字以内である必要があります",
+                value: 40,
+                message: "英単語は40文字以内である必要があります",
               },
             }}
             render={({ field }: any) => (
@@ -46,8 +46,8 @@ const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
             rules={{
               required: "日本語訳は必須です",
               maxLength: {
-                value: 30,
-                message: "日本語訳は30文字以内である必要があります",
+                value: 40,
+                message: "日本語訳は40文字以内である必要があります",
               },
             }}
             render={({ field }) => (
