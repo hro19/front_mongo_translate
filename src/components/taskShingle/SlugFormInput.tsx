@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
+import { Task } from "../../ts/Task";
 import { useAtom } from "jotai";
 import {checkEditAtom,initialSpeechOptionsAtom} from "../../jotai/atoms";
 import { CheckEditDisabled } from "../../components/taskShingle/Atarashiku";
 
+type SlugFormInputProps = {
+  task: Task;
+  control: any; // 適切な型を指定してください
+  formState: any; // 適切な型を指定してください
+  watch: any; // 適切な型を指定してください
+  errors: any; // 適切な型を指定してください
+};
 
-const SlugFormInput = ({ task, control, formState, watch, errors }: any) => {
+const SlugFormInput = ({
+  task,
+  control,
+  formState,
+  watch,
+  errors,
+}: SlugFormInputProps) => {
   const [speechOptions, setSpeechOptions] = useAtom(initialSpeechOptionsAtom);
 
   const [checkEdit, setCheckEdit] = useAtom(checkEditAtom);
@@ -14,10 +28,9 @@ const SlugFormInput = ({ task, control, formState, watch, errors }: any) => {
   const speechVal = watch("speech");
   const completedVal = watch("completed");
 
-
   //checkEdit関数　元データと現データが同じならば送信ボタンがDisableになる
   useEffect(() => {
-    CheckEditDisabled(nameVal,jaNameVal,speechVal,completedVal,task,setCheckEdit);
+    CheckEditDisabled(nameVal, jaNameVal, speechVal, completedVal, task, setCheckEdit);
   }, [{ nameVal, jaNameVal, speechVal, completedVal }]);
 
   return (
