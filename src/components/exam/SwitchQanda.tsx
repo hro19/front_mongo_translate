@@ -11,6 +11,7 @@ import {
 } from "../../jotai/atoms";
 import QuizButton from "../../components/exam/QuizButton";
 import MaruBatsu from "../../components/exam/MaruBatsu";
+import TimeCount from "../../components/exam/TimeCount";
 
 
 const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
@@ -68,6 +69,7 @@ const nextQuizHandle = (currentQuizData: CandidatesTask) => {
             </span>
             の意味は
           </h2>
+          <TimeCount />
           <ul className="flex flex-col justify-center">
             {quizListData[quizListCount].candidates.map(
               (candidate: JadgeTask, index: number) => (

@@ -1,0 +1,35 @@
+.countdown-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-animation-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.countdown-animation-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.countdown-animation-exit {
+  opacity: 1;
+}
+
+.countdown-animation-exit-active {
+  opacity: 0;
+  transition: opacity 500ms;
+}
+
+.countdown {
+  font-size: 3rem;
+  text-align: center;
+}
+
+.countdown-number {
+  font-weight: bold;
+  color: #ff0000;
+}
