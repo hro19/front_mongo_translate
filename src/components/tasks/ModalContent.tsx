@@ -73,7 +73,7 @@ const ModalContent = ({
     <div className="">
       <div
         id="pop"
-        className="flex h-full w-full justify-center items-center bg-white p-8 lg:max-w-[600px] mx-auto"
+        className="flex h-full w-full justify-center items-center bg-white p-8  mx-auto"
       >
         <form className="w-full sm:w-4/5 lg:w-1/2">
           <ModalContentForm
