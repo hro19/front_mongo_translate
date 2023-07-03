@@ -38,7 +38,7 @@ const All = () => {
   );
 
   return (
-    <div className="mx-4 pt-2">
+    <div className="mx-4 mb-16 pt-2">
       <div className="container max-w-[1040px] mx-auto">
         <TranslateTitle />
         <TranslateInput data={data}/>
