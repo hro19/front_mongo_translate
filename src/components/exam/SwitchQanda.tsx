@@ -11,6 +11,7 @@ import {
 import QuizButton from "../../components/exam/QuizButton";
 import MaruBatsu from "../../components/exam/MaruBatsu";
 import TimeCount from "../../components/exam/TimeCount";
+import SwithchAnswer from "../../components/exam/SwitchAnswer";
 
 const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   const [failures, setFailures] = useAtom(failuresAtom);
@@ -78,18 +79,10 @@ const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
           </ul>
         </div>
       )}
-      <p>{gamen === "answer" && <MaruBatsu />}</p>
-
-      <div className="flex justify-end">
-        {gamen === "answer" && (
-          <button
-            onClick={() => nextQuizHandle(quizListData[quizListCount])}
-            className="btn btn-outline btn-primary mt-4 mb-4 justify-end"
-          >
-            次の問題へ
-          </button>
-        )}
-      </div>
+      {gamen === "answer" && <MaruBatsu />}
+      {gamen === "answer" && (
+        <SwithchAnswer onClick={() => nextQuizHandle(quizListData[quizListCount])} />
+      )}
     </div>
   );
 };

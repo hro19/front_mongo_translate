@@ -37,7 +37,7 @@ const MaruBatsu = () => {
   }, []);
 
   return (
-    <div>
+    <p>
       <Head>{/* gsapのCDNリンクは不要 */}</Head>
       <style jsx>{`
         .double-circle:before {
@@ -86,7 +86,7 @@ const MaruBatsu = () => {
           <div ref={crossRef} className="cross w-24 h-24 bg-blue-500 relative"></div>
         )}
       </div>
-    </div>
+    </p>
   );
 };
 
