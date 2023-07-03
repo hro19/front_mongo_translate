@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { CandidatesTask } from "@/ts/Task";
+import { CandidatesTask } from "../../ts/Task";
 import { useAtom } from "jotai";
 import {
   HOWManyLesson,
