@@ -1,13 +1,18 @@
 import React from "react";
 import { JadgeTask } from "@/ts/Task";
+import { useAtom } from "jotai";
+import {
+  isJadgeAtom,
+} from "../../jotai/atoms";
 
 type QuizButtonProps = {
   onClick: () => void;
   candidate: JadgeTask;
-  isJadge: boolean | null;
 };
 
-const QuizButton = ({ onClick, candidate,isJadge }: QuizButtonProps) => {
+const QuizButton = ({ onClick, candidate }: QuizButtonProps) => {
+  const [isJadge, setIsJadge] = useAtom(isJadgeAtom);
+
   return (
     <li>
       <button

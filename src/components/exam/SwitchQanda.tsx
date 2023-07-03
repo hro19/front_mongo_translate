@@ -79,7 +79,6 @@ const nextQuizHandle = (currentQuizData: CandidatesTask) => {
                     answeringHandle(candidate.name, quizListData[quizListCount])
                   }
                   candidate={candidate}
-                  isJadge={isJadge}
                 />
               )
             )}
