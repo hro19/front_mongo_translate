@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group";
-import styles from "./Countdown.module.css";
+import styles from "./TimeCount.module.css";
 import { useAtom } from "jotai";
 import { gamenAtom, isTimeZeroAtom } from "../../jotai/atoms";
 

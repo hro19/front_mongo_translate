@@ -1,4 +1,4 @@
-import { Task, JadgeTask, CandidatesTask } from "@/ts/Task";
+import { Task, JadgeTask, CandidatesTask } from "../../ts/Task";
 
 export const selectRandomQuiz = (
   filteredData: CandidatesTask[],
