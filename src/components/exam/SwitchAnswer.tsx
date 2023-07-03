@@ -7,6 +7,7 @@ import {
   gamenAtom,
   quizListCountAtom,
   isJadgeAtom,
+  isTimeZeroAtom
 } from "../../jotai/atoms";
 
 const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) => {
@@ -14,15 +15,17 @@ const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) 
   const [gamen, setGamen] = useAtom(gamenAtom);
   const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
   const [isJadge, setIsJadge] = useAtom(isJadgeAtom);
+  const [isTimeZero, setIsTimeZero] = useAtom(isTimeZeroAtom);
 
-  //次の問題へボタンまたはエンターkeyを押したときの反応
+  //次の問題へボタン、またはエンターkeyを押したとき、またはタイムカウントがオーバーしたときの反応
   const nextQuizHandle = (currentQuizData: CandidatesTask) => {
     setQuizListCount((prevCount) => prevCount + 1);
 
-    if (isJadge === null || isJadge === false) {
+    if (isJadge === null || isJadge === false || isTimeZero === true) {
       setFailures((prevFailures) => [...prevFailures, currentQuizData]);
     }
-    setIsJadge(null);
+    setIsJadge(null); //正解か不正解を判断するフラグのリセット
+    setIsTimeZero(false); //タイムカウント用のフラグのリセット
 
     // setQuizListCountを使うと非同期で計算が遅れるためにquizListCountを利用して計算する。
     quizListCount + 1 === HOWManyLesson ? setGamen("finish") : setGamen("question");
@@ -40,7 +43,7 @@ const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [quizListCount, isJadge]);
+  }, [quizListCount, isJadge, isTimeZero]);
 
   return (
     <div className="flex justify-end">

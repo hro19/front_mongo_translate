@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import styles from "./Countdown.module.css";
+import { useAtom } from "jotai";
+import { gamenAtom, isTimeZeroAtom } from "../../jotai/atoms";
 
-function Countdown() {
+function TimeCount() {
+  const [gamen, setGamen] = useAtom(gamenAtom);
+  const [isTimeZero, setIsTimeZero] = useAtom(isTimeZeroAtom);
+
   const countdownTime = 6;
   const [remainingTime, setRemainingTime] = useState(countdownTime);
 
@@ -20,6 +25,13 @@ function Countdown() {
     };
   }, []);
 
+    useEffect(() => {
+    if (remainingTime === 0) {
+        setIsTimeZero(true);
+        setGamen("answer");
+    }
+    }, [remainingTime]);
+    
     return (
     <div className={styles["countdown-container"]}>
         <CSSTransition
@@ -44,4 +56,4 @@ function Countdown() {
     );
 }
 
-export default Countdown;
+export default TimeCount;

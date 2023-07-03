@@ -14,6 +14,7 @@ export const gamenAtom = atom<Gamen>("default");
 export const quizListCountAtom = atom<number>(0);
 export const isJadgeAtom = atom<boolean | null>(null);
 
+export const isTimeZeroAtom = atom<boolean>(false);
 
 //タブの切り替えのselect要素
 const taskTab: Readonly<Record<string, string>> = {
