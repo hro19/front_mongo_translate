@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import { Task, CandidatesTask, JadgeTask } from "@/ts/Task";
+import { CandidatesTask, JadgeTask } from "@/ts/Task";
 import { useAtom } from "jotai";
 import {
-    HOWManyLesson,
-    HOWManySelect,
+  HOWManyLesson,
   failuresAtom,
   gamenAtom,
   quizListCountAtom,
@@ -13,50 +12,44 @@ import QuizButton from "../../components/exam/QuizButton";
 import MaruBatsu from "../../components/exam/MaruBatsu";
 import TimeCount from "../../components/exam/TimeCount";
 
-
 const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   const [failures, setFailures] = useAtom(failuresAtom);
   const [gamen, setGamen] = useAtom(gamenAtom);
   const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
   const [isJadge, setIsJadge] = useAtom(isJadgeAtom);
 
+  //回答ボタンを押したときの反応
   const answeringHandle = (name: string, currentQuizData: CandidatesTask) => {
-    if (name === quizListData[quizListCount].name) {
-      setIsJadge(true);
-    } else {
-      setIsJadge(false);
-      setFailures((prevFailures) => [...prevFailures, currentQuizData]);
-    }
+    setIsJadge(name === currentQuizData.name ? true : false);
     setGamen("answer");
   };
 
-const nextQuizHandle = (currentQuizData: CandidatesTask) => {
-  setQuizListCount((prevCount) => prevCount + 1);
+  //次の問題へボタンまたはエンターkeyを押したときの反応
+  const nextQuizHandle = (currentQuizData: CandidatesTask) => {
+    setQuizListCount((prevCount) => prevCount + 1);
 
-  if (isJadge === null) {
-    setFailures((prevFailures) => [...prevFailures, currentQuizData]);
+    if (isJadge === null || isJadge === false) {
+      setFailures((prevFailures) => [...prevFailures, currentQuizData]);
+    }
     setIsJadge(null);
-  } else {
-    setIsJadge(null);
-  }
 
-  // setQuizListCountを使うと非同期で計算が遅れるためにquizListCountを利用して計算する。
-  quizListCount + 1 === HOWManyLesson ? setGamen("finish") : setGamen("question");
-};
+    // setQuizListCountを使うと非同期で計算が遅れるためにquizListCountを利用して計算する。
+    quizListCount + 1 === HOWManyLesson ? setGamen("finish") : setGamen("question");
+  };
 
-    useEffect(() => {
-      const handleKeyDown = (event: KeyboardEvent) => {
-        if (event.key === "Enter") {
-          nextQuizHandle(quizListData[quizListCount]);
-        }
-      };
+  //エンターkeyを押したときに次の問題に行くためのトリガー設定
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Enter") {
+        nextQuizHandle(quizListData[quizListCount]);
+      }
+    };
 
-      document.addEventListener("keydown", handleKeyDown);
-
-      return () => {
-        document.removeEventListener("keydown", handleKeyDown);
-      };
-    }, [quizListCount, isJadge]);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [quizListCount, isJadge]);
 
   return (
     <div>
