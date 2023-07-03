@@ -85,7 +85,7 @@ const nextQuizHandle = (currentQuizData: CandidatesTask) => {
           </ul>
         </div>
       )}
-      <p>{gamen === "answer" && <MaruBatsu isJadge={isJadge} />}</p>
+      <p>{gamen === "answer" && <MaruBatsu />}</p>
 
       <div className="flex justify-end">
         {gamen === "answer" && (

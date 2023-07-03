@@ -1,8 +1,12 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import Head from "next/head";
+import { useAtom } from "jotai";
+import {isJadgeAtom} from "../../jotai/atoms";
 
-const MaruBatsu = ({ isJadge }: { isJadge: boolean | null }) => {
+const MaruBatsu = () => {
+  const [isJadge, setIsJadge] = useAtom(isJadgeAtom);
+
   const circleRef = useRef(null);
   const crossRef = useRef(null);
 
