@@ -33,7 +33,9 @@ function TimeCount() {
   useEffect(() => {
     if (remainingTime === 0) {
       setIsTimeZero(true);
-      setGamen("answer");
+      setTimeout(() => {
+        setGamen("answer");
+      }, 500);
     }
   }, [remainingTime]);
 
