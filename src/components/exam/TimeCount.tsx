@@ -3,7 +3,6 @@ import { CSSTransition } from "react-transition-group";
 import styles from "./TimeCount.module.css";
 import { useAtom } from "jotai";
 import {
-  countdownTime,
   gamenAtom,
   isTimeZeroAtom,
   remainingTimeAtom,
@@ -41,7 +40,7 @@ function TimeCount() {
   return (
     <div className={styles["countdown-container"]}>
       <CSSTransition
-        in={remainingTime > 0}
+        in={remainingTime > 0 && gamen === "question"}
         timeout={500}
         classNames={{
           enter: styles["countdown-animation-enter"],
@@ -57,7 +56,6 @@ function TimeCount() {
           <span>秒</span>
         </p>
       </CSSTransition>
-      {remainingTime <= 0}
     </div>
   );
 }
