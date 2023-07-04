@@ -24,7 +24,7 @@ const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
         {(() => {
           switch (gamen) {
             case "default":
-            //   return <SwitchDefault />;
+              return <SwitchDefault />;
             case "answer":
             case "question":
               return <SwitchQanda quizListData={quizListData} />;

@@ -3,11 +3,13 @@ import { CandidatesTask } from "../../ts/Task";
 import { useAtom } from "jotai";
 import {
   HOWManyLesson,
+  countdownTime,
   failuresAtom,
   gamenAtom,
   quizListCountAtom,
   isJadgeAtom,
-  isTimeZeroAtom
+  isTimeZeroAtom,
+  remainingTimeAtom,
 } from "../../jotai/atoms";
 
 const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) => {
@@ -16,8 +18,9 @@ const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) 
   const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
   const [isJadge, setIsJadge] = useAtom(isJadgeAtom);
   const [isTimeZero, setIsTimeZero] = useAtom(isTimeZeroAtom);
+  const [remainingTime, setRemainingTime] = useAtom(remainingTimeAtom);
 
-  //次の問題へボタン、またはエンターkeyを押したとき、またはタイムカウントがオーバーしたときの反応
+  //次の問題へボタン、またはエンターkeyを押したときの反応
   const nextQuizHandle = (currentQuizData: CandidatesTask) => {
     setQuizListCount((prevCount) => prevCount + 1);
 
@@ -26,6 +29,7 @@ const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) 
     }
     setIsJadge(null); //正解か不正解を判断するフラグのリセット
     setIsTimeZero(false); //タイムカウント用のフラグのリセット
+    setRemainingTime(countdownTime);
 
     // setQuizListCountを使うと非同期で計算が遅れるためにquizListCountを利用して計算する。
     quizListCount + 1 === HOWManyLesson ? setGamen("finish") : setGamen("question");

@@ -2,58 +2,64 @@ import React, { useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import styles from "./TimeCount.module.css";
 import { useAtom } from "jotai";
-import { gamenAtom, isTimeZeroAtom } from "../../jotai/atoms";
+import {
+  countdownTime,
+  gamenAtom,
+  isTimeZeroAtom,
+  remainingTimeAtom,
+} from "../../jotai/atoms";
 
 function TimeCount() {
   const [gamen, setGamen] = useAtom(gamenAtom);
   const [isTimeZero, setIsTimeZero] = useAtom(isTimeZeroAtom);
 
-  const countdownTime = 6;
-  const [remainingTime, setRemainingTime] = useState(countdownTime);
+  const [remainingTime, setRemainingTime] = useAtom(remainingTimeAtom);
 
   useEffect(() => {
-    const countdownInterval = setInterval(() => {
-      if (remainingTime > 0) {
-        setRemainingTime((prevTime) => prevTime - 1);
-      } else {
+    if (gamen === "question") {
+      const countdownInterval = setInterval(() => {
+        if (remainingTime > 0) {
+          setRemainingTime((prevTime) => prevTime - 1);
+        } else {
+          clearInterval(countdownInterval);
+        }
+      }, 1000);
+
+      return () => {
         clearInterval(countdownInterval);
-      }
-    }, 1000);
-
-    return () => {
-      clearInterval(countdownInterval);
-    };
-  }, []);
-
-    useEffect(() => {
-    if (remainingTime === 0) {
-        setIsTimeZero(true);
-        setGamen("answer");
+      };
     }
-    }, [remainingTime]);
-    
-    return (
+  }, [gamen]);
+
+  useEffect(() => {
+    if (remainingTime === 0) {
+      setIsTimeZero(true);
+      setGamen("answer");
+    }
+  }, [remainingTime]);
+
+  return (
     <div className={styles["countdown-container"]}>
-        <CSSTransition
+      <CSSTransition
         in={remainingTime > 0}
         timeout={500}
         classNames={{
-            enter: styles["countdown-animation-enter"],
-            enterActive: styles["countdown-animation-enter-active"],
-            exit: styles["countdown-animation-exit"],
-            exitActive: styles["countdown-animation-exit-active"],
+          enter: styles["countdown-animation-enter"],
+          enterActive: styles["countdown-animation-enter-active"],
+          exit: styles["countdown-animation-exit"],
+          exitActive: styles["countdown-animation-exit-active"],
         }}
         unmountOnExit
-        >
+      >
         <p className={styles.countdown}>
-            <span>残り時間: </span>
-            <span className={styles["countdown-number"]}>{remainingTime}</span>
-            <span>秒</span>
+          <span>残り時間: </span>
+          <span className={styles["countdown-number"]}>{remainingTime}</span>
+          <span>秒</span>
         </p>
-        </CSSTransition>
-        {remainingTime <= 0}
+      </CSSTransition>
+      {remainingTime <= 0}
     </div>
-    );
+  );
 }
 
 export default TimeCount;

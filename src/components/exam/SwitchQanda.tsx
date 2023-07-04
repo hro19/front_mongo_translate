@@ -33,7 +33,7 @@ const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
             </span>
             の意味は
           </h2>
-          {gamen === "question" && <TimeCount />}
+          <TimeCount />
           <ul className="flex flex-col justify-center">
             {quizListData[quizListCount].candidates.map(
               (candidate: JadgeTask, index: number) => (
