@@ -52,7 +52,7 @@ const ExamAll = () => {
                 <td>{exam.isCorrect.toString()}</td>
                 <td>
                   <button
-                    className="btn btn-sm btn-danger"
+                    className="btn btn-sm btn-error"
                     onClick={() => handleDelete(exam._id)}
                   >
                     Delete
