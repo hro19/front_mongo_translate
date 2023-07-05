@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Task, CandidatesTask, JadgeTask } from "@/ts/Task";
+import { Result } from "@/ts/Exam";
 import { useAtom } from "jotai";
 import {
   HOWManyLesson,
@@ -20,13 +21,13 @@ const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
   const [results, setResults] = useAtom(resultsAtom);
 
-  useEffect(() => {
-    const updatedResults = quizListData.map((quiz) => ({
-      taskId: quiz._id,
-      isCorrect: false,
-    }));
-    setResults(updatedResults);
-  }, [quizListData, setResults]);
+useEffect(() => {
+  const updatedResults: Result[] = quizListData.map(({ candidates, ...quiz }) => ({
+    ...quiz,
+    isCorrect: false,
+  }));
+  setResults(updatedResults);
+}, [quizListData, setResults]);
 
   return (
     <>
