@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { Task, CandidatesTask, JadgeTask} from "@/ts/Task";
+import { Task, CandidatesTask, JadgeTask } from "@/ts/Task";
 import { useAtom } from "jotai";
 import {
-    HOWManyLesson,
-    HOWManySelect,
+  HOWManyLesson,
+  HOWManySelect,
   failuresAtom,
   gamenAtom,
   quizListCountAtom,
+  resultsAtom,
 } from "../../jotai/atoms";
 import { selectRandomQuiz } from "../../components/exam/quizUtils";
 import SwitchDefault from "../../components/exam/SwitchDefault";
@@ -17,6 +18,15 @@ const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
   const [failures, setFailures] = useAtom(failuresAtom);
   const [gamen] = useAtom(gamenAtom);
   const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
+  const [results, setResults] = useAtom(resultsAtom);
+
+  useEffect(() => {
+    const updatedResults = quizListData.map((quiz) => ({
+      taskId: quiz._id,
+      isCorrect: false,
+    }));
+    setResults(updatedResults);
+  }, [quizListData, setResults]);
 
   return (
     <>

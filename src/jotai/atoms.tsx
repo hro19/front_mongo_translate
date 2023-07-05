@@ -1,5 +1,6 @@
 import { atom, useAtomValue } from "jotai";
 import { Task, CandidatesTask, JadgeTask, Gamen } from "../ts/Task";
+import { Result } from "../ts/Exam";
 
 // tasks一覧ページ
 export const tasksStateAtom = atom<keyof typeof taskTab>("all");
@@ -17,6 +18,8 @@ export const isJadgeAtom = atom<boolean | null>(null);
 
 export const remainingTimeAtom = atom<number>(countdownTime);
 export const isTimeZeroAtom = atom<boolean>(false);
+
+export const resultsAtom = atom<Result[]>([]);
 
 //タブの切り替えのselect要素
 const taskTab: Readonly<Record<string, string>> = {
