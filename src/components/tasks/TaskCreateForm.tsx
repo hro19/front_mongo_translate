@@ -16,7 +16,7 @@ const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
   return (
     <div className="flex justify-center">
       <div className="grid gap-2 md:gap-4 grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap">
-        <label className="mr-4 flex items-center">
+        <label className="flex flex-col">
           <Controller
             name="name"
             control={control}
@@ -31,15 +31,13 @@ const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
               <input
                 {...field}
                 placeholder="英単語"
-                className="ml-2 border rounded p-2"
+                className="w-full md:w-[280px] border rounded p-2"
               />
             )}
           />
-          {errors.name && (
-            <span className="text-red-500 ml-2">{errors.name.message}</span>
-          )}
+          {errors.name && <span className="text-red-500">{errors.name.message}</span>}
         </label>
-        <label className="mr-4 flex items-center">
+        <label className="flex flex-col">
           <Controller
             name="jaName"
             control={control}
@@ -54,15 +52,13 @@ const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
               <input
                 {...field}
                 placeholder="日本語訳"
-                className="ml-2 border rounded p-2"
+                className="w-full md:w-[280px] border rounded p-2"
               />
             )}
           />
-          {errors.jaName && (
-            <span className="text-red-500 ml-2">{errors.jaName.message}</span>
-          )}
+          {errors.jaName && <span className="text-red-500">{errors.jaName.message}</span>}
         </label>
-        <label className="mr-4 flex items-center">
+        <label className="mr-4 flex items-center flex-col">
           <Controller
             control={control}
             name="speech"
@@ -70,7 +66,7 @@ const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
             render={({ field }) => (
               <div>
                 <select
-                  className="select border border-gray-300 w-full ml-2"
+                  className="select border border-gray-300 w-full"
                   id="speech"
                   {...field}
                 >
@@ -99,7 +95,7 @@ const TaskCreateForm = ({ control, errors }: TaskCreateFormProps) => {
                 {...field}
                 type="checkbox"
                 id="completed_create"
-                className="ml-4 h-5 w-5"
+                className="h-5 w-5"
                 value=""
               />
             )}
