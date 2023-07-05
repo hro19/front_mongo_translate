@@ -11,7 +11,7 @@ const ExamAll = () => {
     return response.data;
   };
 
-  const deleteExam = async (id) => {
+  const deleteExam = async (id:string) => {
     await axios.delete(`https://back-mongo-task2.vercel.app/api/v1/exams/${id}`);
   };
 
@@ -23,7 +23,7 @@ const ExamAll = () => {
     },
   });
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: string) => {
     mutation.mutate(id);
   };
 
@@ -44,7 +44,7 @@ const ExamAll = () => {
             </tr>
           </thead>
           <tbody>
-            {exams.map((exam) => (
+            {exams.map((exam:any) => (
               <tr key={exam._id}>
                 <td>{format(new Date(exam.created_at), "yyyy/MM/dd HH:mm:ss")}</td>
                 <td>{exam._id}</td>
