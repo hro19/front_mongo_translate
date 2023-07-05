@@ -52,7 +52,7 @@ useEffect(() => {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   try {
     const response = await fetch("https://back-mongo-task2.vercel.app/api/v1/tasks");
     const data = await response.json();
