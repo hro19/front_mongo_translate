@@ -4,29 +4,38 @@ import { useAtom } from "jotai";
 import {
   HOWManyLesson,
   countdownTime,
-  failuresAtom,
   gamenAtom,
   quizListCountAtom,
   isJadgeAtom,
   isTimeZeroAtom,
   remainingTimeAtom,
+  resultsAtom,
 } from "../../jotai/atoms";
 
 const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) => {
-  const [failures, setFailures] = useAtom(failuresAtom);
   const [gamen, setGamen] = useAtom(gamenAtom);
   const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
   const [isJadge, setIsJadge] = useAtom(isJadgeAtom);
   const [isTimeZero, setIsTimeZero] = useAtom(isTimeZeroAtom);
   const [remainingTime, setRemainingTime] = useAtom(remainingTimeAtom);
+    const [results, setResults] = useAtom(resultsAtom);
 
   //次の問題へボタン、またはエンターkeyを押したときの反応
   const nextQuizHandle = (currentQuizData: CandidatesTask) => {
     setQuizListCount((prevCount) => prevCount + 1);
 
     if (isJadge === null || isJadge === false || isTimeZero === true) {
-      setFailures((prevFailures) => [...prevFailures, currentQuizData]);
+      setResults((prevResults) => {
+        const updatedResults = prevResults.map((result) => {
+          if (result._id === currentQuizData._id) {
+            return { ...result, isCorrect: false };
+          }
+          return result;
+        });
+        return updatedResults;
+      });
     }
+    
     setIsJadge(null); //正解か不正解を判断するフラグのリセット
     setIsTimeZero(false); //タイムカウント用のフラグのリセット
     setRemainingTime(countdownTime);

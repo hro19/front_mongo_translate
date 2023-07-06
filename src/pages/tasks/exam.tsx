@@ -5,7 +5,6 @@ import { useAtom } from "jotai";
 import {
   HOWManyLesson,
   HOWManySelect,
-  failuresAtom,
   gamenAtom,
   quizListCountAtom,
   resultsAtom,
@@ -16,7 +15,6 @@ import SwitchQanda from "../../components/exam/SwitchQanda";
 import SwitchFinish from "../../components/exam/SwitchFinish";
 
 const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
-  const [failures, setFailures] = useAtom(failuresAtom);
   const [gamen] = useAtom(gamenAtom);
   const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
   const [results, setResults] = useAtom(resultsAtom);
@@ -24,7 +22,7 @@ const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
 useEffect(() => {
   const updatedResults: Result[] = quizListData.map(({ candidates, ...quiz }) => ({
     ...quiz,
-    isCorrect: false,
+    isCorrect: true,
   }));
   setResults(updatedResults);
 }, [quizListData, setResults]);
