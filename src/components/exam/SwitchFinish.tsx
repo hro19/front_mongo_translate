@@ -27,7 +27,7 @@ const SwitchFinish = () => {
     setGamen("default");
     setQuizListCount(0);
     setIsJadge(null);
-    router.push("/tasks/exam");
+    router.push("/exam");
   };
 
   return (
