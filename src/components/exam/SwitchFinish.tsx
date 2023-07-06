@@ -18,8 +18,8 @@ const SwitchFinish = () => {
 
   const router = useRouter();
 
-  const failedResults = results.filter((result) => !result.isCorrect); // isCorrectがfalseの結果のみを抽出
-  const hasFailures = failedResults.length > 0; // 変更後のfailedResultsを使用
+  const failedResults = results.filter((result) => !result.isCorrect);
+  const hasFailures = failedResults.length > 0;
   const title = hasFailures ? "今一度単語を確認しよう" : "あなたの回答は100点満点";
 
   const handleRetry = () => {
@@ -49,14 +49,14 @@ const SwitchFinish = () => {
               <dd>【日本語】{result.jaName}</dd>
             </dl>
           ))}
-          <button
-            onClick={handleRetry}
-            className="btn btn-outline btn-primary mt-4 mb-4 justify-end"
-          >
-            再チャレンジ
-          </button>
         </>
       )}
+      <button
+        onClick={handleRetry}
+        className="btn btn-outline btn-primary mt-4 mb-4 justify-end"
+      >
+        再チャレンジ
+      </button>
       {!hasFailures && <Fubuki />}
     </>
   );
