@@ -5,7 +5,7 @@ import {
   gamenAtom,
   quizListCountAtom,
   isJadgeAtom,
-} from "../../jotai/atoms";
+} from "../../jotai/examsAtoms";
 import { useRouter } from "next/router";
 import { speakText } from "../translates/Onsei";
 import Fubuki from "../../components/exam/Fubuki";

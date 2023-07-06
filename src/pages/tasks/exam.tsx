@@ -8,7 +8,7 @@ import {
   gamenAtom,
   quizListCountAtom,
   resultsAtom,
-} from "../../jotai/atoms";
+} from "../../jotai/examsAtoms";
 import { selectRandomQuiz } from "../../components/exam/quizUtils";
 import SwitchDefault from "../../components/exam/SwitchDefault";
 import SwitchQanda from "../../components/exam/SwitchQanda";

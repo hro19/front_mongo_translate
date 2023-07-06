@@ -6,7 +6,7 @@ import {
   gamenAtom,
   isTimeZeroAtom,
   remainingTimeAtom,
-} from "../../jotai/atoms";
+} from "../../jotai/examsAtoms";
 
 function TimeCount() {
   const [gamen, setGamen] = useAtom(gamenAtom);

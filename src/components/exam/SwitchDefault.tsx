@@ -1,6 +1,6 @@
 import React from "react";
 import { useAtom } from "jotai";
-import { gamenAtom } from "../../jotai/atoms";
+import { gamenAtom } from "../../jotai/examsAtoms";
 
 const SwitchDefault = () => {
   const [gamen, setGamen] = useAtom(gamenAtom);

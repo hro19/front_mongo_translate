@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import Head from "next/head";
 import { useAtom } from "jotai";
-import {isJadgeAtom} from "../../jotai/atoms";
+import { isJadgeAtom } from "../../jotai/examsAtoms";
 
 const MaruBatsu = () => {
   const [isJadge, setIsJadge] = useAtom(isJadgeAtom);

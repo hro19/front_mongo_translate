@@ -15,5 +15,3 @@ export type CandidatesTask = Task & {
 export type JadgeTask = Task & {
   correct: boolean;
 };
-
-export type Gamen = "default" | "question" | "answer" | "finish";

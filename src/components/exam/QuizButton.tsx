@@ -1,7 +1,7 @@
 import React from "react";
 import { JadgeTask } from "@/ts/Task";
 import { useAtom } from "jotai";
-import { gamenAtom } from "../../jotai/atoms";
+import { gamenAtom } from "../../jotai/examsAtoms";
 
 type QuizButtonProps = {
   onClick: () => void;

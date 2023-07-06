@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
 import { CandidatesTask, JadgeTask } from "@/ts/Task";
 import { useAtom } from "jotai";
-import {
-  gamenAtom,
-  quizListCountAtom,
-  isJadgeAtom,
-} from "../../jotai/atoms";
+import { gamenAtom, quizListCountAtom, isJadgeAtom } from "../../jotai/examsAtoms";
 import QuizButton from "../../components/exam/QuizButton";
 import MaruBatsu from "../../components/exam/MaruBatsu";
 import TimeCount from "../../components/exam/TimeCount";

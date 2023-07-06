@@ -10,7 +10,7 @@ import {
   isTimeZeroAtom,
   remainingTimeAtom,
   resultsAtom,
-} from "../../jotai/atoms";
+} from "../../jotai/examsAtoms";
 
 const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) => {
   const [gamen, setGamen] = useAtom(gamenAtom);
