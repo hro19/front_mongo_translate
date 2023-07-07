@@ -1,4 +1,5 @@
 import { atom, useAtomValue } from "jotai";
+import { CandidatesTask } from "../ts/Task";
 import { Result,Gamen } from "../ts/Exam";
 
 // 単語テストページ
@@ -16,3 +17,4 @@ export const remainingTimeAtom = atom<number>(countdownTime);
 export const isTimeZeroAtom = atom<boolean>(false);
 
 export const resultsAtom = atom<Result[]>([]);
+export const quizListDataAtom = atom<CandidatesTask[]>([]);

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Task, CandidatesTask, JadgeTask } from "@/ts/Task";
-import { Result } from "@/ts/Exam";
 import { useAtom } from "jotai";
 import {
   HOWManyLesson,
@@ -9,23 +8,14 @@ import {
   quizListCountAtom,
   resultsAtom,
 } from "../../jotai/examsAtoms";
-import { selectRandomQuiz } from "../../components/exam/quizUtils";
 import SwitchDefault from "../../components/exam/SwitchDefault";
 import SwitchQanda from "../../components/exam/SwitchQanda";
 import SwitchFinish from "../../components/exam/SwitchFinish";
 
-const Exam = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
+const Exam = ({ data }: { data: Task[] }) => {
   const [gamen] = useAtom(gamenAtom);
   const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
   const [results, setResults] = useAtom(resultsAtom);
-
-useEffect(() => {
-  const updatedResults: Result[] = quizListData.map(({ candidates, ...quiz }) => ({
-    ...quiz,
-    isCorrect: true,
-  }));
-  setResults(updatedResults);
-}, [quizListData, setResults]);
 
   return (
     <>
@@ -33,10 +23,10 @@ useEffect(() => {
         {(() => {
           switch (gamen) {
             case "default":
-              return <SwitchDefault />;
+              return <SwitchDefault data={data} />;
             case "answer":
             case "question":
-              return <SwitchQanda quizListData={quizListData} />;
+              return <SwitchQanda />;
             case "finish":
               return <SwitchFinish />;
             default:
@@ -54,18 +44,17 @@ export async function getServerSideProps() {
   try {
     const response = await fetch("https://back-mongo-task2.vercel.app/api/v1/tasks");
     const data = await response.json();
-    const filteredData = data.filter((task: Task) => task.speech === "verb");
-    const quizListData = selectRandomQuiz(filteredData, HOWManyLesson, HOWManySelect);
+
     return {
       props: {
-        quizListData,
+        data,
       },
     };
   } catch (error) {
     console.log("Error fetching data:", error);
     return {
       props: {
-        quizListData: [],
+        data: [],
       },
     };
   }

@@ -1,16 +1,22 @@
 import React, { useEffect } from "react";
 import { CandidatesTask, JadgeTask } from "@/ts/Task";
 import { useAtom } from "jotai";
-import { gamenAtom, quizListCountAtom, isJadgeAtom } from "../../jotai/examsAtoms";
+import {
+  gamenAtom,
+  quizListCountAtom,
+  isJadgeAtom,
+  quizListDataAtom
+} from "../../jotai/examsAtoms";
 import QuizButton from "../../components/exam/QuizButton";
 import MaruBatsu from "../../components/exam/MaruBatsu";
 import TimeCount from "../../components/exam/TimeCount";
 import SwithchAnswer from "../../components/exam/SwitchAnswer";
 
-const SwitchQanda = ({ quizListData }: { quizListData: CandidatesTask[] }) => {
+const SwitchQanda = () => {
   const [gamen, setGamen] = useAtom(gamenAtom);
   const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
   const [isJadge, setIsJadge] = useAtom(isJadgeAtom);
+  const [quizListData, setquizListData] = useAtom(quizListDataAtom);
 
   //回答ボタンを押したときの反応
   const answeringHandle = (name: string, currentQuizData: CandidatesTask) => {
