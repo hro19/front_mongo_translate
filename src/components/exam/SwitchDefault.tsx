@@ -13,13 +13,15 @@ import {
 import { selectRandomQuiz } from "../../components/exam/quizUtils";
 
 const SwitchDefault = ({ data }: { data: Task[] }) => {
-  const [gamen,setGamen] = useAtom(gamenAtom);
+  const [gamen, setGamen] = useAtom(gamenAtom);
   const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
   const [results, setResults] = useAtom(resultsAtom);
   const [quizListData, setQuizListData] = useAtom(quizListDataAtom);
 
-  const handleButtonClick = () => {
-    const filteredData = data.filter((task: Task) => task.speech === "verb");
+  const startBtn = (speech: string) => {
+    const filteredData = data.filter((task: Task) => task.speech === speech);
+
+    //「問題数」「選択肢数」を考慮して計算してくれます。
     const quizListDa = selectRandomQuiz(filteredData, HOWManyLesson, HOWManySelect);
     setQuizListData(quizListDa);
     const updatedResults: Result[] = quizListDa.map(({ candidates, ...quiz }) => ({
@@ -41,7 +43,7 @@ const SwitchDefault = ({ data }: { data: Task[] }) => {
           <li>...</li>
         </ul>
       </div>
-      <button onClick={handleButtonClick} className="btn btn-info">
+      <button onClick={() => startBtn("verb")} className="btn btn-info">
         【動詞単語】テストをスタート
       </button>
     </div>
