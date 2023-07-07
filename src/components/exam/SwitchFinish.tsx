@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Result } from "../../ts/Exam";
 import { useAtom } from "jotai";
 import {
@@ -32,7 +32,7 @@ const SwitchFinish = () => {
     router.push("/exam");
   };
 
-  //DBに保存するためにAPIにpost送信する
+  // DBに保存するためにAPIにpost送信する
   const createExamResult = async (newData: any) => {
     try {
       const response = await axios.post(
@@ -49,7 +49,7 @@ const SwitchFinish = () => {
     }
   };
 
-  //テストの問題数だけ登録するためループ処理
+  // テストの問題数だけ登録するためのループ処理
   const createExamResults = (results: Result[]) => {
     for (let i = 0; i < results.length; i++) {
       const result = results[i];
@@ -61,8 +61,13 @@ const SwitchFinish = () => {
     }
   };
 
+  const isFirstRenderRef = useRef(true);
+
   useEffect(() => {
-    createExamResults(results);
+    if (isFirstRenderRef.current) {
+      createExamResults(results);
+      isFirstRenderRef.current = false;
+    }
   }, []);
 
   return (
