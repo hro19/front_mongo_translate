@@ -1,7 +1,7 @@
-import { JadgeTask, CandidatesTask } from "../../ts/Task";
+import { Task,JadgeTask, CandidatesTask } from "../../ts/Task";
 
 export const selectRandomQuiz = (
-  filteredData: CandidatesTask[],
+  filteredData: Task[],
   HOWManyLesson: number,
   HOWManySelect: number
 ) => {
@@ -9,9 +9,15 @@ export const selectRandomQuiz = (
 
   for (let i = 0; i < HOWManyLesson; i++) {
     if (filteredData.length > 0) {
-      const randomIndex = Math.floor(Math.random() * filteredData.length);
-      const randomQuiz = filteredData[randomIndex];
+      //ランダムな値を取得
+      const randomIndex: number = Math.floor(Math.random() * filteredData.length);
+
+      //randomQuizの構成はTaskにcandidatesを付与したもの
       const candidates: JadgeTask[] = [];
+      const randomQuiz: CandidatesTask = {
+        ...filteredData[randomIndex],
+        candidates: [...candidates],
+      };
 
       // ランダムなクイズをcandidatesの最初の要素に追加（correct: true）
       const correctQuiz: JadgeTask = {
@@ -21,7 +27,7 @@ export const selectRandomQuiz = (
       candidates.push(correctQuiz);
 
       // 他の候補をランダムに選ぶ（correct: false）
-      const otherIndices = getRandomUniqueIndices(
+      const otherIndices: number[] = getRandomUniqueIndices(
         filteredData.length,
         randomIndex,
         HOWManySelect - 1
@@ -33,9 +39,12 @@ export const selectRandomQuiz = (
         };
         candidates.push(otherQuiz);
       }
+
       //シャッフルして、値をrandomQuizにセットする
       randomQuiz.candidates = shuffleArray(candidates);
       selectedQuizzes.push(randomQuiz);
+
+      //一度問題として選出された単語が再選出されないようにする
       filteredData.splice(randomIndex, 1);
     }
   }
