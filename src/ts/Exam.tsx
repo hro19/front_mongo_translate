@@ -5,3 +5,8 @@ export type Result = Task & {
 };
 
 export type Gamen = "default" | "question" | "answer" | "finish";
+
+export type ExamCreate = {
+  taskId: string;
+  isCorrect: boolean;
+};

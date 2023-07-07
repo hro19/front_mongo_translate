@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
+import axios from "axios";
 import { CandidatesTask } from "../../ts/Task";
+import { ExamCreate } from "../../ts/Exam";
 import { useAtom } from "jotai";
 import {
   HOWManyLesson,
@@ -20,6 +22,22 @@ const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) 
   const [remainingTime, setRemainingTime] = useAtom(remainingTimeAtom);
   const [results, setResults] = useAtom(resultsAtom);
 
+  // DBに保存するためにAPIにpost送信する
+  const createExamResult = async (newData: ExamCreate) => {
+    try {
+      const response = await axios.post(
+        "https://back-mongo-task2.vercel.app/api/v1/exams/",
+        newData
+      );
+
+      // 成功した場合の処理を記述
+    } catch (error: any) {
+      console.log(error.message);
+      // エラー時の処理を記述
+    }
+  };
+
+  //isCorrectの値を不正解の値（false）変更する
   const updateResults = async () => {
     await setResults((prevResults) => {
       const updatedResults = [...prevResults];
@@ -28,21 +46,29 @@ const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) 
     });
   };
 
-  //次の問題へボタン、またはエンターkeyを押したときの反応
+  //次の問題へボタン　もしくはスキップEnter
   const nextQuizHandle = async (currentQuizData: CandidatesTask) => {
+
+    //Post用のデータ
+    let newData: ExamCreate = {
+      taskId: results[quizListCount]._id,
+      isCorrect: results[quizListCount].isCorrect,
+    };
+
+    //問題をスキップしたか、間違ったか、タイムオーバーになったかを確認、いづれも不正解扱い
     const shouldUpdateResults =
       isJadge === null || isJadge === false || isTimeZero === true;
 
-     if (shouldUpdateResults) {
-       try {
-         await updateResults();
-         console.log(results[quizListCount].isCorrect);
-       } catch (error: any) {
-         console.log(error.message);
-       }
-     } else {
-         console.log(results[quizListCount].isCorrect);
-     }
+    if (shouldUpdateResults) {
+      try {
+        await updateResults();
+        createExamResult({ ...newData, isCorrect: false });
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    } else {
+      createExamResult(newData);
+    }
 
     setQuizListCount((prevCount) => prevCount + 1);
     setIsJadge(null); //正解か不正解を判断するフラグのリセット

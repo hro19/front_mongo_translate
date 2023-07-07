@@ -1,5 +1,4 @@
-import React, { useEffect, useRef } from "react";
-import { Result } from "../../ts/Exam";
+import React from "react";
 import { useAtom } from "jotai";
 import {
   resultsAtom,
@@ -10,7 +9,6 @@ import {
 import { useRouter } from "next/router";
 import { speakText } from "../translates/Onsei";
 import Fubuki from "../../components/exam/Fubuki";
-import axios from "axios";
 
 const SwitchFinish = () => {
   const [results, setResults] = useAtom(resultsAtom);
@@ -31,44 +29,6 @@ const SwitchFinish = () => {
     setIsJadge(null);
     router.push("/exam");
   };
-
-  // DBに保存するためにAPIにpost送信する
-  const createExamResult = async (newData: any) => {
-    try {
-      const response = await axios.post(
-        "https://back-mongo-task2.vercel.app/api/v1/exams/",
-        newData
-      );
-      console.log(response.data); // レスポンスデータを表示
-
-      // 成功した場合の処理を記述
-      // console.log("成功");
-    } catch (error: any) {
-      console.log(error.message);
-      // エラー時の処理を記述
-    }
-  };
-
-  // テストの問題数だけ登録するためのループ処理
-  const createExamResults = (results: Result[]) => {
-    for (let i = 0; i < results.length; i++) {
-      const result = results[i];
-      const newData = {
-        taskId: result._id,
-        isCorrect: result.isCorrect,
-      };
-      createExamResult(newData);
-    }
-  };
-
-  const isFirstRenderRef = useRef(true);
-
-  useEffect(() => {
-    if (isFirstRenderRef.current) {
-      createExamResults(results);
-      isFirstRenderRef.current = false;
-    }
-  }, []);
 
   return (
     <>
