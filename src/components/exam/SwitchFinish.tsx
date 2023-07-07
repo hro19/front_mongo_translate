@@ -42,7 +42,7 @@ const SwitchFinish = () => {
       console.log(response.data); // レスポンスデータを表示
 
       // 成功した場合の処理を記述
-      console.log("成功");
+      // console.log("成功");
     } catch (error: any) {
       console.log(error.message);
       // エラー時の処理を記述

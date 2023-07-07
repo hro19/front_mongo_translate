@@ -18,24 +18,33 @@ const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) 
   const [isJadge, setIsJadge] = useAtom(isJadgeAtom);
   const [isTimeZero, setIsTimeZero] = useAtom(isTimeZeroAtom);
   const [remainingTime, setRemainingTime] = useAtom(remainingTimeAtom);
-    const [results, setResults] = useAtom(resultsAtom);
+  const [results, setResults] = useAtom(resultsAtom);
+
+  const updateResults = async () => {
+    await setResults((prevResults) => {
+      const updatedResults = [...prevResults];
+      updatedResults[quizListCount].isCorrect = false;
+      return updatedResults;
+    });
+  };
 
   //次の問題へボタン、またはエンターkeyを押したときの反応
-  const nextQuizHandle = (currentQuizData: CandidatesTask) => {
-    setQuizListCount((prevCount) => prevCount + 1);
+  const nextQuizHandle = async (currentQuizData: CandidatesTask) => {
+    const shouldUpdateResults =
+      isJadge === null || isJadge === false || isTimeZero === true;
 
-    if (isJadge === null || isJadge === false || isTimeZero === true) {
-      setResults((prevResults) => {
-        const updatedResults = prevResults.map((result) => {
-          if (result._id === currentQuizData._id) {
-            return { ...result, isCorrect: false };
-          }
-          return result;
-        });
-        return updatedResults;
-      });
-    }
-    
+     if (shouldUpdateResults) {
+       try {
+         await updateResults();
+         console.log(results[quizListCount].isCorrect);
+       } catch (error: any) {
+         console.log(error.message);
+       }
+     } else {
+         console.log(results[quizListCount].isCorrect);
+     }
+
+    setQuizListCount((prevCount) => prevCount + 1);
     setIsJadge(null); //正解か不正解を判断するフラグのリセット
     setIsTimeZero(false); //タイムカウント用のフラグのリセット
     setRemainingTime(countdownTime);
