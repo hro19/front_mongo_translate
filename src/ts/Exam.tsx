@@ -10,3 +10,10 @@ export type ExamCreate = {
   taskId: string;
   isCorrect: boolean;
 };
+
+export type Exam = {
+  _id: string;
+  taskId: string;
+  isCorrect: boolean;
+  created_at: Date;
+};

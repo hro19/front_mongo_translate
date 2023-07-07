@@ -37,7 +37,7 @@ const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) 
     }
   };
 
-  //isCorrectの値を不正解の値（false）変更する
+  //isCorrectの値を不正解ならば値をfalseに変更する
   const updateResults = async () => {
     await setResults((prevResults) => {
       const updatedResults = [...prevResults];
