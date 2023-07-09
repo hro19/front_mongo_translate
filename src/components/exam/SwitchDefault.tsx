@@ -1,12 +1,11 @@
 import React from "react";
-import { Task, CandidatesTask, JadgeTask } from "@/ts/Task";
+import { Task } from "@/ts/Task";
 import { Result } from "@/ts/Exam";
 import { useAtom } from "jotai";
 import {
   HOWManyLesson,
   HOWManySelect,
   gamenAtom,
-  quizListCountAtom,
   resultsAtom,
   quizListDataAtom,
 } from "../../jotai/examsAtoms";
@@ -14,7 +13,6 @@ import { selectRandomQuiz } from "../../components/exam/quizUtils";
 
 const SwitchDefault = ({ data }: { data: Task[] }) => {
   const [gamen, setGamen] = useAtom(gamenAtom);
-  const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
   const [results, setResults] = useAtom(resultsAtom);
   const [quizListData, setQuizListData] = useAtom(quizListDataAtom);
 

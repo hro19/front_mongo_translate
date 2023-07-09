@@ -1,12 +1,7 @@
-import { useState, useEffect } from "react";
-import { Task, CandidatesTask, JadgeTask } from "@/ts/Task";
+import { Task } from "@/ts/Task";
 import { useAtom } from "jotai";
 import {
-  HOWManyLesson,
-  HOWManySelect,
   gamenAtom,
-  quizListCountAtom,
-  resultsAtom,
 } from "../../jotai/examsAtoms";
 import SwitchDefault from "../../components/exam/SwitchDefault";
 import SwitchQanda from "../../components/exam/SwitchQanda";
@@ -14,8 +9,6 @@ import SwitchFinish from "../../components/exam/SwitchFinish";
 
 const Exam = ({ data }: { data: Task[] }) => {
   const [gamen] = useAtom(gamenAtom);
-  const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
-  const [results, setResults] = useAtom(resultsAtom);
 
   return (
     <>
@@ -34,8 +27,6 @@ const Exam = ({ data }: { data: Task[] }) => {
           }
         })()}
       </div>
-      {/* {gamen} */}
-      {/* <div><p>quizListCount: {quizListCount}</p></div> */}
     </>
   );
 };
