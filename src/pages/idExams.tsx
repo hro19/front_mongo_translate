@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 
-const idExams = () => {
+const IdExams = () => {
   const results = [
     { id: "649ee23af35c07578a186814" },
     { id: "648f04e7d01e7ef14aea4e8f" },
@@ -53,4 +53,4 @@ const idExams = () => {
   );
 };
 
-export default idExams;
+export default IdExams;
