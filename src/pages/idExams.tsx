@@ -13,7 +13,7 @@ const IdExams = () => {
 
   const fetchTaskExams = async (id:string) => {
     const response = await axios.get(
-      `//back-mongo-task2.vercel.app/api/v1/tasks/${id}/exams`
+      `https://back-mongo-task2.vercel.app/api/v1/tasks/${id}/exams`
     );
     return response.data;
   };
@@ -43,7 +43,7 @@ const IdExams = () => {
           <div key={results[index].id}>
             <h3 className="text-xl text-orange-400">{results[index].id}</h3>
             <ul>
-              {taskExam.map((exam: any) => (
+              {taskExam.map((exam:any) => (
                 <li key={exam._id}>{exam.isCorrect.toString()}</li>
               ))}
             </ul>
