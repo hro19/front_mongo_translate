@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { format } from "date-fns";
+import ExamsChart from "./ExamsChart";
 
 const IdExams = () => {
   const results = [
@@ -35,48 +36,58 @@ const IdExams = () => {
     };
   };
 
-  const {
-    data: taskExams,
-    isLoading,
-    isError,
-  } = useQuery("taskExams", async () => {
-    const promises = results.map(async (result) => {
-      const taskExam = await fetchTaskExams(result.id);
-      return { ...taskExam, name: result.name, jaName: result.jaName };
-    });
-    const taskExams = await Promise.all(promises);
-    return taskExams;
-  });
+    const [examData, setExamData] = useState<any[]>([]);
 
-  if (isLoading) {
+  useEffect(() => {
+    const fetchData = async () => {
+      const promises = results.map(async (result) => {
+        const taskExam = await fetchTaskExams(result.id);
+        const examsWithRate = taskExam.exams.map((exam: any, index: any) => {
+          const correctCount = taskExam.exams
+            .slice(0, index + 1)
+            .filter((e: any) => e.isCorrect).length;
+          const dailyRate = (correctCount / (index + 1)) * 100;
+          return { ...exam, dailyRate };
+        });
+        return {
+          ...taskExam,
+          name: result.name,
+          jaName: result.jaName,
+          exams: examsWithRate,
+        };
+      });
+      const taskExams = await Promise.all(promises);
+      setExamData(taskExams);
+    };
+
+    fetchData();
+  }, []);
+
+  if (examData.length === 0) {
     return <div>Loading...</div>;
   }
 
-  if (isError) {
-    return <div>Error occurred while fetching data.</div>;
-  }
-
   return (
-    <div>
-      {taskExams &&
-        taskExams.map((taskExam) => (
-          <div key={taskExam.id}>
-            <h3 className="text-xl text-orange-400">
-              {taskExam.id}【{taskExam.name}】【{taskExam.jaName}】
-            </h3>
-            <p>Total Count: {taskExam.totalCount}</p>
-            <p>Total Correct Count: {taskExam.totalCorrectCount}</p>
-            <p>Correct Rate: {taskExam.correctRate}%</p>
-            <ul>
-              {taskExam.exams.map((exam: any) => (
-                <li key={exam._id}>
-                  【{format(new Date(exam.created_at), "yyyy年MM月dd日 HH時mm分ss秒")}】
-                  {exam.isCorrect.toString()}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+      <div>
+          <ExamsChart />
+      {examData.map((taskExam: any) => (
+        <div key={taskExam.id}>
+          <h3 className="text-xl text-orange-400">
+            {taskExam.id}【{taskExam.name}】【{taskExam.jaName}】
+          </h3>
+          <p>Total Count: {taskExam.totalCount}</p>
+          <p>Total Correct Count: {taskExam.totalCorrectCount}</p>
+          <p>Correct Rate: {taskExam.correctRate.toFixed(2)}%</p>
+          <ul>
+            {taskExam.exams.map((exam: any) => (
+              <li key={exam._id}>
+                【{format(new Date(exam.created_at), "yy年M月d日 HH時mm分ss秒")}】
+                {exam.isCorrect.toString()}【正解レート{exam.dailyRate.toFixed(2)}%】
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </div>
   );
 };
