@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
+import { format } from "date-fns";
 
 const IdExams = () => {
   const results = [
@@ -57,8 +58,11 @@ const IdExams = () => {
             <p>Total Correct Count: {taskExam.totalCorrectCount}</p>
             <p>Correct Rate: {taskExam.correctRate}%</p>
             <ul>
-              {taskExam.exams.map((exam:any) => (
-                <li key={exam._id}>{exam.isCorrect.toString()}</li>
+              {taskExam.exams.map((exam: any) => (
+                <li key={exam._id}>
+                  【{format(new Date(exam.created_at), "yyyy年MM月dd日 HH時mm分ss秒")}】
+                  {exam.isCorrect.toString()}
+                </li>
               ))}
             </ul>
           </div>
