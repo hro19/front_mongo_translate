@@ -22,7 +22,7 @@ export type ExamsWithRate = Exam & {
   dailyRate: number;
 };
 
-export type ExamChart = {
+export type Chart = {
   taskId: string;
   name: string;
   jaName: string;

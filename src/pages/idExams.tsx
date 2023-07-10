@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ExamsChart from "./ExamsChart";
 import { useAtom } from "jotai";
-import { examChartsAtom } from "../jotai/examsAtoms";
-import { Exam, ExamsWithRate, ExamChart } from "../ts/Exam";
+import { chartsAtom } from "../jotai/examsAtoms";
+import { Exam, ExamsWithRate, Chart } from "../ts/Exam";
 
 const IdExams = () => {
   const results = [
@@ -29,7 +29,7 @@ const IdExams = () => {
     };
   };
 
-  const [examCharts, setExamCharts] = useAtom(examChartsAtom);
+  const [charts, setCharts] = useAtom(chartsAtom);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,34 +70,36 @@ const IdExams = () => {
       });
 
       const taskExams = await Promise.all(promises);
-      setExamCharts(taskExams);
+      setCharts(taskExams);
     };
 
     fetchData();
   }, []);
 
-  if (examCharts.length === 0) {
+  if (charts.length === 0) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div>
-      {examCharts.map((chart: ExamChart) => (
-        <div key={chart.taskId}>
-          <h2 className="text-2xl text-sky-700">
-            【英単語】{chart.name}
-            {/* {data.taskId} */}
-          </h2>
-          <div className="flex flex-row text-sm text-sky-900 gap-8">
-            <p>【最新の正答率】 {chart.correctRate.toFixed(2)}%</p>
-            <p>テストの回数:{chart.totalCount}</p>
-            <p>テストの正解回数:{chart.totalCorrectCount}</p>
+    <div className="container mx-auto">
+      <div className="my-8">
+        {charts.map((chart: Chart) => (
+          <div key={chart.taskId}>
+            <h2 className="text-2xl text-sky-700">
+              【英単語】{chart.name}
+              {/* {data.taskId} */}
+            </h2>
+            <div className="flex flex-row text-sm text-sky-900 gap-6">
+              <p>【最新の正答率】 {chart.correctRate.toFixed(2)}%</p>
+              <p>試験回数:{chart.totalCount}</p>
+              <p>試験の正解数:{chart.totalCorrectCount}</p>
+            </div>
+            <ul>
+              <ExamsChart exams={chart.examsWithRates} />
+            </ul>
           </div>
-          <ul>
-            <ExamsChart exams={chart.examsWithRates} />
-          </ul>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
