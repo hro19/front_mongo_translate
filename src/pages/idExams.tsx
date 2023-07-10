@@ -102,9 +102,7 @@ const IdExams = () => {
               <p>試験回数:{chart.totalCount}</p>
               <p>試験の正解数:{chart.totalCorrectCount}</p>
             </div>
-            <ul>
               <ExamsChart exams={chart.examsWithRates} />
-            </ul>
           </div>
         ))}
       </div>
