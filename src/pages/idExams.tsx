@@ -70,23 +70,18 @@ const IdExams = () => {
   }
 
   return (
-      <div>
-      <ExamsChart />
-      {examData.map((taskExam: any) => (
-        <div key={taskExam.id}>
-          <h3 className="text-xl text-orange-400">
-            {taskExam.id}【{taskExam.name}】【{taskExam.jaName}】
-          </h3>
-          <p>Total Count: {taskExam.totalCount}</p>
-          <p>Total Correct Count: {taskExam.totalCorrectCount}</p>
-          <p>Correct Rate: {taskExam.correctRate.toFixed(2)}%</p>
+    <div>
+      {examData.map((data) => (
+        <div key={data.id}>
+          <h2 className="text-2xl text-sky-700">【英単語】{data.name}</h2>
+          <p className="text-sm text-sky-900">
+            【最新の正答率】 {data.correctRate.toFixed(2)}%
+          </p>
+          テストの回数{data.totalCount}
+          <br />
+          テストの正解回数{data.totalCorrectCount}
           <ul>
-            {taskExam.exams.map((exam: any) => (
-              <li key={exam._id}>
-                【{format(new Date(exam.created_at), "yy年M月d日 HH時mm分ss秒")}】
-                {exam.isCorrect.toString()}【正解レート{exam.dailyRate.toFixed(2)}%】
-              </li>
-            ))}
+            <ExamsChart exams={data.exams} />
           </ul>
         </div>
       ))}
