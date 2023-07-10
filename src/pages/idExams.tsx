@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useQuery } from "react-query";
-import { format } from "date-fns";
 import ExamsChart from "./ExamsChart";
 import { useAtom } from "jotai";
-import { examChartAtom } from "../jotai/examsAtoms";
-import { Exam } from "../ts/Exam";
+import { examChartsAtom } from "../jotai/examsAtoms";
+import { Exam, ExamsWithRate, ExamChart } from "../ts/Exam";
 
 const IdExams = () => {
   const results = [
@@ -27,12 +25,11 @@ const IdExams = () => {
     const exams = response.data;
 
     return {
-      taskId: id,
       exams,
     };
   };
 
-  const [examChart, setExamChart] = useAtom(examChartAtom);
+  const [examCharts, setExamCharts] = useAtom(examChartsAtom);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,51 +48,53 @@ const IdExams = () => {
         const correctRate = (totalCorrectCount / totalCount) * 100;
 
         // examsWithRateはexamsとdailyRateを合わせたもの
-        const examsWithRate = taskExams.exams.map((exam: Exam, index: number) => {
-          const correctCount = taskExams.exams
-            .slice(0, index + 1)
-            .filter((e: Exam) => e.isCorrect).length;
-          const dailyRate = (correctCount / (index + 1)) * 100;
-          return { ...exam, dailyRate };
-        });
+        const examsWithRates: ExamsWithRate[] = taskExams.exams.map(
+          (exam: Exam, index: number) => {
+            const correctCount = taskExams.exams
+              .slice(0, index + 1)
+              .filter((e: Exam) => e.isCorrect).length;
+            const dailyRate = (correctCount / (index + 1)) * 100;
+            return { ...exam, dailyRate };
+          }
+        );
 
         return {
-          ...taskExams,
+          taskId: result.id,
           name: result.name,
           jaName: result.jaName,
-          exams: examsWithRate,
           totalCount,
           totalCorrectCount,
           correctRate,
+          examsWithRates,
         };
       });
 
       const taskExams = await Promise.all(promises);
-      setExamChart(taskExams);
+      setExamCharts(taskExams);
     };
 
     fetchData();
   }, []);
 
-  if (examChart.length === 0) {
+  if (examCharts.length === 0) {
     return <div>Loading...</div>;
   }
 
   return (
     <div>
-      {examChart.map((data) => (
-        <div key={data.taskId}>
+      {examCharts.map((chart: ExamChart) => (
+        <div key={chart.taskId}>
           <h2 className="text-2xl text-sky-700">
-            【英単語】{data.name}
+            【英単語】{chart.name}
             {/* {data.taskId} */}
           </h2>
           <div className="flex flex-row text-sm text-sky-900 gap-8">
-            <p>【最新の正答率】 {data.correctRate.toFixed(2)}%</p>
-            <p>テストの回数:{data.totalCount}</p>
-            <p>テストの正解回数:{data.totalCorrectCount}</p>
+            <p>【最新の正答率】 {chart.correctRate.toFixed(2)}%</p>
+            <p>テストの回数:{chart.totalCount}</p>
+            <p>テストの正解回数:{chart.totalCorrectCount}</p>
           </div>
           <ul>
-            <ExamsChart exams={data.exams} />
+            <ExamsChart exams={chart.examsWithRates} />
           </ul>
         </div>
       ))}

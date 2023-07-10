@@ -10,13 +10,11 @@ import {
   YAxis,
   ResponsiveContainer,
 } from "recharts";
+import { ExamsWithRate } from "../ts/Exam";
 
-const ExamsChart = ({ exams }: any) => {
-  if (!exams || exams.length === 0) {
-    return <div>No data available</div>;
-  }
+const ExamsChart = ({ exams }: { exams: ExamsWithRate[] }) => {
 
-  const data = exams.map((exam: any) => ({
+  const data = exams.map((exam: ExamsWithRate) => ({
     date: format(new Date(exam.created_at), "yy年M月d日"),
     正解率: exam.dailyRate, // dailyRateを正解率として使用
   }));

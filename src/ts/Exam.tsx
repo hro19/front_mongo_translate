@@ -17,3 +17,17 @@ export type Exam = {
   isCorrect: boolean;
   created_at: Date;
 };
+
+export type ExamsWithRate = Exam & {
+  dailyRate: number;
+};
+
+export type ExamChart = {
+  taskId: string;
+  name: string;
+  jaName: string;
+  totalCount: number;
+  totalCorrectCount: number;
+  correctRate: number;
+  examsWithRates: ExamsWithRate[];
+};

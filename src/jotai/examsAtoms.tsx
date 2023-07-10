@@ -1,6 +1,6 @@
 import { atom, useAtomValue } from "jotai";
 import { CandidatesTask } from "../ts/Task";
-import { Result,Gamen } from "../ts/Exam";
+import { Result, Gamen, ExamChart } from "../ts/Exam";
 
 // 単語テストページ
 export const HOWManyLesson: number = 5; //問題数
@@ -19,4 +19,4 @@ export const isTimeZeroAtom = atom<boolean>(false);
 export const resultsAtom = atom<Result[]>([]);
 export const quizListDataAtom = atom<CandidatesTask[]>([]);
 
-export const examChartAtom = atom<any[]>([]);
+export const examChartsAtom = atom<ExamChart[]>([]);
