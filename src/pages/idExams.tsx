@@ -15,15 +15,26 @@ const IdExams = () => {
     const response = await axios.get(
       `https://back-mongo-task2.vercel.app/api/v1/tasks/${id}/exams`
     );
-    return response.data;
+    const exams = response.data;
+
+    const totalCount = exams.length;
+    const totalCorrectCount = exams.filter((exam:any) => exam.isCorrect).length;
+    const correctRate = (totalCorrectCount / totalCount) * 100;
+
+    return {
+      id,
+      exams,
+      totalCount,
+      totalCorrectCount,
+      correctRate,
+    };
   };
 
-  const {
-    data: taskExams,
-    isLoading,
-    isError,
-  } = useQuery("taskExams", async () => {
-    const promises = results.map((result) => fetchTaskExams(result.id));
+  const { data: taskExams, isLoading, isError } = useQuery("taskExams", async () => {
+    const promises = results.map(async (result) => {
+      const taskExam = await fetchTaskExams(result.id);
+      return taskExam;
+    });
     const taskExams = await Promise.all(promises);
     return taskExams;
   });
@@ -39,11 +50,14 @@ const IdExams = () => {
   return (
     <div>
       {taskExams &&
-        taskExams.map((taskExam, index) => (
-          <div key={results[index].id}>
-            <h3 className="text-xl text-orange-400">{results[index].id}</h3>
+        taskExams.map((taskExam) => (
+          <div key={taskExam.id}>
+            <h3 className="text-xl text-orange-400">{taskExam.id}</h3>
+            <p>Total Count: {taskExam.totalCount}</p>
+            <p>Total Correct Count: {taskExam.totalCorrectCount}</p>
+            <p>Correct Rate: {taskExam.correctRate}%</p>
             <ul>
-              {taskExam.map((exam:any) => (
+              {taskExam.exams.map((exam:any) => (
                 <li key={exam._id}>{exam.isCorrect.toString()}</li>
               ))}
             </ul>
