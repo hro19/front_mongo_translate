@@ -12,8 +12,12 @@ import {
 } from "recharts";
 
 const ExamsChart = ({ exams }: any) => {
+  if (!exams || exams.length === 0) {
+    return <div>No data available</div>;
+  }
+
   const data = exams.map((exam: any) => ({
-    date: format(new Date(exam.created_at), "yy年MM月dd日hh時"),
+    date: format(new Date(exam.created_at), "yy年M月d日"),
     正解率: exam.dailyRate, // dailyRateを正解率として使用
   }));
 
