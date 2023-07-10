@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { format } from "date-fns";
 import ExamsChart from "./ExamsChart";
 import { useAtom } from "jotai";
-import { examDataAtom } from "../jotai/examsAtoms";
+import { examChartAtom } from "../jotai/examsAtoms";
 import { Exam } from "../ts/Exam";
 
 const IdExams = () => {
@@ -20,62 +20,71 @@ const IdExams = () => {
     { id: "64a41b8fb1ec37f082321984", name: "meet", jaName: "会う" },
   ];
 
-  const fetchTaskExams = async (id:string) => {
+  const taskIdFetching = async (id: string) => {
     const response = await axios.get(
       `https://back-mongo-task2.vercel.app/api/v1/tasks/${id}/exams`
     );
     const exams = response.data;
 
-    const totalCount:number = exams.length;
-    const totalCorrectCount: number = exams.filter((exam: Exam) => exam.isCorrect).length;
-    const correctRate: number = (totalCorrectCount / totalCount) * 100;
-
     return {
-      taskId:id,
+      taskId: id,
       exams,
-      totalCount,
-      totalCorrectCount,
-      correctRate,
     };
   };
 
-    const [examData, setExamData] = useAtom(examDataAtom);
+  const [examChart, setExamChart] = useAtom(examChartAtom);
 
   useEffect(() => {
     const fetchData = async () => {
       const promises = results.map(async (result) => {
-        const taskExam = await fetchTaskExams(result.id);
+        const taskExams = await taskIdFetching(result.id);
 
-        // examsWithRate、examsとdailyRateを合わせたもの
-        const examsWithRate = taskExam.exams.map((exam: Exam, index: number) => {
-          const correctCount = taskExam.exams
+        // テストの回数を算出
+        const totalCount = taskExams.exams.length;
+
+        // 正解回数を算出
+        const totalCorrectCount = taskExams.exams.filter(
+          (exam: Exam) => exam.isCorrect
+        ).length;
+
+        // 正答率を算出
+        const correctRate = (totalCorrectCount / totalCount) * 100;
+
+        // examsWithRateはexamsとdailyRateを合わせたもの
+        const examsWithRate = taskExams.exams.map((exam: Exam, index: number) => {
+          const correctCount = taskExams.exams
             .slice(0, index + 1)
             .filter((e: Exam) => e.isCorrect).length;
           const dailyRate = (correctCount / (index + 1)) * 100;
           return { ...exam, dailyRate };
         });
+
         return {
-          ...taskExam,
+          ...taskExams,
           name: result.name,
           jaName: result.jaName,
           exams: examsWithRate,
+          totalCount,
+          totalCorrectCount,
+          correctRate,
         };
       });
+
       const taskExams = await Promise.all(promises);
-      setExamData(taskExams);
+      setExamChart(taskExams);
     };
 
     fetchData();
   }, []);
 
-  if (examData.length === 0) {
+  if (examChart.length === 0) {
     return <div>Loading...</div>;
   }
 
   return (
     <div>
-      {examData.map((data) => (
-        <div key={data.id}>
+      {examChart.map((data) => (
+        <div key={data.taskId}>
           <h2 className="text-2xl text-sky-700">
             【英単語】{data.name}
             {/* {data.taskId} */}

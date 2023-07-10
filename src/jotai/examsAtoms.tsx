@@ -19,4 +19,4 @@ export const isTimeZeroAtom = atom<boolean>(false);
 export const resultsAtom = atom<Result[]>([]);
 export const quizListDataAtom = atom<CandidatesTask[]>([]);
 
-export const examDataAtom = atom<any[]>([]);
+export const examChartAtom = atom<any[]>([]);
