@@ -1,69 +1,85 @@
-import React, { useState, useEffect } from "react";
-import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
+import React, { PureComponent } from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
-const studyDataList = [
+const data = [
   {
-    date: "10/01",
-    問題数: 120,
-    正解数: 105,
-    正解率: 88,
+    name: "Page A",
+    uv: 4000,
+    pv: 2400,
+    amt: 2400,
   },
   {
-    date: "10/02",
-    問題数: 130,
-    正解数: 110,
-    正解率: 85,
+    name: "Page B",
+    uv: 3000,
+    pv: 1398,
+    amt: 2210,
   },
   {
-    date: "10/19",
-    問題数: 100,
-    正解数: 90,
-    正解率: 90,
+    name: "Page C",
+    uv: 2000,
+    pv: 9800,
+    amt: 2290,
+  },
+  {
+    name: "Page D",
+    uv: 2780,
+    pv: 3908,
+    amt: 2000,
+  },
+  {
+    name: "Page E",
+    uv: 1890,
+    pv: 4800,
+    amt: 2181,
+  },
+  {
+    name: "Page F",
+    uv: 2390,
+    pv: 3800,
+    amt: 2500,
+  },
+  {
+    name: "Page G",
+    uv: 3490,
+    pv: 4300,
+    amt: 2100,
   },
 ];
 
-const ExamsChart = () => {
-  const [chartWidth, setChartWidth] = useState(() => {
-    return window.innerWidth <= 700 ? window.innerWidth * 0.85 : 700;
-  });
+export default class Example extends PureComponent {
 
-  useEffect(() => {
-    const handleResize = () => {
-      setChartWidth(window.innerWidth <= 700 ? window.innerWidth * 0.85 : 700);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  return (
-    <div className="container mx-auto">
-      <LineChart
-        width={chartWidth}
-        height={300}
-        data={studyDataList}
-        margin={{
-          top: 5,
-          right: 5,
-          left: 5,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" />
-        <YAxis dataKey="問題数" />
-        <Line type="monotone" dataKey="問題数" stroke="#8884d8" />
-        <Line type="monotone" dataKey="正解数" stroke="#3ba2f6" />
-        <Line type="monotone" dataKey="正解率" stroke="#ff0092" />
-        <Legend />
-        <Tooltip />
-      </LineChart>
-    </div>
-  );
-};
-
-export default ExamsChart;
+  render() {
+    return (
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart
+          width={500}
+          height={300}
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
+          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+        </LineChart>
+      </ResponsiveContainer>
+    );
+  }
+}
