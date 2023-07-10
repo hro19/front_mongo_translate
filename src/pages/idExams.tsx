@@ -3,6 +3,8 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { format } from "date-fns";
 import ExamsChart from "./ExamsChart";
+import { useAtom } from "jotai";
+import { examDataAtom } from "../jotai/examsAtoms";
 
 const IdExams = () => {
   const results = [
@@ -36,7 +38,7 @@ const IdExams = () => {
     };
   };
 
-    const [examData, setExamData] = useState<any[]>([]);
+    const [examData, setExamData] = useAtom(examDataAtom);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,7 +71,7 @@ const IdExams = () => {
 
   return (
       <div>
-          <ExamsChart />
+      <ExamsChart />
       {examData.map((taskExam: any) => (
         <div key={taskExam.id}>
           <h3 className="text-xl text-orange-400">
