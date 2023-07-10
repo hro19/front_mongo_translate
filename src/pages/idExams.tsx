@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import ExamsChart from "./ExamsChart";
 import { useAtom } from "jotai";
 import { examDataAtom } from "../jotai/examsAtoms";
+import { Exam } from "../ts/Exam";
 
 const IdExams = () => {
   const results = [
@@ -25,12 +26,12 @@ const IdExams = () => {
     );
     const exams = response.data;
 
-    const totalCount = exams.length;
-    const totalCorrectCount = exams.filter((exam:any) => exam.isCorrect).length;
-    const correctRate = (totalCorrectCount / totalCount) * 100;
+    const totalCount:number = exams.length;
+    const totalCorrectCount: number = exams.filter((exam: Exam) => exam.isCorrect).length;
+    const correctRate: number = (totalCorrectCount / totalCount) * 100;
 
     return {
-      id,
+      taskId:id,
       exams,
       totalCount,
       totalCorrectCount,
@@ -44,10 +45,12 @@ const IdExams = () => {
     const fetchData = async () => {
       const promises = results.map(async (result) => {
         const taskExam = await fetchTaskExams(result.id);
-        const examsWithRate = taskExam.exams.map((exam: any, index: any) => {
+
+        // examsWithRate、examsとdailyRateを合わせたもの
+        const examsWithRate = taskExam.exams.map((exam: Exam, index: number) => {
           const correctCount = taskExam.exams
             .slice(0, index + 1)
-            .filter((e: any) => e.isCorrect).length;
+            .filter((e: Exam) => e.isCorrect).length;
           const dailyRate = (correctCount / (index + 1)) * 100;
           return { ...exam, dailyRate };
         });
@@ -73,13 +76,15 @@ const IdExams = () => {
     <div>
       {examData.map((data) => (
         <div key={data.id}>
-          <h2 className="text-2xl text-sky-700">【英単語】{data.name}</h2>
-          <p className="text-sm text-sky-900">
-            【最新の正答率】 {data.correctRate.toFixed(2)}%
-          </p>
-          テストの回数{data.totalCount}
-          <br />
-          テストの正解回数{data.totalCorrectCount}
+          <h2 className="text-2xl text-sky-700">
+            【英単語】{data.name}
+            {/* {data.taskId} */}
+          </h2>
+          <div className="flex flex-row text-sm text-sky-900 gap-8">
+            <p>【最新の正答率】 {data.correctRate.toFixed(2)}%</p>
+            <p>テストの回数:{data.totalCount}</p>
+            <p>テストの正解回数:{data.totalCorrectCount}</p>
+          </div>
           <ul>
             <ExamsChart exams={data.exams} />
           </ul>

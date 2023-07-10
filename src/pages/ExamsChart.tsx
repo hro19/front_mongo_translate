@@ -38,7 +38,12 @@ const ExamsChart = ({ exams }: any) => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="正解率" stroke="#8884d8" />
+          <Line
+            type="monotone"
+            dataKey="正解率"
+            strokeWidth={2} // 線の太さを調整
+            stroke="#34A853" // 線の色を緑色に設定
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>
