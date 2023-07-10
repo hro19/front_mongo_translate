@@ -5,11 +5,15 @@ import { format } from "date-fns";
 
 const IdExams = () => {
   const results = [
-    { id: "649ee23af35c07578a186814" },
-    { id: "648f04e7d01e7ef14aea4e8f" },
-    { id: "648280313e790e70e4646db4" },
-    { id: "649aa99815ca83cdb2ccba0b" },
-    { id: "64a41b8fb1ec37f082321984" },
+    { id: "649ee23af35c07578a186814", name: "fear", jaName: "恐怖する" },
+    {
+      id: "648f04e7d01e7ef14aea4e8f",
+      name: "dispatch",
+      jaName: "(…へ)発送する、特派する",
+    },
+    { id: "648280313e790e70e4646db4", name: "fall", jaName: "落ちる、転ぶ" },
+    { id: "649aa99815ca83cdb2ccba0b", name: "rise", jaName: "上がる" },
+    { id: "64a41b8fb1ec37f082321984", name: "meet", jaName: "会う" },
   ];
 
   const fetchTaskExams = async (id:string) => {
@@ -31,10 +35,14 @@ const IdExams = () => {
     };
   };
 
-  const { data: taskExams, isLoading, isError } = useQuery("taskExams", async () => {
+  const {
+    data: taskExams,
+    isLoading,
+    isError,
+  } = useQuery("taskExams", async () => {
     const promises = results.map(async (result) => {
       const taskExam = await fetchTaskExams(result.id);
-      return taskExam;
+      return { ...taskExam, name: result.name, jaName: result.jaName };
     });
     const taskExams = await Promise.all(promises);
     return taskExams;
@@ -53,7 +61,9 @@ const IdExams = () => {
       {taskExams &&
         taskExams.map((taskExam) => (
           <div key={taskExam.id}>
-            <h3 className="text-xl text-orange-400">{taskExam.id}</h3>
+            <h3 className="text-xl text-orange-400">
+              {taskExam.id}【{taskExam.name}】【{taskExam.jaName}】
+            </h3>
             <p>Total Count: {taskExam.totalCount}</p>
             <p>Total Correct Count: {taskExam.totalCorrectCount}</p>
             <p>Correct Rate: {taskExam.correctRate}%</p>
