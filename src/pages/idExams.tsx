@@ -45,7 +45,7 @@ const IdExams = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const promises = results.map(async (result) => {
+      const promises: Promise<Chart>[] = results.map(async (result) => {
         const taskExams = await taskIdFetching(result.id);
 
         // テストの回数を算出
