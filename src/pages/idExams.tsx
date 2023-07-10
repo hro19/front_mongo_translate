@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import RingLoader from "react-spinners/RingLoader";
 import ExamsChart from "./ExamsChart";
 import { useAtom } from "jotai";
 import { chartsAtom } from "../jotai/examsAtoms";
@@ -29,6 +30,17 @@ const IdExams = () => {
     };
   };
 
+  //examsの各配列に試験ごとの正答率を加える
+  const addDailyRateToExams = (exams: Exam[]): ExamsWithRate[] => {
+    return exams.map((exam: Exam, index: number) => {
+      const correctCount = exams
+        .slice(0, index + 1)
+        .filter((e: Exam) => e.isCorrect).length;
+      const dailyRate = (correctCount / (index + 1)) * 100;
+      return { ...exam, dailyRate };
+    });
+  };
+
   const [charts, setCharts] = useAtom(chartsAtom);
 
   useEffect(() => {
@@ -48,15 +60,7 @@ const IdExams = () => {
         const correctRate = (totalCorrectCount / totalCount) * 100;
 
         // examsWithRateはexamsとdailyRateを合わせたもの
-        const examsWithRates: ExamsWithRate[] = taskExams.exams.map(
-          (exam: Exam, index: number) => {
-            const correctCount = taskExams.exams
-              .slice(0, index + 1)
-              .filter((e: Exam) => e.isCorrect).length;
-            const dailyRate = (correctCount / (index + 1)) * 100;
-            return { ...exam, dailyRate };
-          }
-        );
+        const examsWithRates: ExamsWithRate[] = addDailyRateToExams(taskExams.exams);
 
         return {
           taskId: result.id,
@@ -77,7 +81,11 @@ const IdExams = () => {
   }, []);
 
   if (charts.length === 0) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center my-32">
+        <RingLoader color="#36d7b7" />
+      </div>
+    );
   }
 
   return (
