@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
 
-const studyDataList: any = [
+const studyDataList = [
   {
     date: "10/01",
     問題数: 120,
@@ -23,10 +23,27 @@ const studyDataList: any = [
 ];
 
 const ExamsChart = () => {
+  const [chartWidth, setChartWidth] = useState(() => {
+    return window.innerWidth <= 700 ? window.innerWidth * 0.85 : 700;
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setChartWidth(window.innerWidth <= 700 ? window.innerWidth * 0.85 : 700);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
-    <div className="container">
+    <div className="container mx-auto">
       <LineChart
-        width={700}
+        width={chartWidth}
         height={300}
         data={studyDataList}
         margin={{
