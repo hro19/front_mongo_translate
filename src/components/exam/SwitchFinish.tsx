@@ -2,6 +2,7 @@ import React from "react";
 import { AiTwotoneSound } from "react-icons/ai";
 import { useAtom } from "jotai";
 import {
+  quizListDataAtom,
   resultsAtom,
   gamenAtom,
   quizListCountAtom,
@@ -13,6 +14,7 @@ import { speakText } from "../translates/Onsei";
 import Fubuki from "../../components/exam/Fubuki";
 
 const SwitchFinish = () => {
+  const [quizListData, setQuizListData] = useAtom(quizListDataAtom);
   const [results, setResults] = useAtom(resultsAtom);
   const [gamen, setGamen] = useAtom(gamenAtom);
   const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
@@ -25,6 +27,7 @@ const SwitchFinish = () => {
   const title = hasFailures ? "今一度単語を確認しよう" : "あなたの回答は100点満点";
 
   const handleRetry = () => {
+    setQuizListData(RESET);
     setResults(RESET);
     setGamen(RESET);
     setQuizListCount(RESET);

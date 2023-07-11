@@ -18,6 +18,6 @@ export const remainingTimeAtom = atom<number>(countdownTime);
 export const isTimeZeroAtom = atom<boolean>(false);
 
 export const resultsAtom = atomWithReset<Result[]>([]);
-export const quizListDataAtom = atom<CandidatesTask[]>([]);
+export const quizListDataAtom = atomWithReset<CandidatesTask[]>([]);
 
 export const chartsAtom = atom<Chart[]>([]);
