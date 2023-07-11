@@ -7,6 +7,7 @@ import {
   quizListCountAtom,
   isJadgeAtom,
 } from "../../jotai/examsAtoms";
+import { RESET } from "jotai/utils";
 import { useRouter } from "next/router";
 import { speakText } from "../translates/Onsei";
 import Fubuki from "../../components/exam/Fubuki";
@@ -24,10 +25,10 @@ const SwitchFinish = () => {
   const title = hasFailures ? "今一度単語を確認しよう" : "あなたの回答は100点満点";
 
   const handleRetry = () => {
-    setResults([]);
-    setGamen("default");
-    setQuizListCount(0);
-    setIsJadge(null);
+    setResults(RESET);
+    setGamen(RESET);
+    setQuizListCount(RESET);
+    setIsJadge(RESET);
     router.push("/exam");
   };
 

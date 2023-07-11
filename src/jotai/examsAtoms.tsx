@@ -1,4 +1,5 @@
 import { atom, useAtomValue } from "jotai";
+import { atomWithReset } from "jotai/utils";
 import { CandidatesTask } from "../ts/Task";
 import { Result, Gamen, Chart } from "../ts/Exam";
 
@@ -9,14 +10,14 @@ export const countdownTime = 4; //回答中の残り時間
 
 // export const failuresAtom = atom<CandidatesTask[]>([]);
 
-export const gamenAtom = atom<Gamen>("default");
-export const quizListCountAtom = atom<number>(0);
-export const isJadgeAtom = atom<boolean | null>(null);
+export const gamenAtom = atomWithReset<Gamen>("default");
+export const quizListCountAtom = atomWithReset<number>(0);
+export const isJadgeAtom = atomWithReset<boolean | null>(null);
 
 export const remainingTimeAtom = atom<number>(countdownTime);
 export const isTimeZeroAtom = atom<boolean>(false);
 
-export const resultsAtom = atom<Result[]>([]);
+export const resultsAtom = atomWithReset<Result[]>([]);
 export const quizListDataAtom = atom<CandidatesTask[]>([]);
 
 export const chartsAtom = atom<Chart[]>([]);
