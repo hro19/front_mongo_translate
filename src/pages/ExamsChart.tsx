@@ -17,7 +17,7 @@ const ExamsChart = ({ exams }: { exams: ExamsWithRate[] }) => {
     return <div className="text-2xl text-red-500">チャート表記するための十分な試験データがありません</div>;
   }
 
-  const data = exams.map((exam: ExamsWithRate) => ({
+  const data: { date: string; 正解率: number }[] = exams.map((exam: ExamsWithRate) => ({
     date: format(new Date(exam.created_at), "yy年M月d日"),
     正解率: exam.dailyRate, // dailyRateを正解率として使用
   }));
