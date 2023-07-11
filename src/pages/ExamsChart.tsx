@@ -13,8 +13,8 @@ import {
 import { ExamsWithRate } from "../ts/Exam";
 
 const ExamsChart = ({ exams }: { exams: ExamsWithRate[] }) => {
-  if (!exams || exams.length === 0) {
-    return <div>No data available</div>;
+  if (!exams || exams.length <= 1) {
+    return <div className="text-2xl text-red-500">チャート表記するための十分な試験データがありません</div>;
   }
 
   const data = exams.map((exam: ExamsWithRate) => ({

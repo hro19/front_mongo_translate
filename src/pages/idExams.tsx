@@ -8,10 +8,14 @@ import { Exam, ExamsWithRate, Chart } from "../ts/Exam";
 const IdExams = () => {
   const results = [
     { id: "649ee23af35c07578a186814", name: "fear", jaName: "恐怖する" },
-    { id: "648f04e7d01e7ef14aea4e8f", name: "dispatch", jaName: "(…へ)発送する、特派する"},
+    {
+      id: "648f04e7d01e7ef14aea4e8f",
+      name: "dispatch",
+      jaName: "(…へ)発送する、特派する",
+    },
     { id: "648280313e790e70e4646db4", name: "fall", jaName: "落ちる、転ぶ" },
     { id: "649aa99815ca83cdb2ccba0b", name: "rise", jaName: "上がる" },
-    { id: "64a41b8fb1ec37f082321984", name: "meet", jaName: "会う" },
+    { id: "64ad9a9fc711e2b62c713a0a", name: "convince", jaName: "納得させる" },
   ];
 
   const taskIdFetching = async (id: string): Promise<Exam[]> => {
