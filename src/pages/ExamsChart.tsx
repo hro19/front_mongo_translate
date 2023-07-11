@@ -13,6 +13,9 @@ import {
 import { ExamsWithRate } from "../ts/Exam";
 
 const ExamsChart = ({ exams }: { exams: ExamsWithRate[] }) => {
+  if (!exams || exams.length === 0) {
+    return <div>No data available</div>;
+  }
 
   const data = exams.map((exam: ExamsWithRate) => ({
     date: format(new Date(exam.created_at), "yy年M月d日"),
