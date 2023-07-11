@@ -32,7 +32,7 @@ const SwitchDefault = ({ data }: { data: Task[] }) => {
   };
 
   return (
-    <div className="my-8">
+    <div className="">
       <div className="mb-4">
         <h2 className="text-2xl font-bold">ルール説明</h2>
         <ul className="list-disc ml-6">

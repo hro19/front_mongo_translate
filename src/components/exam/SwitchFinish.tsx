@@ -37,7 +37,7 @@ const SwitchFinish = () => {
 
   return (
     <>
-      <h2 className="text-2xl font-bold mt-4 mb-2">{title}</h2>
+      <h2 className="text-2xl font-bold mb-2">{title}</h2>
       {hasFailures && (
         <>
           {failedResults.map((result, index) => (
