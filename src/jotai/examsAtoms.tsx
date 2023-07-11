@@ -14,8 +14,8 @@ export const gamenAtom = atomWithReset<Gamen>("default");
 export const quizListCountAtom = atomWithReset<number>(0);
 export const isJadgeAtom = atomWithReset<boolean | null>(null);
 
-export const remainingTimeAtom = atom<number>(countdownTime);
-export const isTimeZeroAtom = atom<boolean>(false);
+export const remainingTimeAtom = atomWithReset<number>(countdownTime);
+export const isTimeZeroAtom = atomWithReset<boolean>(false);
 
 export const resultsAtom = atomWithReset<Result[]>([]);
 export const quizListDataAtom = atomWithReset<CandidatesTask[]>([]);

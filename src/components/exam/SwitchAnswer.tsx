@@ -5,7 +5,6 @@ import { ExamCreate } from "../../ts/Exam";
 import { useAtom } from "jotai";
 import {
   HOWManyLesson,
-  countdownTime,
   gamenAtom,
   quizListCountAtom,
   isJadgeAtom,
@@ -13,6 +12,7 @@ import {
   remainingTimeAtom,
   resultsAtom,
 } from "../../jotai/examsAtoms";
+import { RESET } from "jotai/utils";
 
 const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) => {
   const [gamen, setGamen] = useAtom(gamenAtom);
@@ -23,7 +23,7 @@ const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) 
   const [results, setResults] = useAtom(resultsAtom);
 
   // DBに保存するためにAPIにpost送信する
-  const createExamResult = async (newData: ExamCreate) => {
+  const createExamResult = async (newData: ExamCreate): Promise<void> => {
     try {
       const response = await axios.post(
         "https://back-mongo-task2.vercel.app/api/v1/exams/",
@@ -38,7 +38,7 @@ const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) 
   };
 
   //isCorrectの値を不正解ならば値をfalseに変更する
-  const updateResults = async () => {
+  const updateResults = async (): Promise<void> => {
     await setResults((prevResults) => {
       const updatedResults = [...prevResults];
       updatedResults[quizListCount].isCorrect = false;
@@ -48,7 +48,6 @@ const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) 
 
   //次の問題へボタン　もしくはスキップEnter
   const nextQuizHandle = async (currentQuizData: CandidatesTask) => {
-
     //Post用のデータ
     let newData: ExamCreate = {
       taskId: results[quizListCount]._id,
@@ -71,9 +70,9 @@ const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) 
     }
 
     setQuizListCount((prevCount) => prevCount + 1);
-    setIsJadge(null); //正解か不正解を判断するフラグのリセット
-    setIsTimeZero(false); //タイムカウント用のフラグのリセット
-    setRemainingTime(countdownTime);
+    setIsJadge(RESET);
+    setIsTimeZero(RESET);
+    setRemainingTime(RESET);
 
     // setQuizListCountを使うと非同期で計算が遅れるためにquizListCountを利用して計算する。
     quizListCount + 1 === HOWManyLesson ? setGamen("finish") : setGamen("question");
