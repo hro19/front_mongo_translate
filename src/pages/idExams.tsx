@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useQuery } from "react-query";
 import axios from "axios";
 import RingLoader from "react-spinners/RingLoader";
 import ExamsChart from "./ExamsChart";
-import { useAtom } from "jotai";
-import { chartsAtom } from "../jotai/examsAtoms";
 import { Exam, ExamsWithRate, Chart } from "../ts/Exam";
 
 const IdExams = () => {
@@ -25,9 +24,7 @@ const IdExams = () => {
     );
     const exams = response.data;
 
-    return {
-      exams,
-    };
+    return exams;
   };
 
   //examsの各配列に試験ごとの正答率を加える
@@ -41,46 +38,38 @@ const IdExams = () => {
     });
   };
 
-  const [charts, setCharts] = useAtom(chartsAtom);
+  const { data: charts, isLoading } = useQuery("charts", async () => {
+    const promises: Promise<Chart>[] = results.map(async (result) => {
+      const exams = await taskIdFetching(result.id);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const promises: Promise<Chart>[] = results.map(async (result) => {
-        const taskExams = await taskIdFetching(result.id);
+      // テストの回数を算出
+      const totalCount = exams.length;
 
-        // テストの回数を算出
-        const totalCount = taskExams.exams.length;
+      // 正解回数を算出
+      const totalCorrectCount = exams.filter((exam: Exam) => exam.isCorrect).length;
 
-        // 正解回数を算出
-        const totalCorrectCount = taskExams.exams.filter(
-          (exam: Exam) => exam.isCorrect
-        ).length;
+      // 正答率を算出
+      const correctRate = (totalCorrectCount / totalCount) * 100;
 
-        // 正答率を算出
-        const correctRate = (totalCorrectCount / totalCount) * 100;
+      // examsWithRateはexamsとdailyRateを合わせたもの
+      const examsWithRates: ExamsWithRate[] = addDailyRateToExams(exams);
 
-        // examsWithRateはexamsとdailyRateを合わせたもの
-        const examsWithRates: ExamsWithRate[] = addDailyRateToExams(taskExams.exams);
+      return {
+        taskId: result.id,
+        name: result.name,
+        jaName: result.jaName,
+        totalCount,
+        totalCorrectCount,
+        correctRate,
+        examsWithRates,
+      };
+    });
 
-        return {
-          taskId: result.id,
-          name: result.name,
-          jaName: result.jaName,
-          totalCount,
-          totalCorrectCount,
-          correctRate,
-          examsWithRates,
-        };
-      });
+    const taskExams = await Promise.all(promises);
+    return taskExams;
+  });
 
-      const taskExams = await Promise.all(promises);
-      setCharts(taskExams);
-    };
-
-    fetchData();
-  }, []);
-
-  if (charts.length === 0) {
+  if (isLoading) {
     return (
       <div className="flex justify-center my-32">
         <RingLoader color="#36d7b7" />
@@ -91,18 +80,15 @@ const IdExams = () => {
   return (
     <div className="container mx-auto">
       <div className="my-8">
-        {charts.map((chart: Chart) => (
+        {charts && charts.map((chart: Chart) => (
           <div key={chart.taskId}>
-            <h2 className="text-2xl text-sky-700">
-              【英単語】{chart.name}
-              {/* {data.taskId} */}
-            </h2>
+            <h2 className="text-2xl text-sky-700">【英単語】{chart.name}</h2>
             <div className="flex flex-row text-sm text-sky-900 gap-6">
               <p>【最新の正答率】 {chart.correctRate.toFixed(2)}%</p>
               <p>試験回数:{chart.totalCount}</p>
               <p>試験の正解数:{chart.totalCorrectCount}</p>
             </div>
-              <ExamsChart exams={chart.examsWithRates} />
+            <ExamsChart exams={chart.examsWithRates} />
           </div>
         ))}
       </div>
