@@ -1,4 +1,5 @@
 import React from "react";
+import { AiTwotoneSound } from "react-icons/ai";
 import { useAtom } from "jotai";
 import {
   resultsAtom,
@@ -43,7 +44,10 @@ const SwitchFinish = () => {
                   onClick={() => speakText(result.name)}
                   className="btn btn-secondary h-8 ml-3"
                 >
-                  音声
+                  <AiTwotoneSound
+                    className="icon text-white inline-block"
+                    size="1.1rem"
+                  />
                 </button>
               </dt>
               <dd>【日本語】{result.jaName}</dd>
