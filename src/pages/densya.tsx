@@ -2,24 +2,25 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const Densya = () => {
-const [count, setCount] = useState(1);
+const [count, setCount] = useState(0);
   const [stepSize, setStepSize] = useState(0);
+  const tatalStep = 5;
 
   const handleCount = () => {
-    if (count < 10) {
+    if (count < tatalStep) {
       setCount(count + 1);
     }
   };
 
   const densyaVariants = {
-    initial: { x: "0%" },
+    initial: { x: "-20%" },
     animate: { x: `calc(${count} * ${stepSize}% - 100%)` },
   };
 
   useEffect(() => {
     const handleResize = () => {
       const screenWidth = window.innerWidth;
-      setStepSize(screenWidth / 10);
+      setStepSize(screenWidth / tatalStep);
     };
 
     window.addEventListener("resize", handleResize);
@@ -34,7 +35,7 @@ const [count, setCount] = useState(1);
     <div className="mt-24">
       <div
         style={{ backgroundImage: "url(/station.png)" }}
-        className="bg-no-repeat bg-contain w-[100px] h-[100px] absolute top-[31px] right-[0px] z-10"
+        className="bg-no-repeat bg-contain w-[100px] h-[100px] absolute top-[73px] right-[20px] z-10"
       ></div>
       <div
         style={{ backgroundImage: "url(/senro.png)" }}
@@ -42,7 +43,7 @@ const [count, setCount] = useState(1);
       >
         <motion.div
           style={{ backgroundImage: "url(/densya.png)" }}
-          className="bg-no-repeat bg-contain w-[100px] h-[100px] absolute bottom-[44px] z-20"
+          className="bg-no-repeat bg-contain w-[100px] h-[100px] absolute bottom-[44px] left-[-80px] z-20"
           variants={densyaVariants}
           initial="initial"
           animate="animate"
