@@ -38,7 +38,6 @@ const MaruBatsu = () => {
 
   return (
     <p>
-      <Head>{/* gsapのCDNリンクは不要 */}</Head>
       <style jsx>{`
         .double-circle:before {
           content: "";
