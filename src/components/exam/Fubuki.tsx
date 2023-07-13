@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import confetti from "canvas-confetti";
+import confetti, { Options } from "canvas-confetti";
 
 // 紙吹雪を生成する関数
-function createConfetti() {
+function createConfetti(): void {
   // 紙吹雪の設定
-  const options = {
+  const options: Options = {
     particleCount: 900, // 紙吹雪の数
     angle: 90, // 紙吹雪の放射方向の角度
     spread: 260, // 紙吹雪が広がる範囲
