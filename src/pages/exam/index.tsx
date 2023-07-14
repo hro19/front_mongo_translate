@@ -6,6 +6,7 @@ import {
 import SwitchDefault from "../../components/exam/SwitchDefault";
 import SwitchQanda from "../../components/exam/SwitchQanda";
 import SwitchFinish from "../../components/exam/SwitchFinish";
+import Densya from "../../components/exam/Densya";
 
 const Exam = ({ data }: { data: Task[] }) => {
   const [gamen] = useAtom(gamenAtom);
@@ -27,6 +28,7 @@ const Exam = ({ data }: { data: Task[] }) => {
           }
         })()}
       </div>
+      <Densya />
     </>
   );
 };
