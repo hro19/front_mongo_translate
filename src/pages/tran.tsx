@@ -16,7 +16,7 @@ const Tran = () => {
           {onOff ? "スイッチオフ" : "スイッチオン"}
         </div>
       </div>
-      <Transition in={onOff} timeout={500} mountOnEnter　unmountOnExit>
+      <Transition in={onOff} timeout={500} mountOnEnter unmountOnExit>
         {(state) => (
           <div
             style={{
