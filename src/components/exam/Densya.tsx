@@ -75,7 +75,9 @@ const Densya = () => {
                 style={{
                   position: "absolute",
                   top: "-10px",
-                  right: "calc(100% + 10px)",
+                  ...(quizListCount <= 2
+                    ? { left: "calc(100% + 10px)" }
+                    : { right: "calc(100% + 10px)" }),
                   minWidth: "160px",
                   maxWidth: "200px",
                   overflowWrap: "break-word",
@@ -88,7 +90,11 @@ const Densya = () => {
                 }}
               >
                 {randomText}
-                <i className="absolute bottom-5 right-[-4px] w-4 h-4 bg-yellow-600 transform rotate-45"></i>
+                <i
+                  className={`absolute bottom-5 ${
+                    quizListCount <= 2 ? "left-[-4px]" : "right-[-4px]"
+                  } w-4 h-4 bg-yellow-600 transform rotate-45`}
+                ></i>
               </div>
             )}
           </Transition>
