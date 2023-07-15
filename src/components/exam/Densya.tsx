@@ -46,7 +46,7 @@ const Densya = () => {
   }, []);
 
   useEffect(() => {
-    if (gamen === "answer") {
+    if (quizListCount !== 0 && gamen === "answer") {
       appearMsg();
     }
   }, [gamen]);
