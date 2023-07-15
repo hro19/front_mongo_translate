@@ -3,41 +3,39 @@ import { motion } from "framer-motion";
 import { Transition } from "react-transition-group";
 import styles from "./densya.module.css";
 
+const EncorageMsg: string[] = [
+  "成功の反対は失敗ではなく「やらないこと」だ",
+  "君が弱ェワケはねェんだよ……この問題が難しすぎるんだ!!!",
+  "小さなことを積み重ねることが、とんでもないところへ行くただ一つの道",
+  "自信は持てど、過信はするな",
+];
+
 const Densya = () => {
   const [count, setCount] = useState(0);
   const [isJadge, setIsJadge] = useState<boolean | null>(false);
-  const [stepSize, setStepSize] = useState(0);
+  const [onOff, setOnOff] = useState<boolean>(false);
+  const [randomText, setRandomText] = useState<string>("");
+  const [stepSize, setStepSize] = useState<number>(0);
   const totalStep = 5;
 
   const handleCount = () => {
     if (count < totalStep) {
       setCount(count + 1);
+      appearMsg();
     }
+  };
+
+  const appearMsg = () => {
+    setRandomText(EncorageMsg[Math.floor(Math.random() * EncorageMsg.length)]);
+    setOnOff(true);
+    setTimeout(() => {
+      setOnOff(false);
+    }, 3500);
   };
 
   const densyaVariants = {
     initial: { x: "-20%" },
     animate: { x: `calc(${count} * ${stepSize}% - 100%)` },
-  };
-
-  const GreatMsg: string[] = [
-    "小さなことを積み重ねることが、とんでもないところへ行くただ一つの道",
-    "自信は持てど、過信はするな",
-  ];
-
-  const EncorageMsg: string[] = [
-    "成功の反対は失敗ではなく「やらないこと」だ",
-    "お前が弱ェワケはねェんだよ……この問題が難しすぎるんだ!!!",
-    "",
-  ];
-
-  const [onOff, setOnOff] = useState(false);
-
-  const handleToggle = () => {
-    setOnOff(true);
-    setTimeout(() => {
-      setOnOff(false);
-    }, 2000);
   };
 
   useEffect(() => {
@@ -77,18 +75,20 @@ const Densya = () => {
                 style={{
                   position: "absolute",
                   top: "-10px",
-                  right: "100%",
+                  right: "calc(100% + 10px)",
+                  minWidth: "160px",
                   maxWidth: "200px",
                   overflowWrap: "break-word",
                   color: "#ffffff",
                   padding: "10px 20px",
                   borderRadius: "14px",
-                  backgroundColor: "#f1c70e",
+                  backgroundColor: "#CA8A04",
                   transition: "opacity 0.3s ease-in",
                   opacity: state === "entered" ? 1 : 0,
                 }}
               >
-                fsdasdfsfdsfsdaasdf
+                {randomText}
+                <i className="absolute bottom-5 right-[-4px] w-4 h-4 bg-yellow-600 transform rotate-45"></i>
               </div>
             )}
           </Transition>
@@ -97,9 +97,6 @@ const Densya = () => {
       <button onClick={handleCount} className="btn mb-2 btn-accent text-white ml-2">
         カウント
       </button>
-      <div className="btn btn-primary mr-1" onClick={handleToggle}>
-        {onOff ? "スイッチオフ" : "スイッチオン"}
-      </div>
     </div>
   );
 };
