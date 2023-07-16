@@ -1,10 +1,10 @@
 import React from "react";
 import { useQuery } from "react-query";
-import axios from "axios";
 import RingLoader from "react-spinners/RingLoader";
 import ExamsChart from "./ExamsChart";
 import { Exam, Chart, Result } from "../ts/Exam";
 import { AnalyExams } from "@/class/AnalyExams";
+import { getExams } from "@/api/exam/getExams";
 
 const IdExams = () => {
   const results: Pick<Result, "_id" | "name" | "jaName">[] = [
@@ -19,18 +19,9 @@ const IdExams = () => {
     { _id: "64ad9a9fc711e2b62c713a0a", name: "convince", jaName: "納得させる" },
   ];
 
-  const taskIdFetching = async (_id: string): Promise<Exam[]> => {
-    const response = await axios.get(
-      `https://back-mongo-task2.vercel.app/api/v1/tasks/${_id}/exams`
-    );
-    const exams = response.data;
-
-    return exams;
-  };
-
   //チャート用のデータオブジェクトの配列をmapにて作成
   const promises: Promise<Chart>[] = results.map(async (result) => {
-    const exams: Exam[] = await taskIdFetching(result._id);
+    const exams: Exam[] = await getExams(result._id);
     const analyExams = new AnalyExams(exams);
 
     return {
