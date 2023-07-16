@@ -1,5 +1,7 @@
 import React from "react";
 import { AiTwotoneSound } from "react-icons/ai";
+import { Result } from "../../ts/Exam";
+import { If } from "../../ts/TsUtility";
 import { useAtom } from "jotai";
 import {
   quizListDataAtom,
@@ -22,9 +24,13 @@ const SwitchFinish = () => {
 
   const router = useRouter();
 
-  const failedResults = results.filter((result) => !result.isCorrect);
-  const hasFailures = failedResults.length > 0;
-  const title = hasFailures ? "今一度単語を確認しよう" : "あなたの回答は100点満点";
+  const failedResults: Result[] = results.filter((result) => !result.isCorrect);
+  const hasFailures:boolean = failedResults.length > 0;
+
+  type FinishTitle = If<typeof hasFailures, string, string>;
+  const finishTitle: FinishTitle = hasFailures
+    ? "今一度単語を確認しよう"
+    : "あなたの回答は100点満点";
 
   const handleRetry = () => {
     setQuizListData(RESET);
@@ -37,7 +43,7 @@ const SwitchFinish = () => {
 
   return (
     <>
-      <h2 className="text-2xl font-bold mb-2">{title}</h2>
+      <h2 className="text-2xl font-bold mb-2">{finishTitle}</h2>
       {hasFailures && (
         <>
           {failedResults.map((result, index) => (
