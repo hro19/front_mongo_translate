@@ -12,15 +12,21 @@ import {
 } from "recharts";
 import { ExamsWithRate } from "../ts/Exam";
 
-const ExamsChart = ({ exams }: { exams: ExamsWithRate[] }) => {
-  if (!exams || exams.length <= 1) {
-    return <div className="text-2xl text-red-500">チャート表記するための十分な試験データがありません</div>;
+const ExamsChart = ({ examsWithRates }: { examsWithRates: ExamsWithRate[] }) => {
+  if (!examsWithRates || examsWithRates.length <= 1) {
+    return (
+      <div className="text-2xl text-red-500">
+        チャート表記するための十分な試験データがありません
+      </div>
+    );
   }
 
-  const data: { date: string; 正解率: number }[] = exams.map((exam: ExamsWithRate) => ({
-    date: format(new Date(exam.created_at), "yy年M月d日"),
-    正解率: exam.dailyRate, // dailyRateを正解率として使用
-  }));
+  const data: { date: string; 正解率: number }[] = examsWithRates.map(
+    (examsWithRate: ExamsWithRate) => ({
+      date: format(new Date(examsWithRate.created_at), "yy年M月d日"),
+      正解率: examsWithRate.dailyRate, // dailyRateを正解率として使用
+    })
+  );
 
   return (
     <div className="my-8 pb-8">
