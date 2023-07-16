@@ -68,7 +68,7 @@ const IdExams = () => {
                 【{chart.name}】{chart.jaName}
               </h2>
               <div className="flex flex-row text-sm text-sky-900 gap-6">
-                <p>【最新の正答率】 {chart.correctRate.toFixed(2)}%</p>
+                <p>【最新の正答率】 {chart.correctRate}%</p>
                 <p>試験回数:{chart.totalCount}</p>
                 <p>試験の正解数:{chart.totalCorrectCount}</p>
               </div>
