@@ -10,8 +10,11 @@ const TypeChall = () => {
   const [result, setResult] = useState<Result>("Hello");
 
   const handleToggle = () => {
-    setIsJadge((prevIsJadge) => !prevIsJadge);
-    setResult(isJadge ? "World" : "Hello");
+    setIsJadge((prevIsJadge) => {
+      const newIsJadge = !prevIsJadge;
+      setResult(newIsJadge ? "Hello" : "World");
+      return newIsJadge;
+    });
   };
 
   return (
