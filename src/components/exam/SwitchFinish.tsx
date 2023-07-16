@@ -27,7 +27,7 @@ const SwitchFinish = () => {
   const failedResults: Result[] = results.filter((result) => !result.isCorrect);
   const hasFailures: boolean = failedResults.length > 0;
   
-  const reviewMsg = "あなたの回答は100点満点" as const;
+  const reviewMsg = "今一度単語を確認しよう" as const;
   const completedMsg = "あなたの回答は100点満点" as const;
 
   type FinishTitle = If<typeof hasFailures, typeof reviewMsg, typeof completedMsg>;
