@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { CandidatesTask } from "../../ts/Task";
-import { ExamCreate } from "../../ts/Exam";
+import { Exam } from "../../ts/Exam";
 import { useAtom } from "jotai";
 import {
   HOWManyLesson,
@@ -23,7 +23,7 @@ const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) 
   const [results, setResults] = useAtom(resultsAtom);
 
   // DBに保存するためにAPIにpost送信する
-  const createExamResult = async (newData: ExamCreate): Promise<void> => {
+  const createExamResult = async (newData: Pick<Exam, "taskId" | "isCorrect">): Promise<void> => {
     try {
       const response = await axios.post(
         "https://back-mongo-task2.vercel.app/api/v1/exams/",
@@ -49,7 +49,7 @@ const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) 
   //次の問題へボタン　もしくはスキップEnter
   const nextQuizHandle = async (currentQuizData: CandidatesTask) => {
     //Post用のデータ
-    let newData: ExamCreate = {
+    let newData: Pick<Exam, "taskId" | "isCorrect"> = {
       taskId: results[quizListCount]._id,
       isCorrect: results[quizListCount].isCorrect,
     };
@@ -75,7 +75,7 @@ const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) 
     setRemainingTime(RESET);
 
     // setQuizListCountを使うと非同期で計算が遅れるためにquizListCountを利用して計算する。
-    quizListCount + 1 === HOWManyLesson ? setGamen("finish") : setGamen("question");
+    setGamen(quizListCount + 1 === HOWManyLesson ? "finish" : "question");
   };
 
   //エンターkeyを押したときに次の問題に行くためのトリガー設定
