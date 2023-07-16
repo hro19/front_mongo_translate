@@ -45,5 +45,5 @@ export const initialSpeechOptionsAtom = atom(initialSpeechOptions);
 
 //品詞のkeyから日本語の文字
 export const getSpeechLabel = (speech: keyof typeof initialSpeechOptions) => {
-  return initialSpeechOptions[speech] || "";
+  return initialSpeechOptions[speech];
 };

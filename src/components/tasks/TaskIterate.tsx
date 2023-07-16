@@ -5,6 +5,7 @@ import TaskDelete from "./TaskDelete";
 import { Task } from "../../ts/Task";
 import { useAtom } from "jotai";
 import { initialSpeechOptionsAtom, getSpeechLabel } from "../../jotai/atoms";
+
 const TaskIterate = ({ tasks }: { tasks : Task[]}) => {
   const [initialSpeechOptions] = useAtom(
     initialSpeechOptionsAtom
@@ -24,7 +25,7 @@ const TaskIterate = ({ tasks }: { tasks : Task[]}) => {
               </td>
               <td className="border px-1 md:px-4 py-2">{task.jaName}</td>
               <td className="border px-1 md:px-4 py-2">
-                {getSpeechLabel(task.speech as keyof typeof initialSpeechOptions)}
+                {getSpeechLabel(task.speech)}
               </td>
               <td className="border px-1 md:px-4 py-2">{task.completed ? "✅" : "❌"}</td>
               <td className="border px-1 md:px-4 py-2">
