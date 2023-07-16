@@ -25,12 +25,13 @@ const SwitchFinish = () => {
   const router = useRouter();
 
   const failedResults: Result[] = results.filter((result) => !result.isCorrect);
-  const hasFailures:boolean = failedResults.length > 0;
+  const hasFailures: boolean = failedResults.length > 0;
+  
+  const reviewMsg = "あなたの回答は100点満点" as const;
+  const completedMsg = "あなたの回答は100点満点" as const;
 
-  type FinishTitle = If<typeof hasFailures, string, string>;
-  const finishTitle: FinishTitle = hasFailures
-    ? "今一度単語を確認しよう"
-    : "あなたの回答は100点満点";
+  type FinishTitle = If<typeof hasFailures, typeof reviewMsg, typeof completedMsg>;
+  const finishTitle: FinishTitle = hasFailures ? reviewMsg : completedMsg;
 
   const handleRetry = () => {
     setQuizListData(RESET);
@@ -46,7 +47,7 @@ const SwitchFinish = () => {
       <h2 className="text-2xl font-bold mb-2">{finishTitle}</h2>
       {hasFailures && (
         <>
-          {failedResults.map((result, index) => (
+          {failedResults.map((result: Result, index:number) => (
             <dl key={index} className="mb-2">
               <dt className="text-lg font-bold">
                 【英語】{result.name}
