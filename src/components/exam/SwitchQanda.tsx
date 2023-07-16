@@ -4,7 +4,6 @@ import { useAtom } from "jotai";
 import {
   gamenAtom,
   quizListCountAtom,
-  isJadgeAtom,
   quizListDataAtom
 } from "../../jotai/examsAtoms";
 import QuizButton from "../../components/exam/QuizButton";
@@ -15,7 +14,6 @@ import SwithchAnswer from "../../components/exam/SwitchAnswer";
 const SwitchQanda = () => {
   const [gamen, setGamen] = useAtom(gamenAtom);
   const [quizListCount, setQuizListCount] = useAtom(quizListCountAtom);
-  const [isJadge, setIsJadge] = useAtom(isJadgeAtom);
   const [quizListData, setquizListData] = useAtom(quizListDataAtom);
 
   return (
