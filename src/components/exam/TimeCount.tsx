@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import styles from "./TimeCount.module.css";
 import { useAtom } from "jotai";
-import {
-  gamenAtom,
-  isTimeZeroAtom,
-  remainingTimeAtom,
-} from "../../jotai/examsAtoms";
+import { gamenAtom, isTimeZeroAtom, remainingTimeAtom } from "../../jotai/examsAtoms";
 
 function TimeCount() {
   const [gamen, setGamen] = useAtom(gamenAtom);
@@ -14,30 +10,26 @@ function TimeCount() {
 
   const [remainingTime, setRemainingTime] = useAtom(remainingTimeAtom);
 
-  useEffect(() => {
-    if (gamen === "question") {
-      const countdownInterval = setInterval(() => {
-        if (remainingTime > 0) {
-          setRemainingTime((prevTime) => prevTime - 1);
-        } else {
-          clearInterval(countdownInterval);
-        }
-      }, 1000);
+useEffect(() => {
+  if (gamen === "question") {
+    let Timer = remainingTime;
 
-      return () => {
-        clearInterval(countdownInterval);
-      };
-    }
-  }, [gamen]);
-
-  useEffect(() => {
-    if (remainingTime === 0) {
-      setIsTimeZero(true);
-      setTimeout(() => {
+    const countdownInterval = setInterval(() => {
+      if (Timer > 0) {
+        Timer -= 1;
+        setRemainingTime((prevTime) => prevTime - 1);
+      } else if (Timer === 0) {
+        setIsTimeZero(true);
         setGamen("answer");
-      }, 500);
-    }
-  }, [remainingTime]);
+        clearInterval(countdownInterval);
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(countdownInterval);
+    };
+  }
+}, [gamen]);
 
   return (
     <div className={styles["countdown-container"]}>
