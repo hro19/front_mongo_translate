@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { CandidatesTask, JadgeTask } from "@/ts/Task";
+import React from "react";
+import { JadgeTask } from "@/ts/Task";
 import { useAtom } from "jotai";
 import {
   gamenAtom,
@@ -18,12 +18,6 @@ const SwitchQanda = () => {
   const [isJadge, setIsJadge] = useAtom(isJadgeAtom);
   const [quizListData, setquizListData] = useAtom(quizListDataAtom);
 
-  //回答ボタンを押したときの反応
-  const answeringHandle = (name: string, currentQuizData: CandidatesTask) => {
-    setIsJadge(name === currentQuizData.name ? true : false);
-    setGamen("answer");
-  };
-
   return (
     <div>
       {quizListData && quizListData[quizListCount] && (
@@ -40,10 +34,9 @@ const SwitchQanda = () => {
               (candidate: JadgeTask, index: number) => (
                 <QuizButton
                   key={index}
-                  onClick={() =>
-                    answeringHandle(candidate.name, quizListData[quizListCount])
-                  }
                   candidate={candidate}
+                  name={candidate.name}
+                  currentQuizData ={quizListData[quizListCount]}
                 />
               )
             )}

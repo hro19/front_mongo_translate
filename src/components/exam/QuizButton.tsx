@@ -1,15 +1,23 @@
 import React from "react";
-import { JadgeTask } from "@/ts/Task";
+import { CandidatesTask, JadgeTask } from "@/ts/Task";
 import { useAtom } from "jotai";
-import { gamenAtom } from "../../jotai/examsAtoms";
+import { gamenAtom, isJadgeAtom } from "../../jotai/examsAtoms";
 
 type QuizButtonProps = {
-  onClick: () => void;
   candidate: JadgeTask;
+  name: string;
+  currentQuizData: CandidatesTask;
 };
 
-const QuizButton = ({ onClick, candidate }: QuizButtonProps) => {
+const QuizButton = ({ candidate, name, currentQuizData }: QuizButtonProps) => {
   const [gamen, setGamen] = useAtom(gamenAtom);
+  const [isJadge, setIsJadge] = useAtom(isJadgeAtom);
+
+  //回答ボタンを押したときの反応
+  const answeringHandle = (name: string, currentQuizData: CandidatesTask) => {
+    setIsJadge(name === currentQuizData.name ? true : false);
+    setGamen("answer");
+  };
 
   return (
     <li>
@@ -21,7 +29,7 @@ const QuizButton = ({ onClick, candidate }: QuizButtonProps) => {
             ? "disabled:bg-error disabled:text-white"
             : ""
         }`}
-        onClick={onClick}
+        onClick={() => answeringHandle(name, currentQuizData)}
         disabled={gamen === "answer"}
       >
         {gamen === "answer" ? `${candidate.name} | ` : ""}
