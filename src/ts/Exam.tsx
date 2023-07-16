@@ -17,12 +17,10 @@ export type ExamsWithRate = Exam & {
   dailyRate: number;
 };
 
-export type Chart = {
-  taskId: string;
-  name: string;
-  jaName: string;
-  totalCount: number;
-  totalCorrectCount: number;
-  correctRate: number;
-  examsWithRates: ExamsWithRate[];
-};
+export type Chart = Pick<Task, "name" | "jaName"> &
+  Pick<Exam, "taskId"> & {
+    totalCount: number;
+    totalCorrectCount: number;
+    correctRate: number;
+    examsWithRates: ExamsWithRate[];
+  };
