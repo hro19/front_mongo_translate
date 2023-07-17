@@ -4,7 +4,7 @@ import RingLoader from "react-spinners/RingLoader";
 import ExamsChart from "./ExamsChart";
 import { Exam, Chart, Result } from "../ts/Exam";
 import { AnalyExams } from "@/class/AnalyExams";
-import { getExams } from "@/api/exam/getExams";
+import { getExams } from "@/api/exam";
 
 const IdExams = () => {
   const results: Pick<Result, "_id" | "name" | "jaName">[] = [

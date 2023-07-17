@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Exam } from "../../ts/Exam"
+import { Exam } from "@/ts/Exam";
 
 export const getExams = async (_id: string): Promise<Exam[]> => {
   const response = await axios.get(
