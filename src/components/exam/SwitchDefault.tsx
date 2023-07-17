@@ -10,6 +10,7 @@ import {
   quizListDataAtom,
 } from "../../jotai/examsAtoms";
 import { selectRandomQuiz } from "../../components/exam/quizUtils";
+import QuizSetting from "./QuizSetting";
 
 const SwitchDefault = ({ data }: { data: Task[] }) => {
   const [gamen, setGamen] = useAtom(gamenAtom);
@@ -44,6 +45,7 @@ const SwitchDefault = ({ data }: { data: Task[] }) => {
       <button onClick={() => startBtn("verb")} className="btn btn-info">
         【動詞単語】テストをスタート
       </button>
+      <QuizSetting />
     </div>
   );
 };
