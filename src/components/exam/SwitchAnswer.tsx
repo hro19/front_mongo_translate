@@ -13,6 +13,7 @@ import {
   resultsAtom,
 } from "../../jotai/examsAtoms";
 import { RESET } from "jotai/utils";
+import { createExam } from "../../api/exam";
 
 const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) => {
   const [gamen, setGamen] = useAtom(gamenAtom);
@@ -21,21 +22,6 @@ const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) 
   const [isTimeZero, setIsTimeZero] = useAtom(isTimeZeroAtom);
   const [remainingTime, setRemainingTime] = useAtom(remainingTimeAtom);
   const [results, setResults] = useAtom(resultsAtom);
-
-  // DBに保存するためにAPIにpost送信する
-  const createExamResult = async (newData: Pick<Exam, "taskId" | "isCorrect">): Promise<void> => {
-    try {
-      const response = await axios.post(
-        "https://back-mongo-task2.vercel.app/api/v1/exams/",
-        newData
-      );
-
-      // 成功した場合の処理を記述
-    } catch (error: any) {
-      console.log(error.message);
-      // エラー時の処理を記述
-    }
-  };
 
   //isCorrectの値を不正解ならば値をfalseに変更する
   const updateResults = async (): Promise<void> => {
@@ -61,12 +47,12 @@ const SwitchAnswer = ({ currentQuizData }: { currentQuizData: CandidatesTask }) 
     if (shouldUpdateResults) {
       try {
         await updateResults();
-        createExamResult({ ...newData, isCorrect: false });
+        createExam({ ...newData, isCorrect: false });
       } catch (error: any) {
         console.log(error.message);
       }
     } else {
-      createExamResult(newData);
+      createExam(newData);
     }
 
     setQuizListCount((prevCount) => prevCount + 1);

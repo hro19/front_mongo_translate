@@ -9,3 +9,20 @@ export const getExams = async (_id: string): Promise<Exam[]> => {
 
   return exams;
 };
+
+  // DBに保存するためにAPIにpost送信する
+export const createExam = async (
+  newData: Pick<Exam, "taskId" | "isCorrect">
+): Promise<void> => {
+  try {
+    const response = await axios.post(
+      "https://back-mongo-task2.vercel.app/api/v1/exams/",
+      newData
+    );
+
+    // 成功した場合の処理を記述
+  } catch (error: any) {
+    console.log(error.message);
+    // エラー時の処理を記述
+  }
+};
