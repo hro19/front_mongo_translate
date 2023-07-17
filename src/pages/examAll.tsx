@@ -70,6 +70,7 @@ const ExamAll = () => {
           <tbody>
             {sortedExams.map((exam: Exam) => (
               <tr key={exam._id}>
+                <td>{format(new Date(exam.created_at), "yyyy/MM/dd HH:mm:ss")}</td>
                 <td>{exam._id}</td>
                 <td>{exam.taskId}</td>
                 <td>{exam.isCorrect.toString()}</td>
