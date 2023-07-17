@@ -51,7 +51,7 @@ const ExamAll = () => {
   };
 
   return (
-    <div>
+    <div className="container mx-auto">
       <h2 className="text-3xl text-lime-500 border-b border-green-700">試験結果一覧</h2>
       <button className="btn btn-error" onClick={handleRandomDelete}>大量ランダム削除</button>
       {sortedExams && sortedExams.length === 0 ? (
@@ -68,9 +68,8 @@ const ExamAll = () => {
             </tr>
           </thead>
           <tbody>
-            {sortedExams.map((exam: any) => (
+            {sortedExams.map((exam: Exam) => (
               <tr key={exam._id}>
-                <td>{format(new Date(exam.created_at), "yyyy/MM/dd HH:mm:ss")}</td>
                 <td>{exam._id}</td>
                 <td>{exam.taskId}</td>
                 <td>{exam.isCorrect.toString()}</td>
