@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import { format } from "date-fns";
@@ -19,25 +19,42 @@ const ExamAll = () => {
 
   const { data: exams = [] } = useQuery("exams", fetchExams);
 
-  // examsをcreated_atプロパティで降順ソート
-  const sortedExams = exams.sort((a: Exam, b: Exam) => {
-    return df.compareAsc(new Date(b.created_at), new Date(a.created_at));
-  });
+  const [sortedExams, setSortedExams] = useState([]);
+  useEffect(() => {
+    // examsをcreated_atプロパティで降順ソート
+    const sorted = exams.sort((a: Exam, b: Exam) => {
+      return df.compareAsc(new Date(b.created_at), new Date(a.created_at));
+    });
+    setSortedExams(sorted);
+  }, [exams]);
 
+  const queryKey = "exams";
   const mutation = useMutation(deleteExam, {
     onSuccess: () => {
-      queryClient.invalidateQueries("exams");
+      queryClient.invalidateQueries(queryKey);
     },
   });
 
   const handleDelete = (id: string) => {
-    mutation.mutate(id);
+    mutation.mutateAsync(id);
+  };
+
+  const handleRandomDelete = async () => {
+    // ランダムな60件の試験結果を取得
+    const randomizedExams = exams.slice().sort(() => Math.random() - 0.5);
+    const randomExams = randomizedExams.slice(0, 60);
+
+    // 削除処理を実行
+    for (const exam of randomExams) {
+      await mutation.mutateAsync(exam._id);
+    }
   };
 
   return (
     <div>
       <h2 className="text-3xl text-lime-500 border-b border-green-700">試験結果一覧</h2>
-      {sortedExams.length === 0 ? (
+      <button className="btn btn-error" onClick={handleRandomDelete}>大量ランダム削除</button>
+      {sortedExams && sortedExams.length === 0 ? (
         <p>No exam results found.</p>
       ) : (
         <table className="table">
