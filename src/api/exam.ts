@@ -10,7 +10,7 @@ export const getExams = async (_id: string): Promise<Exam[]> => {
   return exams;
 };
 
-  // DBに保存するためにAPIにpost送信する
+// DBに保存するためにAPIにpost送信する
 export const createExam = async (
   newData: Pick<Exam, "taskId" | "isCorrect">
 ): Promise<void> => {

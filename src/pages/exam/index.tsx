@@ -1,12 +1,11 @@
 import { Task } from "@/ts/Task";
 import { useAtom } from "jotai";
-import {
-  gamenAtom,
-} from "../../jotai/examsAtoms";
+import { gamenAtom } from "../../jotai/examsAtoms";
 import SwitchDefault from "../../components/exam/SwitchDefault";
 import SwitchQanda from "../../components/exam/SwitchQanda";
 import SwitchFinish from "../../components/exam/SwitchFinish";
 import Densya from "../../components/exam/Densya";
+import { getAllTasks } from "../../api/task";
 
 const Exam = ({ data }: { data: Task[] }) => {
   const [gamen] = useAtom(gamenAtom);
@@ -34,23 +33,13 @@ const Exam = ({ data }: { data: Task[] }) => {
 };
 
 export async function getServerSideProps() {
-  try {
-    const response = await fetch("https://back-mongo-task2.vercel.app/api/v1/tasks");
-    const data = await response.json();
+  const data = await getAllTasks();
 
-    return {
-      props: {
-        data,
-      },
-    };
-  } catch (error) {
-    console.log("Error fetching data:", error);
-    return {
-      props: {
-        data: [],
-      },
-    };
-  }
+  return {
+    props: {
+      data,
+    },
+  };
 }
 
 export default Exam;
