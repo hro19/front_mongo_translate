@@ -1,9 +1,9 @@
 import React, { useEffect,useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios from "axios";
-import { format } from "date-fns";
 import * as df from "date-fns";
 import { Exam } from "../ts/Exam";
+import { dateUntilByou } from "@/utils/dateFns";
 
 const ExamAll = () => {
   const queryClient = useQueryClient();
@@ -53,7 +53,9 @@ const ExamAll = () => {
   return (
     <div className="container mx-auto">
       <h2 className="text-3xl text-lime-500 border-b border-green-700">試験結果一覧</h2>
-      <button className="btn btn-error" onClick={handleRandomDelete}>大量ランダム削除</button>
+      <button className="btn btn-error" onClick={handleRandomDelete}>
+        大量ランダム削除
+      </button>
       {sortedExams && sortedExams.length === 0 ? (
         <p>No exam results found.</p>
       ) : (
@@ -70,7 +72,7 @@ const ExamAll = () => {
           <tbody>
             {sortedExams.map((exam: Exam) => (
               <tr key={exam._id}>
-                <td>{format(new Date(exam.created_at), "yyyy/MM/dd HH:mm:ss")}</td>
+                <td>{dateUntilByou(exam.created_at)}</td>
                 <td>{exam._id}</td>
                 <td>{exam.taskId}</td>
                 <td>{exam.isCorrect.toString()}</td>
