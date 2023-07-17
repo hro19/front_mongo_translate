@@ -12,9 +12,8 @@ export const dateUntilFun = (created_at: Date) =>
 export const dateUntilZi = (created_at: Date) =>
   format(new Date(created_at), "yyyy/MM/dd HH");
 
-// 2023/07/17
-export const dateUntilDay = (created_at: Date) =>
-  format(new Date(created_at), "yyyy/MM/dd");
+// 23年07月17日
+export const dateUntilDayJap = (created_at: Date) => format(new Date(created_at), "yy年M月d日");
 
 // 07/17
 export const dateMonthDay = (created_at: Date) =>

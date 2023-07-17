@@ -11,6 +11,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { ExamsWithRate } from "../ts/Exam";
+import { dateUntilDayJap } from "../utils/dateFns";
 
 const ExamsChart = ({ examsWithRates }: { examsWithRates: ExamsWithRate[] }) => {
   if (!examsWithRates || examsWithRates.length <= 1) {
@@ -23,7 +24,7 @@ const ExamsChart = ({ examsWithRates }: { examsWithRates: ExamsWithRate[] }) => 
 
   const data: { date: string; 正解率: number }[] = examsWithRates.map(
     (examsWithRate: ExamsWithRate) => ({
-      date: format(new Date(examsWithRate.created_at), "yy年M月d日"),
+      date: dateUntilDayJap(examsWithRate.created_at),
       正解率: examsWithRate.dailyRate, // dailyRateを正解率として使用
     })
   );
