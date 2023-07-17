@@ -22,7 +22,7 @@ const IdExams = () => {
   //チャート用のデータオブジェクトの配列をmapにて作成
   const promises: Promise<Chart>[] = results.map(async (result) => {
     const exams: Exam[] = await getExams(result._id);
-    const analyExams = new AnalyExams(exams);
+    const analyExams: AnalyExams = new AnalyExams(exams);
 
     return {
       taskId: result._id,
