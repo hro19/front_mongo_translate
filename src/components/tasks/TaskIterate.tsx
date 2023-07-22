@@ -6,16 +6,17 @@ import { Task } from "../../ts/Task";
 import { useAtom } from "jotai";
 import { initialSpeechOptionsAtom, getSpeechLabel } from "../../jotai/atoms";
 
-const TaskIterate = ({ tasks }: { tasks : Task[]}) => {
-  const [initialSpeechOptions] = useAtom(
-    initialSpeechOptionsAtom
-  );
+const TaskIterate = ({ tasks }: { tasks: Task[] }) => {
+  const [initialSpeechOptions] = useAtom(initialSpeechOptionsAtom);
+
+  // tasks 配列を逆順に並び替える
+  const reversedTasks = tasks.slice().reverse();
 
   return (
     <>
       <tbody>
-        {tasks &&
-          tasks.map((task: Task, index: number) => (
+        {reversedTasks &&
+          reversedTasks.map((task: Task, index: number) => (
             <tr key={task._id} id={task._id}>
               <td className="border px-1 md:px-4 py-2">{index + 1}</td>
               <td className="border px-1 md:px-4 py-2">
@@ -24,9 +25,7 @@ const TaskIterate = ({ tasks }: { tasks : Task[]}) => {
                 </Link>
               </td>
               <td className="border px-1 md:px-4 py-2">{task.jaName}</td>
-              <td className="border px-1 md:px-4 py-2">
-                {getSpeechLabel(task.speech)}
-              </td>
+              <td className="border px-1 md:px-4 py-2">{getSpeechLabel(task.speech)}</td>
               <td className="border px-1 md:px-4 py-2">{task.completed ? "✅" : "❌"}</td>
               <td className="border px-1 md:px-4 py-2">
                 <Modalpop task={task} />

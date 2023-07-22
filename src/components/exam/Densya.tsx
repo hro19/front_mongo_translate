@@ -9,6 +9,7 @@ const EncorageMsg: string[] = [
   "君が弱ェワケはねェんだよ……この問題が難しすぎるんだ!!!",
   "小さなことを積み重ねることが、とんでもないところへ行くただ一つの道",
   "自信は持てど、過信はするな",
+  "With great power comes great responsibility.（大いなる力には、大いなる責任が伴う）",
 ];
 
 const Densya = () => {
