@@ -42,7 +42,7 @@ const filteredTasks = tasks
     <>
       <div className="flex flex-nowrap items-center align my-4">
         <TaskSelect />
-        <TaskAllSounds />
+        <TaskAllSounds tasks={tasks} />
       </div>
       <table className="table-auto w-full">
         <thead>
