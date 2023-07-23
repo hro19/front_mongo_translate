@@ -3,6 +3,7 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import TopFilter from "./TopFilter";
 import TopSkeleton from "./TopSkeleton";
+import { Translate } from "@/ts/Translate";
 
 const TopLatest = () => {
 
@@ -13,15 +14,7 @@ const TopLatest = () => {
     return response.data;
   };
 
-  const { data, isLoading, isError, error } = useQuery<any, Error>(
-    "translates",
-    fetchTranslates,
-    {
-      onSuccess: (data) => {
-        // setShowPosts(data);
-      },
-    }
-  );
+  const { data, isLoading, isError, error } = useQuery<Translate[],Error>("translates",fetchTranslates);
 
   //ローディング時にスケルトンにて対応
   if (isLoading) {

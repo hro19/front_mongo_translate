@@ -1,7 +1,8 @@
 import React from "react";
 import { AiOutlineDownCircle } from "react-icons/ai";
+import { Translate } from "@/ts/Translate";
 
-const TopFilterItem = ({ post}: any) => {
+const TopFilterItem = ({ post }: { post: Translate }) => {
   return (
     <div key={post._id}>
       <div className="card">
@@ -10,10 +11,7 @@ const TopFilterItem = ({ post}: any) => {
           <div className="collapse-title text-2xl text-gray-950 rounded-2xl border border-lime-500 [input:checked~&]:bg-lime-500 [input:checked~&]:text-white [input:checked~&]:border-gray-100 [input:checked~&]:border-b-0 [input:checked~&]:rounded-none">
             {post.enContent}
             <span className="absolute right-4 transform transition-transform">
-              <AiOutlineDownCircle
-                className="icon inline-block"
-                size="1.7rem"
-              />
+              <AiOutlineDownCircle className="icon inline-block" size="1.7rem" />
             </span>
           </div>
           <div className="collapse-content bg-orange-500 border border-gray-300 border-t-0">
