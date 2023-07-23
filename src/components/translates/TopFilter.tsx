@@ -70,7 +70,7 @@ const TopFilter = ({ data }: any) => {
           id="sortOrder"
           value={sortOrder}
           onChange={handleSortChange}
-          className="select select-accent mr-2"
+          className="select select-accent mr-2 bg-white"
         >
           <option value="desc">降順</option>
           <option value="asc">昇順</option>
@@ -82,7 +82,7 @@ const TopFilter = ({ data }: any) => {
           id="pageSize"
           value={pageSize}
           onChange={handlePageSizeChange}
-          className="select select-accent mr-2"
+          className="select select-accent mr-2 bg-white"
         >
           <option value={10}>10件</option>
           <option value={20}>20件</option>
@@ -96,7 +96,7 @@ const TopFilter = ({ data }: any) => {
           id="filterOption"
           value={filterOption}
           onChange={handleFilterChange}
-          className="select select-accent mr-2"
+          className="select select-accent mr-2 bg-white"
         >
           <option value="default">全て</option>
           <option value="long">長文</option>
