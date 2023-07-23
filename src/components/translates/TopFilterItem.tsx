@@ -8,7 +8,7 @@ const TopFilterItem = ({ post }: { post: Translate }) => {
       <div className="card">
         <div className="collapse bg-base-200 mb-2 text-white">
           <input type="checkbox" className="peer" />
-          <div className="collapse-title text-2xl text-gray-950 rounded-2xl bg-base-200 border border-lime-500 [input:checked~&]:bg-lime-500 [input:checked~&]:text-white [input:checked~&]:border-gray-100 [input:checked~&]:border-b-0 [input:checked~&]:rounded-none">
+          <div className="collapse-title text-2xl text-gray-950 rounded-2xl bg-white border border-lime-500 [input:checked~&]:bg-lime-500 [input:checked~&]:text-white [input:checked~&]:border-gray-100 [input:checked~&]:border-b-0 [input:checked~&]:rounded-none">
             {post.enContent}
             <span className="absolute right-4 transform transition-transform">
               <AiOutlineDownCircle className="icon inline-block" size="1.7rem" />
