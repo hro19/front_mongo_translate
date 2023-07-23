@@ -7,7 +7,7 @@ const TopFilterItem = ({ post }: { post: Translate }) => {
     <div key={post._id}>
       <div className="card">
         <div className="collapse bg-base-200 mb-2 text-white">
-          <input type="checkbox" className="peer" />
+          <input type="checkbox" className="peer bg-base-200" />
           <div className="collapse-title text-2xl text-gray-950 rounded-2xl border border-lime-500 [input:checked~&]:bg-lime-500 [input:checked~&]:text-white [input:checked~&]:border-gray-100 [input:checked~&]:border-b-0 [input:checked~&]:rounded-none">
             {post.enContent}
             <span className="absolute right-4 transform transition-transform">
