@@ -24,12 +24,12 @@ const TaskSelect = () => {
   };
 
   return (
-    <div className="my-4">
+    <div>
       <select
         id="status-select"
         value={tasksState}
         onChange={handleChangeTask}
-        className="bg-yellow-600 text-white py-2 pl-2 pr-4 rounded-lg cursor-pointer"
+        className="bg-yellow-600 text-white py-2 pl-2 pr-4 rounded-lg cursor-pointer mr-3"
       >
         {Object.entries(taskTab)
           .filter(([value, label]) => value !== "completed")
@@ -43,7 +43,7 @@ const TaskSelect = () => {
         id="status-select2"
         value={initialSpeechState}
         onChange={handleChangeSpeech}
-        className="bg-yellow-600 text-white py-2 pl-2 pr-4 rounded-lg cursor-pointer ml-3"
+        className="bg-yellow-600 text-white py-2 pl-2 pr-4 rounded-lg cursor-pointer mr-3"
       >
         {Object.entries(initialSpeechOptions).map(([value, label]) => (
           <option key={value} value={value}>

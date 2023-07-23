@@ -7,6 +7,7 @@ import Loading from "../../components/tasks/Loading";
 import { Task } from "../../ts/Task";
 import { useAtom } from "jotai";
 import { tasksStateAtom, initialSpeechStateAtom } from "../../jotai/atoms";
+import TaskAllSounds from "./TaskAllSounds";
 
 type TaskTableProps = {
   tasks: Task[] | undefined;
@@ -39,7 +40,10 @@ const filteredTasks = tasks
   
   return (
     <>
-      <TaskSelect />
+      <div className="flex flex-nowrap items-center align my-4">
+        <TaskSelect />
+        <TaskAllSounds />
+      </div>
       <table className="table-auto w-full">
         <thead>
           <tr className="bg-blue-900 text-white leading-8">
