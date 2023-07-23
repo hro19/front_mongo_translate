@@ -1,23 +1,7 @@
-import React from 'react';
+import React from "react";
 import { Skeleton } from "@mui/material";
 
-
 const TopSkeleton = () => {
-  const skeletonItems = [];
-
-  for (let i = 0; i < 16; i++) {
-    skeletonItems.push(
-      <p className="pb-1">
-        <Skeleton
-          key={i}
-          animation="wave"
-          variant="rectangular"
-          height={40}
-        />
-      </p>
-    );
-  }
-
   return (
     <div className="mt-24">
       <p className="flex pb-4">
@@ -40,9 +24,13 @@ const TopSkeleton = () => {
           <Skeleton variant="rectangular" width={110} height={40} />
         </span>
       </p>
-      {skeletonItems}
+      {[...Array(16)].map((_, i) => (
+        <p className="pb-1" key={i}>
+          <Skeleton animation="wave" variant="rectangular" height={40} />
+        </p>
+      ))}
     </div>
   );
-}
+};
 
-export default TopSkeleton
+export default TopSkeleton;
