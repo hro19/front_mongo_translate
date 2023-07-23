@@ -44,9 +44,11 @@ const initialSpeechOptions: Readonly<Record<string, string>> = {
 };
 export const initialSpeechOptionsAtom = atom(initialSpeechOptions);
 
+//現在選択されている品詞
+export const initialSpeechStateAtom = atom<keyof typeof initialSpeechOptions>("all");
+
 //品詞のkeyから日本語の文字
 export const getSpeechLabel = (speech: keyof typeof initialSpeechOptions) => {
   return initialSpeechOptions[speech];
 };
 
-export const initialSpeechStateAtom = atom<keyof typeof initialSpeechOptions>("all");
