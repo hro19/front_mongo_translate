@@ -22,11 +22,13 @@ const TaskSelect = () => {
         onChange={handleChange}
         className="bg-yellow-600 text-white py-2 pl-2 pr-4 rounded-lg cursor-pointer"
       >
-        {Object.entries(taskTab).map(([value, label]) => (
-          <option key={value} value={value}>
-            {label}
-          </option>
-        ))}
+        {Object.entries(taskTab)
+          .filter(([value, label]) => value !== "completed")
+          .map(([value, label]) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
       </select>
       <select
         id="status-select2"
