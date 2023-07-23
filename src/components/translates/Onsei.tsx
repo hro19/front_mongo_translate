@@ -3,9 +3,13 @@ import { detectJapLang } from "./Honyaku";
 
 //文字テキストを音声出力
 //第一引数　出力させたい文字
-const speakText = (content:string) => {
+const speakText = (content: string, lang: "ja" | undefined = undefined) => {
   const utterance = new SpeechSynthesisUtterance(content);
-  utterance.lang = "en-US";
+  if (lang === "ja") {
+    utterance.lang = "ja-JP";
+  } else {
+    utterance.lang = "en-US";
+  }
   speechSynthesis.speak(utterance);
   return utterance;
 };
