@@ -2,7 +2,7 @@ import { atom, useAtomValue } from "jotai";
 import { Task } from "../ts/Task";
 
 // tasks一覧ページ
-export const tasksStateAtom = atom<keyof typeof taskTab>("all");
+export const tasksStateAtom = atom<keyof typeof taskTab>("uncompleted");
 
 //タブの切り替えのselect要素
 const taskTab: Readonly<Record<string, string>> = {
@@ -40,6 +40,7 @@ const initialSpeechOptions: Readonly<Record<string, string>> = {
   noun: "名詞",
   auxiliaryVerb: "助動詞",
   gerund: "動名詞",
+  all: "全て",
 };
 export const initialSpeechOptionsAtom = atom(initialSpeechOptions);
 
@@ -47,3 +48,5 @@ export const initialSpeechOptionsAtom = atom(initialSpeechOptions);
 export const getSpeechLabel = (speech: keyof typeof initialSpeechOptions) => {
   return initialSpeechOptions[speech];
 };
+
+export const initialSpeechStateAtom = atom<keyof typeof initialSpeechOptions>("all");

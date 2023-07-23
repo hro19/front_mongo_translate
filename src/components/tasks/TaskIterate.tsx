@@ -4,12 +4,11 @@ import Modalpop from "./Modalpop";
 import TaskDelete from "./TaskDelete";
 import { Task } from "../../ts/Task";
 import { useAtom } from "jotai";
-import { initialSpeechOptionsAtom, getSpeechLabel } from "../../jotai/atoms";
+import { getSpeechLabel } from "../../jotai/atoms";
 import { AiOutlineSound } from "react-icons/ai";
 import { speakTextAndBtn } from "../../components/translates/Onsei";
 
 const TaskIterate = ({ tasks }: { tasks: Task[] }) => {
-  const [initialSpeechOptions] = useAtom(initialSpeechOptionsAtom);
 
   // tasks 配列を逆順に並び替える
   const reversedTasks = tasks.slice().reverse();

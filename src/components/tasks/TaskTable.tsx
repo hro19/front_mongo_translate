@@ -6,7 +6,7 @@ import TaskSelect from "../../components/tasks/TaskSelect";
 import Loading from "../../components/tasks/Loading";
 import { Task } from "../../ts/Task";
 import { useAtom } from "jotai";
-import { tasksStateAtom } from "../../jotai/atoms";
+import { tasksStateAtom, initialSpeechStateAtom } from "../../jotai/atoms";
 
 type TaskTableProps = {
   tasks: Task[] | undefined;
@@ -14,22 +14,29 @@ type TaskTableProps = {
 };
 
 const TaskTable = ({ tasks = [], isLoading }: TaskTableProps) => {
-  const [tasksState] = useAtom(tasksStateAtom);
+  const [tasksState, setTasksState] = useAtom(tasksStateAtom);
+  const [initialSpeechState, setInitialSpeechState] = useAtom(initialSpeechStateAtom);
 
   if (isLoading) {
     return <Loading />;
   }
 
-  const filteredTasks = tasks.filter((task: Task) => {
+const filteredTasks = tasks
+  .filter((task: Task) => {
     if (tasksState === "uncompleted") {
       return !task.completed;
-    } else if (tasksState === "completed") {
-      return task.completed;
     } else {
       return true;
     }
+  })
+  .filter((task: Task) => {
+    if (initialSpeechState === "all") {
+      return true; // "all" の場合はフィルタリングしない
+    } else {
+      return task.speech === initialSpeechState;
+    }
   });
-
+  
   return (
     <>
       <TaskSelect />
