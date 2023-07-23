@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Translate } from "../../ts/Translate";
+import { Translate ,SortOrderProp,FilterOptionProp } from "../../ts/Translate";
 import { useAtom } from "jotai";
 import {
   sortOrderAtom,
@@ -16,7 +16,7 @@ const TopFilter = ({ data }: any) => {
 
 
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedSortOrder = event.target.value as "asc" | "desc";
+    const selectedSortOrder = event.target.value as SortOrderProp;
     setSortOrder(selectedSortOrder);
   };
 
@@ -28,11 +28,7 @@ const TopFilter = ({ data }: any) => {
   };
 
   const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedFilterOption = event.target.value as
-      | "default"
-      | "long"
-      | "medium"
-      | "short";
+    const selectedFilterOption = event.target.value as FilterOptionProp;
     setFilterOption(selectedFilterOption);
   };
 

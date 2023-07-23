@@ -1,5 +1,10 @@
 import { atom } from 'jotai';
-import { Translate,TranslateObj } from "../ts/Translate";
+import {
+  Translate,
+  TranslateObj,
+  SortOrderProp,
+  FilterOptionProp,
+} from "../ts/Translate";
 
 //translate新規ページ
 export const inputTextAtom = atom<string>("");
@@ -9,9 +14,9 @@ export const jaContentAtom = atom<string>("");
 export const enContentAtom = atom<string>("");
 
 //translate新規ページのLatest
-export const sortOrderAtom = atom<"asc" | "desc">("desc");
+export const sortOrderAtom = atom<SortOrderProp>("desc");
 export const pageSizeAtom = atom<number>(10);
-export const filterOptionAtom = atom<"default" | "long" | "medium" | "short">("default");
+export const filterOptionAtom = atom<FilterOptionProp>("default");
 
 
 //translate一覧ページ

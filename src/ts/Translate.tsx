@@ -16,3 +16,6 @@ export type TranslateIterateObj = {
 export type CreateTranslate = {
   enContent: string;
 };
+
+export type SortOrderProp = "asc" | "desc";
+export type FilterOptionProp = "default" | "long" | "medium" | "short";
