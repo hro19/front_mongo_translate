@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import styles from "./TimeCount.module.css";
 import { useAtom } from "jotai";
-import { gamenAtom, isTimeZeroAtom, remainingTimeAtom } from "../../jotai/examsAtoms";
+import { countdownTime,gamenAtom, isTimeZeroAtom, remainingTimeAtom } from "../../jotai/examsAtoms";
 
 function TimeCount() {
   const [gamen, setGamen] = useAtom(gamenAtom);
@@ -29,7 +29,7 @@ useEffect(() => {
       clearInterval(countdownInterval);
     };
   }
-}, [gamen]);
+}, [gamen, remainingTime === countdownTime]);
 
   return (
     <div className={styles["countdown-container"]}>
