@@ -7,7 +7,7 @@ const TaskAllSounds = () => {
   const [filteredTasks] = useAtom(filteredTasksAtom);
 
   const speakAllTasks = async (filteredTasks: Task[]) => {
-    let firstFlag = true;
+    let firstFlag:boolean = true;
     for (const task of filteredTasks) {
       const utteranceEn = new SpeechSynthesisUtterance(task.name);
       const utteranceJa = new SpeechSynthesisUtterance(task.jaName);
