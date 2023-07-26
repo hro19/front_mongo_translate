@@ -28,7 +28,7 @@ const TaskAllSounds = ({ tasks }: { tasks: Task[] }) => {
 
   return (
     <div>
-      <button onClick={() => speakAllTasks()} className="btn btn-secondary">
+      <button onClick={() => speakAllTasks()} className="btn btn-secondary mr-2">
         全サウンド再生
       </button>
       <button onClick={() => stopSpeaking()} className="btn btn-error">
