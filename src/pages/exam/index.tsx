@@ -6,6 +6,7 @@ import SwitchQanda from "../../components/exam/SwitchQanda";
 import SwitchFinish from "../../components/exam/SwitchFinish";
 import Densya from "../../components/exam/Densya";
 import { getAllTasks } from "../../api/task";
+import IdExams from "@/components/exam/IdExams";
 
 const Exam = ({ data }: { data: Task[] }) => {
   const [gamen] = useAtom(gamenAtom);
@@ -28,6 +29,7 @@ const Exam = ({ data }: { data: Task[] }) => {
         })()}
       </div>
       <Densya />
+      {gamen === "finish" && <IdExams />}
     </>
   );
 };
