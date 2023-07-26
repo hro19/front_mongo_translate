@@ -20,28 +20,37 @@ type TaskTableProps = {
   isLoading: boolean;
 };
 
-const filterTasks = (tasks: Task[], tasksState: string, initialSpeechState: string) => {
-  return tasks
-    .filter((task: Task) => {
-      if (tasksState === "uncompleted") {
-        return !task.completed;
-      } else {
-        return true;
-      }
-    })
-    .filter((task: Task) => {
-      if (initialSpeechState === "all") {
-        return true;
-      } else {
-        return task.speech === initialSpeechState;
-      }
-    });
-};
 
 const TaskTable = ({ tasks = [], isLoading }: TaskTableProps) => {
   const [tasksState, setTasksState] = useAtom(tasksStateAtom);
   const [initialSpeechState, setInitialSpeechState] = useAtom(initialSpeechStateAtom);
   const [filteredTasks, setFilteredTasks] = useAtom(filteredTasksAtom);
+
+  const [taskTab] = useAtom(taskTabAtom);
+  const [initialSpeechOptions] = useAtom(initialSpeechOptionsAtom);
+
+  const filterTasks = (
+    tasks: Task[],
+    tasksState: keyof typeof taskTab,
+    initialSpeechState: keyof typeof initialSpeechOptions
+  ) => {
+    return tasks
+      .filter((task: Task) => {
+        if (tasksState === "uncompleted") {
+          return !task.completed;
+        } else {
+          return true;
+        }
+      })
+      .filter((task: Task) => {
+        if (initialSpeechState === "all") {
+          return true;
+        } else {
+          return task.speech === initialSpeechState;
+        }
+      });
+  };
+
 
   useEffect(() => {
     const newFilteredTasks = filterTasks(tasks, tasksState, initialSpeechState);
