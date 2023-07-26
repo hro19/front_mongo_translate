@@ -12,6 +12,8 @@ const taskTab: Readonly<Record<string, string>> = {
 };
 export const taskTabAtom = atom(taskTab);
 
+export const filteredTasksAtom = atom<Task[]>([]);
+
 // tasksシングルページ
 export const isSnakeAtom = atom<boolean>(false);
 export const snakeDurationAtom = atom<number>(2000);

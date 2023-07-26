@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import { Task } from "../../ts/Task";
+import { useAtom } from "jotai";
+import {filteredTasksAtom} from "../../jotai/atoms";
 
-const TaskAllSounds = ({ tasks }: { tasks: Task[] }) => {
+const TaskAllSounds = () => {
+  const [filteredTasks, setFilteredTasks] = useAtom(filteredTasksAtom);
+
   const speakEnJa = async (name: string, jaName: string) => {
     const utteranceEn = new SpeechSynthesisUtterance(name);
     const utteranceJa = new SpeechSynthesisUtterance(jaName);
@@ -20,7 +24,7 @@ const TaskAllSounds = ({ tasks }: { tasks: Task[] }) => {
   };
 
   const speakAllTasks = async () => {
-    for (const task of tasks) {
+    for (const task of filteredTasks) {
       await speakEnJa(task.name, task.jaName);
       await new Promise((resolve) => setTimeout(resolve, 4600));
     }

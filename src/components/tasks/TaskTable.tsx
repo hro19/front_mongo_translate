@@ -1,12 +1,18 @@
 // ローディングアニメーションとタスクのフィルター管理
 
-import React from "react";
+import React, { useEffect } from "react";
 import TaskIterate from "./TaskIterate";
 import TaskSelect from "../../components/tasks/TaskSelect";
 import Loading from "../../components/tasks/Loading";
 import { Task } from "../../ts/Task";
 import { useAtom } from "jotai";
-import { tasksStateAtom, initialSpeechStateAtom } from "../../jotai/atoms";
+import {
+  tasksStateAtom,
+  initialSpeechStateAtom,
+  filteredTasksAtom,
+  taskTabAtom,
+  initialSpeechOptionsAtom,
+} from "../../jotai/atoms";
 import TaskAllSounds from "./TaskAllSounds";
 
 type TaskTableProps = {
@@ -14,35 +20,43 @@ type TaskTableProps = {
   isLoading: boolean;
 };
 
+const filterTasks = (tasks: Task[], tasksState: string, initialSpeechState: string) => {
+  return tasks
+    .filter((task: Task) => {
+      if (tasksState === "uncompleted") {
+        return !task.completed;
+      } else {
+        return true;
+      }
+    })
+    .filter((task: Task) => {
+      if (initialSpeechState === "all") {
+        return true;
+      } else {
+        return task.speech === initialSpeechState;
+      }
+    });
+};
+
 const TaskTable = ({ tasks = [], isLoading }: TaskTableProps) => {
   const [tasksState, setTasksState] = useAtom(tasksStateAtom);
   const [initialSpeechState, setInitialSpeechState] = useAtom(initialSpeechStateAtom);
+  const [filteredTasks, setFilteredTasks] = useAtom(filteredTasksAtom);
+
+  useEffect(() => {
+    const newFilteredTasks = filterTasks(tasks, tasksState, initialSpeechState);
+    setFilteredTasks(newFilteredTasks);
+  }, [tasks, tasksState, initialSpeechState]);
 
   if (isLoading) {
     return <Loading />;
   }
-
-const filteredTasks = tasks
-  .filter((task: Task) => {
-    if (tasksState === "uncompleted") {
-      return !task.completed;
-    } else {
-      return true;
-    }
-  })
-  .filter((task: Task) => {
-    if (initialSpeechState === "all") {
-      return true; // "all" の場合はフィルタリングしない
-    } else {
-      return task.speech === initialSpeechState;
-    }
-  });
   
   return (
     <>
       <div className="flex flex-nowrap items-center align my-4">
         <TaskSelect />
-        <TaskAllSounds tasks={tasks} />
+        <TaskAllSounds />
       </div>
       <table className="table-auto w-full">
         <thead>
