@@ -1,36 +1,34 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import { Task } from "../../ts/Task";
-import { speakText } from "../translates/Onsei";
-
-const speakEnJa = (task: Task) => {
-  const utterance = new SpeechSynthesisUtterance(task.name);
-  utterance.lang = "en-US";
-
-  speechSynthesis.speak(utterance);
-
-  // onendイベントにコールバック関数を登録する
-  utterance.onend = () => {
-    speakText(task.jaName,"ja");
-    // console.log("音声再生が終了しました！"); // 音声再生が終了した後に実行されます
-  };
-
-  return utterance;
-};
-
-//音声出力中に音声ストップ
-const stopSpeaking = () => {
-  if ("speechSynthesis" in window && window.speechSynthesis.speaking) {
-    window.speechSynthesis.cancel();
-  }
-};
 
 const TaskAllSounds = ({ tasks }: { tasks: Task[] }) => {
+
+    const speakEnJa = (name: string,jaName: string) => {
+      const utteranceEn = new SpeechSynthesisUtterance(name);
+      const utteranceJa = new SpeechSynthesisUtterance(jaName);
+      utteranceEn.lang = "en-US";
+      utteranceJa.lang = "ja-JP";
+
+      speechSynthesis.speak(utteranceEn);
+      speechSynthesis.speak(utteranceJa);
+    };
+
+  //音声出力中に音声ストップ
+  const stopSpeaking = () => {
+    if ("speechSynthesis" in window && window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+    }
+  };
+
+  const speakAllTasks = () => {
+    tasks.map((task, index) => {
+        speakEnJa(task.name, task.jaName);
+    });
+  };
+
   return (
     <div>
-      <button
-        onClick={() => tasks.map((task) => speakEnJa(task))}
-        className="btn btn-secondary"
-      >
+      <button onClick={() => speakAllTasks()} className="btn btn-secondary">
         全サウンド再生
       </button>
       <button onClick={() => stopSpeaking()} className="btn btn-error">
@@ -40,4 +38,4 @@ const TaskAllSounds = ({ tasks }: { tasks: Task[] }) => {
   );
 };
 
-export default TaskAllSounds
+export default TaskAllSounds;
