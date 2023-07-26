@@ -2,16 +2,15 @@ import React, { useEffect } from "react";
 import { Task } from "../../ts/Task";
 
 const TaskAllSounds = ({ tasks }: { tasks: Task[] }) => {
+  const speakEnJa = async (name: string, jaName: string) => {
+    const utteranceEn = new SpeechSynthesisUtterance(name);
+    const utteranceJa = new SpeechSynthesisUtterance(jaName);
+    utteranceEn.lang = "en-US";
+    utteranceJa.lang = "ja-JP";
 
-    const speakEnJa = (name: string,jaName: string) => {
-      const utteranceEn = new SpeechSynthesisUtterance(name);
-      const utteranceJa = new SpeechSynthesisUtterance(jaName);
-      utteranceEn.lang = "en-US";
-      utteranceJa.lang = "ja-JP";
-
-      speechSynthesis.speak(utteranceEn);
-      speechSynthesis.speak(utteranceJa);
-    };
+    speechSynthesis.speak(utteranceEn);
+    speechSynthesis.speak(utteranceJa);
+  };
 
   //音声出力中に音声ストップ
   const stopSpeaking = () => {
@@ -20,10 +19,11 @@ const TaskAllSounds = ({ tasks }: { tasks: Task[] }) => {
     }
   };
 
-  const speakAllTasks = () => {
-    tasks.map((task, index) => {
-        speakEnJa(task.name, task.jaName);
-    });
+  const speakAllTasks = async () => {
+    for (const task of tasks) {
+      await speakEnJa(task.name, task.jaName);
+      await new Promise((resolve) => setTimeout(resolve, 4600));
+    }
   };
 
   return (
