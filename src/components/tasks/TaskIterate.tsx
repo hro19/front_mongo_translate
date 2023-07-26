@@ -18,7 +18,11 @@ const TaskIterate = ({ tasks }: { tasks: Task[] }) => {
       <tbody>
         {reversedTasks &&
           reversedTasks.map((task: Task, index: number) => (
-            <tr key={task._id} id={task._id}>
+            <tr
+              key={task._id}
+              id={task._id}
+              className={index % 2 === 0 ? "bg-slate-50" : "bg-gray-200"}
+            >
               <td className="border px-1 md:px-4 py-2">{index + 1}</td>
               <td className="border px-1 md:px-4 py-2">
                 <Link href={`/tasks/single?_id=${task._id}`} className="underline">
