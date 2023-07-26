@@ -54,11 +54,14 @@ const TaskAllSounds = () => {
     <div>
       <button
         onClick={() => speakAllTasks(filteredTasks)}
-        className="btn btn-secondary mr-2"
+        className="btn text-green-500 border-green-500 mr-2"
       >
         全サウンド再生
       </button>
-      <button onClick={() => stopSpeaking()} className="btn btn-error">
+      <button
+        onClick={() => stopSpeaking()}
+        className="btn  text-rose-500 border-rose-500"
+      >
         サウンド停止
       </button>
     </div>
