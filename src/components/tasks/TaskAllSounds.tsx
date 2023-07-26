@@ -4,17 +4,20 @@ import { useAtom } from "jotai";
 import {filteredTasksAtom} from "../../jotai/atoms";
 
 const TaskAllSounds = () => {
-  const [filteredTasks, setFilteredTasks] = useAtom(filteredTasksAtom);
+  const [filteredTasks] = useAtom(filteredTasksAtom);
 
-  const speakEnJa = async (name: string, jaName: string) => {
-    const utteranceEn = new SpeechSynthesisUtterance(name);
-    const utteranceJa = new SpeechSynthesisUtterance(jaName);
-    utteranceEn.lang = "en-US";
-    utteranceJa.lang = "ja-JP";
+  const speakAllTasks = async (filteredTasks: Task[]) => {
+    for (const task of filteredTasks) {
+      const utteranceEn = new SpeechSynthesisUtterance(task.name);
+      const utteranceJa = new SpeechSynthesisUtterance(task.jaName);
+      utteranceEn.lang = "en-US";
+      utteranceJa.lang = "ja-JP";
 
-    speechSynthesis.speak(utteranceEn);
-    speechSynthesis.speak(utteranceJa);
+      speechSynthesis.speak(utteranceEn);
+      speechSynthesis.speak(utteranceJa);
+    }
   };
+  
 
   //音声出力中に音声ストップ
   const stopSpeaking = () => {
@@ -23,16 +26,9 @@ const TaskAllSounds = () => {
     }
   };
 
-  const speakAllTasks = async () => {
-    for (const task of filteredTasks) {
-      await speakEnJa(task.name, task.jaName);
-      await new Promise((resolve) => setTimeout(resolve, 4600));
-    }
-  };
-
   return (
     <div>
-      <button onClick={() => speakAllTasks()} className="btn btn-secondary mr-2">
+      <button onClick={() => speakAllTasks(filteredTasks)} className="btn btn-secondary mr-2">
         全サウンド再生
       </button>
       <button onClick={() => stopSpeaking()} className="btn btn-error">
