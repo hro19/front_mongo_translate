@@ -9,4 +9,10 @@ export type If<C extends boolean, T, F> = C extends true ? T : F;
 
 //オブジェクトのvalueのユニオン型を作る
 //第一引数 オブジェクト
-export type valueOf<T> = T[keyof T];
+export type ValueOf<T> = T[keyof T];
+
+//与えられた文字列(ユニオン型)のkeyとvalueを持つオブジェクト
+//第一引数 ユニオン型
+export type MappedConst<T extends string> = {
+  [key in T]: key;
+};
