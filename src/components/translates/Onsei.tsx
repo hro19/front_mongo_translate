@@ -1,9 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
-import { detectJapLang } from "./Honyaku";
 
 //文字テキストを音声出力
 //第一引数　出力させたい文字
-const speakText = (content: string, lang: "ja" | undefined = undefined) => {
+type SpeakTextType = (content: string, lang?: "ja" | "en") => SpeechSynthesisUtterance;
+
+const speakText: SpeakTextType = (content,lang) => {
   const utterance = new SpeechSynthesisUtterance(content);
   if (lang === "ja") {
     utterance.lang = "ja-JP";
