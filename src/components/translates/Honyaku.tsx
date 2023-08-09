@@ -70,9 +70,9 @@ const getApiLimit: GetApiLimit = ({ setApiLimit }) => {
 };
 
 //日付フォーマット
-type formatDateType = (date: string) => string;
+type FormatDateType = (date: string) => string;
 
-const formatDate: formatDateType = (dateString) => {
+const formatDate: FormatDateType = (dateString) => {
   const date = new Date(dateString);
   const formattedDate = format(date, "yyyy年MM月dd日 HH時mm分");
   return formattedDate;
@@ -80,7 +80,9 @@ const formatDate: formatDateType = (dateString) => {
 
 //言語判別
 //第一引数　インプットデータ英語か日本語
-function detectJapLang(text:string) {
+type DetectJapLang = (text: string) => boolean;
+
+const detectJapLang: DetectJapLang = (text) => {
   const japaneseRegex =
     /[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}ーａ-ｚＡ-Ｚ０-９々〆〤]/u;
   const englishRegex = /[a-zA-Z]/;
@@ -92,7 +94,7 @@ function detectJapLang(text:string) {
   } else {
     return false; // 上記のいずれにも当てはまらない場合は英語として扱う（falseを返す）
   }
-}
+};
 
 //音声データ用のURLフラグメントを取得
 //第一引数　isJap
