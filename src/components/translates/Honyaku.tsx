@@ -70,7 +70,9 @@ const getApiLimit: GetApiLimit = ({ setApiLimit }) => {
 };
 
 //日付フォーマット
-const formatDate = (dateString: string) => {
+type formatDateType = (date: string) => string;
+
+const formatDate: formatDateType = (dateString) => {
   const date = new Date(dateString);
   const formattedDate = format(date, "yyyy年MM月dd日 HH時mm分");
   return formattedDate;
