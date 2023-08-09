@@ -28,7 +28,7 @@ const Search2 = () => {
 
 const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
   setInputValue(e.target.value);
-  searchFunc({ value: e.target.value, posts, setShowPosts });
+  setShowPosts(searchFunc({ value: e.target.value, posts }));
 };
 
   return (

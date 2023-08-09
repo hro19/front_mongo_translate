@@ -18,7 +18,7 @@ const TranslateInput = ({ data }: TranslateIterateObj) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
     setCurrentPage(1); // ページを1ページ目に設定
-    searchFunc({ value: e.target.value, posts: data, setShowPosts }); // 検索を実行
+    setShowPosts(searchFunc({ value: e.target.value, posts: data }));
   };
 
   return (
