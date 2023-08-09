@@ -27,19 +27,25 @@ const Home = () => {
 
     clearTimeout(timer);
 
-    const newTimer = setTimeout(() => {
-        handleTranslate({inputText,setTranslatedText});
+    const newTimer = setTimeout(async () => {
+      try {
+        const handleTranslateTxt = await handleTranslate(inputText);
+        setTranslatedText(handleTranslateTxt);
+      } catch (error) {
+        // エラーハンドリング
+      }
     }, 1000);
 
     setTimer(newTimer);
-  }
+  };
 
-  const handlePaste = (event: React.ClipboardEvent<HTMLTextAreaElement>) => {
-      event.preventDefault();
+  const handlePaste = async(event: React.ClipboardEvent<HTMLTextAreaElement>) => {
+    event.preventDefault();
     // onPasteイベントの処理
     const pastedText = event.clipboardData.getData("text");
     setInputText(pastedText);
-    handleTranslate({ inputText: pastedText, setTranslatedText });
+    const handlepastedTxt = await handleTranslate(pastedText);
+    setTranslatedText(handlepastedTxt);
   };
 
   //翻訳された文字をinputTextにセットする

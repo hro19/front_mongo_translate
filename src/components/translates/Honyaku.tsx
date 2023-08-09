@@ -7,40 +7,33 @@ const API_LIMIT_URL = "https://api-free.deepl.com/v2/usage";
 //翻訳ハンドラー
 //第一引数　入力した文字（英語でも日本語も可能）
 //第二引数　入力された文字を翻訳したデータのセッター
-type HandleTranslate = (params: {
-  inputText: string;
-  setTranslatedText: React.Dispatch<React.SetStateAction<string>>;
-}) => void;
+type HandleTranslateType = (inputText: string) => Promise<string>;
 
-const handleTranslate: HandleTranslate = ({ inputText, setTranslatedText }) => {
+const handleTranslate: HandleTranslateType = async (inputText) => {
   let deeplInput = inputText;
   let isJap = false;
 
   for (var i = 0; i < deeplInput.length; i++) {
-    //言語判別
+    // 言語判別
     isJap = detectJapLang(deeplInput);
   }
   let sourceLang = getSpeechHash(isJap);
 
-  let content = encodeURI(
-    "auth_key=" + API_KEY + "&text=" + deeplInput + sourceLang
-  );
+  let content = encodeURI("auth_key=" + API_KEY + "&text=" + deeplInput + sourceLang);
   let url = API_URL + "?" + content;
 
-  fetch(url)
-    .then(function (response) {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error("Could not reach the API: " + response.statusText);
-      }
-    })
-    .then((data) => {
-      setTranslatedText(data.translations[0].text);
-    })
-    .catch((error) => {
-      alert("翻訳失敗");
-    });
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Could not reach the API: " + response.statusText);
+    }
+    const data = await response.json();
+    //翻訳データをリターンする
+    return data.translations[0].text;
+  } catch (error) {
+    alert("翻訳失敗");
+    throw error;
+  }
 };
 
 //一カ月のご利用文字数を表示
