@@ -1,6 +1,7 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import axios from "axios";
 import { searchFunc } from "../components/translates/Kensaku";
+import {Translate} from "../ts/Translate"
 
 interface Post {
   _id: string;
@@ -10,7 +11,7 @@ interface Post {
 
 const Search2 = () => {
   const [posts, setPosts] = useState([]);
-  const [showPosts, setShowPosts] = useState([]);
+  const [showPosts, setShowPosts] = useState<Translate[]>([]);
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
