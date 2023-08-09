@@ -80,9 +80,9 @@ const formatDate: FormatDateType = (dateString) => {
 
 //言語判別
 //第一引数　インプットデータ英語か日本語
-type DetectJapLang = (text: string) => boolean;
+type DetectJapLangType = (text: string) => boolean;
 
-const detectJapLang: DetectJapLang = (text) => {
+const detectJapLang: DetectJapLangType = (text) => {
   const japaneseRegex =
     /[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}ーａ-ｚＡ-Ｚ０-９々〆〤]/u;
   const englishRegex = /[a-zA-Z]/;
@@ -98,23 +98,23 @@ const detectJapLang: DetectJapLang = (text) => {
 
 //音声データ用のURLフラグメントを取得
 //第一引数　isJap
-function getSpeechHash(isJap:boolean) {
-  let sourceLang;
+type GetSpeechHashType = (isJap: boolean) => string;
+
+const getSpeechHash: GetSpeechHashType = (isJap) => {
+  let sourceLang = "&source_lang=JA&target_lang=EN";
 
   switch (isJap) {
     case true:
-      sourceLang = "&source_lang=JA&target_lang=EN";
       break;
     case false:
       sourceLang = "&source_lang=EN&target_lang=JA";
       break;
     default:
-      throw new Error("言語の判別に失敗しました");
+      break;
   }
 
   return sourceLang;
-}
-
+};
 
 export {
   handleTranslate,
