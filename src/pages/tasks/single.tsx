@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
-import { getSpeechLabel } from "../../jotai/atoms";
+import { initialSpeechOptionsAtom,getSpeechLabel } from "../../jotai/atoms";
 import SlugForm from "@/components/taskShingle/SlugForm";
 
 const fetchTask = async (slug: string) => {
@@ -16,6 +16,9 @@ const fetchTask = async (slug: string) => {
 };
 
 const SingleTask = () => {
+    const [initialSpeechOptions, setInitialSpeechOptions] = useAtom(
+    initialSpeechOptionsAtom
+  );
   
   const router = useRouter();
   const { query } = router;
@@ -55,7 +58,7 @@ const SingleTask = () => {
       <h1>【ID】{task._id}</h1>
       <p>【英単語】{task.name}</p>
       <p>【日本語訳】{task.jaName}</p>
-      <p>【品詞】{getSpeechLabel(task.speech)}</p>
+      <p>【品詞】{getSpeechLabel(task.speech as keyof typeof initialSpeechOptions)}</p>
       <p>【進捗】{task.completed ? "暗記済み" : "勉強中"}</p>
       <SlugForm task={task} slug={slug} />
       <p className="text-2xl mt-2 text-orange-700">

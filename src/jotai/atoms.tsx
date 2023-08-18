@@ -34,7 +34,7 @@ export const taskAtom = atom<Task>({
 });
 
 // 品詞の設定
-const initialSpeechOptions: Readonly<Record<string, string>> = {
+const initialSpeechOptions = {
   verb: "動詞",
   idiom: "熟語",
   adjective: "形容詞",
@@ -43,7 +43,7 @@ const initialSpeechOptions: Readonly<Record<string, string>> = {
   auxiliaryVerb: "助動詞",
   gerund: "動名詞",
   all: "全て",
-};
+} as const satisfies Record<string, unknown>;
 export const initialSpeechOptionsAtom = atom(initialSpeechOptions);
 
 //現在選択されている品詞
