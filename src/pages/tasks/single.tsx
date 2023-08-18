@@ -4,10 +4,11 @@ import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
-import { initialSpeechOptionsAtom,getSpeechLabel } from "../../jotai/atoms";
+import { initialSpeechOptionsAtom,getSpeechLabel } from "@/jotai/atoms";
 import SlugForm from "@/components/taskShingle/SlugForm";
+import { Task } from "@/ts/Task";
 
-const fetchTask = async (slug: string) => {
+const fetchTask = async (slug: string):Promise<Task> => {
   
   const response = await axios.get(
     `https://back-mongo-task2.vercel.app/api/v1/tasks/${slug}`

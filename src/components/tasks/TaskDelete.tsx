@@ -1,14 +1,14 @@
 import React from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
-import { Task } from "../../ts/Task";
+import { Task } from "@/ts/Task";
 import { AiOutlineUserDelete } from "react-icons/ai";
 
 const TaskDelete = ({ task }: { task: Task }) => {
   const queryClient = useQueryClient();
 
   const deleteTaskMutation = useMutation(
-    async (id: string) => {
+    async (id: string):Promise<void> => {
       await axios.delete(
         `https://back-mongo-task2.vercel.app/api/v1/tasks/${id}`
       );

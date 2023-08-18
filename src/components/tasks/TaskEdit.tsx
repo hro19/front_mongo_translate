@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from "axios";
-import { Task } from "../../ts/Task";
+import { Task } from "@/ts/Task";
 
 interface TaskDeleteProps {
   task: Task;
@@ -9,7 +9,7 @@ interface TaskDeleteProps {
 }
 
 const TaskEdit = ({ task, tasks, setTasks }: TaskDeleteProps) => {
-  const handleEdit = async (id: string, editedTask: Task) => {
+  const handleEdit = async (id: string, editedTask: Task):Promise<void> => {
     try {
       const response = await axios.patch(
         `https://back-mongo-task2.vercel.app/api/v1/tasks/${id}`,

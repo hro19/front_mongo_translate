@@ -25,7 +25,7 @@ const TaskCreate = () => {
   const queryClient = useQueryClient();
 
   const createTaskMutation = useMutation(
-    async (data: Omit<Task, "_id">) => {
+    async (data: Omit<Task, "_id">):Promise<void> => {
       await axios.post("https://back-mongo-task2.vercel.app/api/v1/tasks", data);
     },
     {

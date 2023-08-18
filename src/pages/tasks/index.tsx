@@ -3,11 +3,11 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { Noto_Sans_JP } from "next/font/google";
 import { useAtom } from "jotai";
-import { isSnakeAtom } from "../../jotai/atoms";
-import TaskCreate from "../../components/tasks/TaskCreate";
-import TaskTable from "../../components/tasks/TaskTable";
-import SnakeMessage from "../../components/taskShingle/SnakeMessage";
-import { Task } from "../../ts/Task";
+import { isSnakeAtom } from "@/jotai/atoms";
+import TaskCreate from "@/components/tasks/TaskCreate";
+import TaskTable from "@/components/tasks/TaskTable";
+import SnakeMessage from "@/components/taskShingle/SnakeMessage";
+import { Task } from "@/ts/Task";
 
 const notojp = Noto_Sans_JP({
   weight: ["400", "500"],
@@ -20,10 +20,8 @@ export default function Home() {
   const [isSnake, setIsSnake] = useAtom(isSnakeAtom);
 
   //すべてのタスクを取得＆react-queryでキャッシュ管理
-  const fetchTasks = async () => {
-    const { data } = await axios.get(
-      "https://back-mongo-task2.vercel.app/api/v1/tasks"
-    );
+  const fetchTasks = async (): Promise<Task[]> => {
+    const { data } = await axios.get("https://back-mongo-task2.vercel.app/api/v1/tasks");
     return data;
   };
 
