@@ -5,11 +5,11 @@ import { Task } from "../ts/Task";
 export const tasksStateAtom = atom<keyof typeof taskTab>("uncompleted");
 
 //タブの切り替えのselect要素
-const taskTab: Readonly<Record<string, string>> = {
+const taskTab = {
   uncompleted: "勉強中",
   completed: "暗記済み",
   all: "全て",
-};
+} as const satisfies Record<string, unknown>;
 export const taskTabAtom = atom(taskTab);
 
 export const filteredTasksAtom = atom<Task[]>([]);
