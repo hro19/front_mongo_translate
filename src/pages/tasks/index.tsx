@@ -21,7 +21,9 @@ export default function Home() {
 
   //すべてのタスクを取得＆react-queryでキャッシュ管理
   const fetchTasks = async (): Promise<Task[]> => {
-    const { data } = await axios.get("https://back-mongo-task2.vercel.app/api/v1/tasks");
+    const { data }: { data: Awaited<Promise<Task[]>> } = await axios.get(
+      "https://back-mongo-task2.vercel.app/api/v1/tasks"
+    );
     return data;
   };
 
