@@ -42,7 +42,7 @@
     "styled-components": "^6.0.1",
     "tailwindcss": "3.3.2",
     "ts-pattern": "^5.0.5",
-    "typescript": "5.0.4"
+    "typescript": "5.2.2"
   },
   "devDependencies": {
     "@types/canvas-confetti": "^1.6.0",
