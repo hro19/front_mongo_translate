@@ -15,7 +15,7 @@ type ModalContentFormProps = {
   handleSubmit: any;
 };
 
-const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps) => {
+const ModalContentForm = ({ task, closeModal, handleSubmit }: ModalContentFormProps) => {
   const [initialSpeechOptions, setInitialSpeechOptions] = useAtom(
     initialSpeechOptionsAtom
   );
@@ -34,7 +34,7 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
   //checkEdit関数　元データと現データが同じならば送信ボタンがDisableになる
   useEffect(() => {
     CheckEditDisabled(name, jaName, speech, completed, task, setCheckEdit);
-  }, [{ name, jaName,speech, completed }]);
+  }, [name, jaName, speech, completed, task, setCheckEdit]);
 
   return (
     <>
@@ -126,7 +126,8 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
           type="button"
           onClick={(e) => handleSubmit(e, { name, jaName, speech, completed })}
           className={clsx("bg-blue-500 text-white py-2 px-4 rounded", {
-            "disabled bg-gray-300": !checkEdit})}
+            "disabled bg-gray-300": !checkEdit,
+          })}
           disabled={!checkEdit}
         >
           更新する

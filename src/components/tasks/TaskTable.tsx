@@ -20,7 +20,6 @@ type TaskTableProps = {
   isLoading: boolean;
 };
 
-
 const TaskTable = ({ tasks = [], isLoading }: TaskTableProps) => {
   const [tasksState, setTasksState] = useAtom(tasksStateAtom);
   const [initialSpeechState, setInitialSpeechState] = useAtom(initialSpeechStateAtom);
@@ -29,6 +28,7 @@ const TaskTable = ({ tasks = [], isLoading }: TaskTableProps) => {
   const [taskTab] = useAtom(taskTabAtom);
   const [initialSpeechOptions] = useAtom(initialSpeechOptionsAtom);
 
+  useEffect(() => {
   const filterTasks = (
     tasks: Task[],
     tasksState: keyof typeof taskTab,
@@ -51,11 +51,9 @@ const TaskTable = ({ tasks = [], isLoading }: TaskTableProps) => {
       });
   };
 
-
-  useEffect(() => {
     const newFilteredTasks = filterTasks(tasks, tasksState, initialSpeechState);
     setFilteredTasks(newFilteredTasks);
-  }, [tasks, tasksState, initialSpeechState]);
+  }, [tasks, tasksState, initialSpeechState, setFilteredTasks]);
 
   if (isLoading) {
     return <Loading />;
