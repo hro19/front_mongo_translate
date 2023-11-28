@@ -3,7 +3,7 @@ import { Task } from "../../ts/Task";
 import { useAtom } from "jotai";
 import { checkEditAtom, initialSpeechOptionsAtom } from "../../jotai/atoms";
 import { CheckEditDisabled } from "../../components/taskShingle/Atarashiku";
-
+import clsx from "clsx";
 
 //inputデータを取得し、送信用データを作る
 //バリデード管理をする
@@ -122,13 +122,11 @@ const ModalContentForm = ({task,closeModal,handleSubmit,}: ModalContentFormProps
         >
           キャンセル
         </button>
-
         <button
           type="button"
           onClick={(e) => handleSubmit(e, { name, jaName, speech, completed })}
-          className={`bg-blue-500 text-white py-2 px-4 rounded ${
-            checkEdit ? "" : "disabled bg-gray-300"
-          }`}
+          className={clsx("bg-blue-500 text-white py-2 px-4 rounded", {
+            "disabled bg-gray-300": !checkEdit})}
           disabled={!checkEdit}
         >
           更新する
