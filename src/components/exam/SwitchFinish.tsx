@@ -47,13 +47,14 @@ const SwitchFinish = () => {
       <h2 className="text-2xl font-bold mb-2">{finishTitle}</h2>
       {hasFailures && (
         <>
-          {failedResults.map((result: Result, index:number) => (
-            <dl key={index} className="mb-2">
-              <dt className="text-lg font-bold">
-                【英語】{result.name}
+          {failedResults.map((result: Result, index: number) => (
+            <dl key={index} className="mb-4">
+              <dt className="text-3xl font-bold">
+                <span className="text-xs mr-2">【英単語】</span>
+                {result.name}
                 <button
                   onClick={() => speakText(result.name)}
-                  className="btn btn-secondary h-8 ml-3"
+                  className="btn btn-secondary h-4 ml-3"
                 >
                   <AiTwotoneSound
                     className="icon text-white inline-block"
@@ -61,7 +62,10 @@ const SwitchFinish = () => {
                   />
                 </button>
               </dt>
-              <dd>【日本語】{result.jaName}</dd>
+              <dd className="text-xl font-bold">
+                <span className="text-xs mr-2">【日本語】</span>
+                {result.jaName}
+              </dd>
             </dl>
           ))}
         </>
