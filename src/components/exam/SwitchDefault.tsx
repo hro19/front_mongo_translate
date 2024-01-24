@@ -57,7 +57,7 @@ const SwitchDefault = ({ data }: { data: Task[] }) => {
         </ul>
       </div>
       <div className="flex flex-wrap gap-2 pt-8">
-        <button onClick={() => startBtn("verb")} className="btn btn-info">
+        <button onClick={() => startBtn("verb")} className="btn btn-accent">
           【動詞単語】テスト
         </button>
         <a href="#" className="btn btn-active btn-neutral pointer-events-none">
