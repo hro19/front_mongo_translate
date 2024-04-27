@@ -25,13 +25,18 @@ const TranslatePagination = () => {
         onChange={handlePageChange}
         sx={{
           "& .MuiPaginationItem-root": {
-            backgroundColor: "#aaaaaa",
+            backgroundColor: "#bbb",
             color: "white",
             "&:hover": {
-              backgroundColor: "#444444",
+              backgroundColor: "#444",
             },
             "&.Mui-selected": {
-              backgroundColor: "#444444",
+              backgroundColor: "#111",
+            },
+            "&.MuiPaginationItem-ellipsis": {
+              backgroundColor: "#fff",
+              color: "#bbb",
+              fontSize: "1.5rem",
             },
           },
         }}
